@@ -1,4 +1,4 @@
-package com.triplec.paul.phinda.skhumbuzo.mulisa.witssrcconnect;
+package com.wits.witssrcconnect;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

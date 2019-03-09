@@ -1,4 +1,4 @@
-package com.triplec.paul.phinda.skhumbuzo.mulisa.witssrcconnect;
+package com.wits.witssrcconnect;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
