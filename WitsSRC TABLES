@@ -1,0 +1,4 @@
+CREATE TABLE STUDENT(student_id INT NOT NULL AUTO_INCREMENT, student_firstName VARCHAR(50) NOT NULL, student_lastName VARCHAR(50) NOT NULL, student_Password VARCHAR(20) NOT NULL, PRIMARY KEY(student_id));
+
+CREATE TABLE SRC_MEMBER(member_id INT NOT NULL AUTO_INCREMENT, member_firstName VARCHAR(50) NOT NULL, member_lastName VARCHAR(50) NOT NULL, member_Password VARCHAR(20) NOT NULL, PRIMARY KEY(member_id));
+
