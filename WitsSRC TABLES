@@ -2,3 +2,22 @@ CREATE TABLE STUDENT(student_username VARCHAR(50) NOT NULL, student_firstName VA
 
 CREATE TABLE SRC_MEMBER(member_username VARCHAR(50) NOT NULL, member_firstName VARCHAR(50) NOT NULL, member_lastName VARCHAR(50) NOT NULL, member_Password VARCHAR(20) NOT NULL, PRIMARY KEY(member_id));
 
+
+INSERT INTO SRC_MEMBER(member_username, member_firstName, member_lastName, member_Password) 
+VALUES('srcpresident','Sisanda','Mbolekwa','12345'),
+('srcdeputypresident','Nkatenko','Muloiwa','12345'),
+('srcsecretary','Ashley','Mabasa','12345'),
+('srcdeputysg','Thaakirah','Savahl','12345'),
+('srctreasurer','Keneuwe','Setai','12345'),
+('srcacademics','Palesa','Mofokeng','12345'),
+('srcfundraising','Solomzi','Moleketi','12345'),
+('srccso','Nkosinathi','Makhanya','12345'),
+('srccampusadvisory','Katlego','Sera','12345'),
+('srctransformation','Sibongile','Sibeko','12345'),
+('srcsupport','Tshenolo','Leshika','12345'),
+('srcprojects','Gugu','Zwane','12345'),
+('srcfacultychair','Thato','Sakong','12345'),
+('srcpg','Keabetswe','Khutsoane','12345'),
+('srcresidence','Mookameli','Moeketsi','12345'),
+('srcscr','Sasha','Nzvavu','12345'),
+('srcscrdp','Tanita','Ramburuth-hurt','12345');
