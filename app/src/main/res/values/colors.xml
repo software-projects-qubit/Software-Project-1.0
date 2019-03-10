@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FCFDE2</color>
-    <color name="colorPrimaryDark">#A3A78B</color>
+    <color name="colorPrimary">#FFF0E3</color>
+    <color name="colorPrimaryDark">#EBA269</color>
     <color name="colorAccent">#000000</color>
+    <color name="log_in_stroke_color">#806E5F</color>
 </resources>
