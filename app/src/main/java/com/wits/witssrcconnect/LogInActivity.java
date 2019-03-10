@@ -116,6 +116,7 @@ public class LogInActivity extends Activity {
             if (allIsOkay){
                 //TODO: connect to server
                 Toast.makeText(v.getContext(), "login", Toast.LENGTH_SHORT).show();
+                
             }
         });
     }
