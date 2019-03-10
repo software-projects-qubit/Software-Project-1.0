@@ -1,6 +1,7 @@
-package com.wits.witssrcconnect;
+package com.wits.witssrcconnect.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -14,6 +15,7 @@ import android.transition.TransitionManager;
 import android.view.animation.AnticipateInterpolator;
 import android.widget.Toast;
 
+import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.utils.UserUtils;
 
 import java.util.Objects;
@@ -95,7 +97,9 @@ public class LogInActivity extends Activity {
             animateView(R.layout.activity_log_in_src_member);
         });
 
-
+        findViewById(R.id.reg).setOnClickListener(v -> {
+            startActivity(new Intent(LogInActivity.this, RegisterStudent.class));
+        });
 
         findViewById(R.id.log_in).setOnClickListener(v -> {
             String sUsername = Objects.requireNonNull(username.getText()).toString().trim();
@@ -116,7 +120,7 @@ public class LogInActivity extends Activity {
             if (allIsOkay){
                 //TODO: connect to server
                 Toast.makeText(v.getContext(), "login", Toast.LENGTH_SHORT).show();
-                
+
             }
         });
     }
