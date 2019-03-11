@@ -1,12 +1,17 @@
 package com.wits.witssrcconnect.activities;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.services.ServerCommunicator;
+import com.wits.witssrcconnect.utils.ServerUtils;
 
 public class RegisterStudent extends Activity {
 
@@ -62,8 +67,36 @@ public class RegisterStudent extends Activity {
             }
 
             if (everythingOkay){
-                Toast.makeText(RegisterStudent.this, "Register", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(RegisterStudent.this, "Register", Toast.LENGTH_SHORT).show();
+                ContentValues cv = new ContentValues();
+                cv.put(ServerUtils.ACTION, ServerUtils.CREATE);
+                cv.put(ServerUtils.STUDENT_USERNAME, stud_num);
+                cv.put(ServerUtils.STUDENT_FIRSTNAME, _name);
+                cv.put(ServerUtils.STUDENT_LASTNAME, _last_name);
+                cv.put(ServerUtils.STUDENT_PASSWORD, _password);
+                register(cv, this);
             }
         });
+    }
+
+    private static void register(ContentValues cv, Context context){
+        new ServerCommunicator(ServerUtils.STUDENT_LINK, cv) {
+            @Override
+            protected void onPreExecute() {
+
+            }
+
+            @Override
+            protected void onPostExecute(String output) {
+                Log.d("SERVER_COMMUN", output);
+                if (output != null && output.equals("1")){
+                    Toast.makeText(context, "Student Registration Success", Toast.LENGTH_SHORT).show();
+                    ((Activity)context).finish();
+                }
+                else{
+                    Toast.makeText(context, "Student Registration failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute();
     }
 }

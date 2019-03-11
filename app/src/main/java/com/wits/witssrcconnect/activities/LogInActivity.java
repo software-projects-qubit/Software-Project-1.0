@@ -1,6 +1,8 @@
 package com.wits.witssrcconnect.activities;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,10 +14,13 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.animation.AnticipateInterpolator;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.services.ServerCommunicator;
+import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
 import java.util.Objects;
@@ -119,12 +124,48 @@ public class LogInActivity extends Activity {
 
             if (allIsOkay){
                 //TODO: connect to server
-                Toast.makeText(v.getContext(), "login", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(v.getContext(), "login", Toast.LENGTH_SHORT).show();
+                ContentValues cv = new ContentValues();
+                cv.put(ServerUtils.ACTION, ServerUtils.LOG_IN);
 
+                String link;
+
+                if (user == UserUtils.STUDENT){
+                    link = ServerUtils.STUDENT_LINK;
+                    cv.put(ServerUtils.STUDENT_USERNAME, sUsername);
+                    cv.put(ServerUtils.STUDENT_PASSWORD, sPassword);
+                }
+                else {
+                    link = ServerUtils.SRC_MEMBER_LINK;
+                    cv.put(ServerUtils.SRC_USERNAME, sUsername);
+                    cv.put(ServerUtils.SRC_PASSWORD, sPassword);
+                }
+
+                logIn(cv, link, LogInActivity.this);
             }
         });
     }
 
+    private static void logIn(ContentValues cv, String link, Context context){
+        new ServerCommunicator(link, cv) {
+            @Override
+            protected void onPreExecute() {
+
+            }
+
+            @Override
+            protected void onPostExecute(String output) {
+                Log.d("SERVER_COMMUN", output);
+                if (output != null && output.equals("1")){
+                    context.startActivity(new Intent(context, MainActivity.class));
+                    ((Activity) context).finish();
+                }
+                else{
+                    Toast.makeText(context, "LogIn failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute();
+    }
     private void revertAnimation() {
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(this, R.layout.activity_log_in_user_selector);
