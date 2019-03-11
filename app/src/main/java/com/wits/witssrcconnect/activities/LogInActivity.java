@@ -123,8 +123,6 @@ public class LogInActivity extends Activity {
             }
 
             if (allIsOkay){
-                //TODO: connect to server
-                //Toast.makeText(v.getContext(), "login", Toast.LENGTH_SHORT).show();
                 ContentValues cv = new ContentValues();
                 cv.put(ServerUtils.ACTION, ServerUtils.LOG_IN);
 
