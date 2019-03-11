@@ -18,4 +18,7 @@ public interface ServerUtils {
     String SRC_MEMBER_LINK = "http://lamp.ms.wits.ac.za/~s1712776/src_member.php";
     String SRC_USERNAME = "member_username";
     String SRC_PASSWORD = "member_Password";
+
+    //homepage
+    String HOME_PAGE_JSON_LINK = "http://lamp.ms.wits.ac.za/~s1712776/Homepage.json";
 }

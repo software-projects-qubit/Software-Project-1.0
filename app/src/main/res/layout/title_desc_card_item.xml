@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/td_card_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/td_card_item_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:gravity="center_horizontal"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
