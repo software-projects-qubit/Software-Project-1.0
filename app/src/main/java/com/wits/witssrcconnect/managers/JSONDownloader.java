@@ -79,7 +79,10 @@ public class JSONDownloader extends AsyncTask<String, String, JSONObject> {
             ((AppCompatTextView) card1.findViewById(R.id.td_card_item_title)).setText("Mission");
             ((AppCompatTextView) card1.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString("Mission"));
             ((AppCompatTextView) card2.findViewById(R.id.td_card_item_title)).setText("Vision");
-            ((AppCompatTextView) card2.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString("Vision"));
+            ((AppCompatTextView) card2.findViewById(R.id.td_card_item_desc)).setText(
+                    //jsonObject.getString("Vision")
+                    "The vision of the src is to be at the forefront of the communication between the students and the institution"
+            );
             ((AppCompatTextView) card3.findViewById(R.id.td_card_item_title)).setText("Contact Us");
             ((AppCompatTextView) card3.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString("ContactUs"));
 
