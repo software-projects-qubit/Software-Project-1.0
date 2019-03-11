@@ -11,3 +11,6 @@ cache:
   directories:
   - $HOME/.m2
   - $HOME/.gradle
+  
+after_success:
+- ./gradlew cobertura coveralls // log to coveralls after success
