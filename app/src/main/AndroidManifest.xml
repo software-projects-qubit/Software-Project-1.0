@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.src_member.SrcMemberActivity"/>
+        <activity android:name=".activities.student.StudentActivity"/>
 
     </application>
 

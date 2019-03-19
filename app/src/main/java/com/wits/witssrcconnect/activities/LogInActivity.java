@@ -2,25 +2,22 @@ package com.wits.witssrcconnect.activities;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
-import android.util.Log;
 import android.view.animation.AnticipateInterpolator;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.activities.src_member.SrcMemberActivity;
+import com.wits.witssrcconnect.activities.student.StudentActivity;
 import com.wits.witssrcconnect.managers.UserManager;
-import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.Ldap;
 import com.wits.witssrcconnect.utils.Person;
 import com.wits.witssrcconnect.utils.ServerUtils;
@@ -42,8 +39,12 @@ public class LogInActivity extends Activity {
 
         UserManager.initUserManager(this);
 
+        //check if user has already logged in
         if (UserManager.userCurrentlyLoggedIn()){
-            startActivity(new Intent(this, MainActivity.class));
+            //open next activity based on which user is already logged in
+            Class nextClass = UserManager.getLoggedInUserType() == UserUtils.STUDENT ?
+                    StudentActivity.class : SrcMemberActivity.class;
+            startActivity(new Intent(this, nextClass));
             finish();
             return;
         }

@@ -5,10 +5,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.wits.witssrcconnect.activities.MainActivity;
+import com.wits.witssrcconnect.activities.student.StudentActivity;
 import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
@@ -49,7 +48,7 @@ public class UserManager {
             @Override
             protected void onPostExecute(String output) {
                 if (output != null && output.equals(ServerUtils.SUCCESS)){
-                    context.startActivity(new Intent(context, MainActivity.class));
+                    context.startActivity(new Intent(context, StudentActivity.class));
                     ((Activity) context).finish();
                 }
                 else{

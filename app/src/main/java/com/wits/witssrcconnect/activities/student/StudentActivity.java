@@ -1,4 +1,4 @@
-package com.wits.witssrcconnect.activities;
+package com.wits.witssrcconnect.activities.student;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.managers.JSONDownloader;
 import com.wits.witssrcconnect.utils.ServerUtils;
 
-public class MainActivity extends Activity {
+public class StudentActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
