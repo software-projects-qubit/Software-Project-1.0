@@ -7,6 +7,10 @@ public interface ServerUtils {
     String CREATE = "create";
     String LOG_IN = "login";
 
+    //server responses
+    String SUCCESS = "1";
+    String FAILED = "0";
+
     //student
     String STUDENT_LINK = "http://lamp.ms.wits.ac.za/~s1712776/student.php";
     String STUDENT_USERNAME = "student_username";

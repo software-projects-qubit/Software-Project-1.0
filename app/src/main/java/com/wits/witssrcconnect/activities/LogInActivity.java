@@ -19,7 +19,10 @@ import android.view.animation.AnticipateInterpolator;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.managers.UserManager;
 import com.wits.witssrcconnect.services.ServerCommunicator;
+import com.wits.witssrcconnect.utils.Ldap;
+import com.wits.witssrcconnect.utils.Person;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
@@ -36,6 +39,15 @@ public class LogInActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        UserManager.initUserManager(this);
+
+        if (UserManager.userCurrentlyLoggedIn()){
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_log_in_splash);
         cc1 = findViewById(R.id.cc1);
         new Handler().postDelayed(this::showAnimation, 3000);
@@ -102,12 +114,8 @@ public class LogInActivity extends Activity {
             animateView(R.layout.activity_log_in_src_member);
         });
 
-        findViewById(R.id.reg).setOnClickListener(v -> {
-            startActivity(new Intent(LogInActivity.this, RegisterStudent.class));
-        });
-
         findViewById(R.id.log_in).setOnClickListener(v -> {
-            String sUsername = Objects.requireNonNull(username.getText()).toString().trim();
+            String sUsername = Objects.requireNonNull(username.getText()).toString().trim().toLowerCase();
             String sPassword = Objects.requireNonNull(password.getText()).toString().trim();
 
             boolean allIsOkay = true;
@@ -129,9 +137,18 @@ public class LogInActivity extends Activity {
                 String link;
 
                 if (user == UserUtils.STUDENT){
-                    link = ServerUtils.STUDENT_LINK;
-                    cv.put(ServerUtils.STUDENT_USERNAME, sUsername);
-                    cv.put(ServerUtils.STUDENT_PASSWORD, sPassword);
+                    //link = ServerUtils.STUDENT_LINK;
+                    //cv.put(ServerUtils.STUDENT_USERNAME, sUsername);
+                    //cv.put(ServerUtils.STUDENT_PASSWORD, sPassword);
+                    Ldap ldap = Ldap.connect("student", sUsername, sPassword);
+                    Person person = ldap.getUser(sUsername);
+                    if (person == null){
+                       Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(this, "works", Toast.LENGTH_SHORT).show();
+                    }
+                    ldap.close();
                 }
                 else {
                     link = ServerUtils.SRC_MEMBER_LINK;
@@ -139,31 +156,13 @@ public class LogInActivity extends Activity {
                     cv.put(ServerUtils.SRC_PASSWORD, sPassword);
                 }
 
-                logIn(cv, link, LogInActivity.this);
+                //logIn(cv, link, LogInActivity.this);
             }
         });
     }
 
-    private static void logIn(ContentValues cv, String link, Context context){
-        new ServerCommunicator(link, cv) {
-            @Override
-            protected void onPreExecute() {
 
-            }
 
-            @Override
-            protected void onPostExecute(String output) {
-                Log.d("SERVER_COMMUN", output);
-                if (output != null && output.equals("1")){
-                    context.startActivity(new Intent(context, MainActivity.class));
-                    ((Activity) context).finish();
-                }
-                else{
-                    Toast.makeText(context, "LogIn failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }.execute();
-    }
     private void revertAnimation() {
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(this, R.layout.activity_log_in_user_selector);
