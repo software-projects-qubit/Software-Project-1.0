@@ -141,6 +141,7 @@ public class LogInActivity extends Activity {
                     //link = ServerUtils.STUDENT_LINK;
                     //cv.put(ServerUtils.STUDENT_USERNAME, sUsername);
                     //cv.put(ServerUtils.STUDENT_PASSWORD, sPassword);
+                    //STILL NOT WORKING
                     Ldap ldap = Ldap.connect("student", sUsername, sPassword);
                     Person person = ldap.getUser(sUsername);
                     if (person == null){
