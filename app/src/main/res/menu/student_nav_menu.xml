@@ -27,4 +27,7 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/student_nav_log_out"
+        android:title="@string/log_out"/>
 </menu>

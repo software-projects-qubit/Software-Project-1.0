@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.fragments.StudentHomeFragment;
+import com.wits.witssrcconnect.managers.UiManager;
 
 public class StudentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -63,6 +64,11 @@ public class StudentActivity extends AppCompatActivity implements NavigationView
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.student_nav_log_out:
+                UiManager.logOut(this);
+                break;
+        }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

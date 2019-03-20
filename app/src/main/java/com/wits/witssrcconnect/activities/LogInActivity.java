@@ -138,6 +138,7 @@ public class LogInActivity extends Activity {
                 String link;
 
                 if (user == UserUtils.STUDENT){
+                    UserManager.setUserLoggedIn(user);
                     startActivity(new Intent(this, StudentActivity.class));
                     finish();
                     //link = ServerUtils.STUDENT_LINK;
@@ -155,6 +156,7 @@ public class LogInActivity extends Activity {
                     //ldap.close();
                 }
                 else {
+                    UserManager.setUserLoggedIn(user);
                     startActivity(new Intent(this, SrcMemberActivity.class));
                     finish();
 //                    link = ServerUtils.SRC_MEMBER_LINK;

@@ -38,6 +38,8 @@ public class UserManager {
         return SHARED_PREFERENCES.getInt(USER_TYPE_KEY, UserUtils.DEFAULT_USER);
     }
 
+    //for src member
+    //since their data is stored on our server
     private static void logIn(ContentValues cv, String link, Context context){
         new ServerCommunicator(link, cv) {
             @Override
@@ -56,5 +58,10 @@ public class UserManager {
                 }
             }
         }.execute();
+    }
+
+    //clear the data that stored in preferences
+    public static void userLoggedOut(){
+        SHARED_PREFERENCES.edit().clear().apply();
     }
 }
