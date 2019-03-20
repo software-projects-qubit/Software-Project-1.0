@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.utils.ServerUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,15 +26,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-@SuppressLint("StaticFieldLeak")
-public class JSONDownloader extends AsyncTask<String, String, JSONObject> {
-
-
-    private final LinearLayout holder;
-
-    public JSONDownloader(LinearLayout holder){
-        this.holder = holder;
-    }
+public abstract class JSONDownloader extends AsyncTask<String, String, JSONObject> {
 
     @Override
     protected void onPreExecute() {
@@ -66,32 +59,5 @@ public class JSONDownloader extends AsyncTask<String, String, JSONObject> {
     }
 
     @Override
-    protected  void onPostExecute(JSONObject jsonObject){
-        Context context = holder.getContext();
-        holder.removeAllViews();
-
-
-        try {
-            View card1 = View.inflate(context, R.layout.title_desc_card_item, null);
-            View card2 = View.inflate(context, R.layout.title_desc_card_item, null);
-            View card3 = View.inflate(context, R.layout.title_desc_card_item, null);
-
-            ((AppCompatTextView) card1.findViewById(R.id.td_card_item_title)).setText("Mission");
-            ((AppCompatTextView) card1.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString("Mission"));
-            ((AppCompatTextView) card2.findViewById(R.id.td_card_item_title)).setText("Vision");
-            ((AppCompatTextView) card2.findViewById(R.id.td_card_item_desc)).setText(
-                    //jsonObject.getString("Vision")
-                    "The vision of the src is to be at the forefront of the communication between the students and the institution"
-            );
-            ((AppCompatTextView) card3.findViewById(R.id.td_card_item_title)).setText("Contact Us");
-            ((AppCompatTextView) card3.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString("ContactUs"));
-
-            LinearLayout.LayoutParams params = UiManager.getLayoutParams(15);
-            holder.addView(card1, params);
-            holder.addView(card2, params);
-            holder.addView(card3, params);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
+    protected  abstract void onPostExecute(JSONObject jsonObject);
 }

@@ -25,4 +25,7 @@ public interface ServerUtils {
 
     //homepage
     String HOME_PAGE_JSON_LINK = "http://lamp.ms.wits.ac.za/~s1712776/Homepage.json";
+    String MISSION = "Mission";
+    String VISION = "Vision";
+    String CONTACT_US = "ContactUs";
 }

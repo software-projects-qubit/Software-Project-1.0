@@ -138,24 +138,28 @@ public class LogInActivity extends Activity {
                 String link;
 
                 if (user == UserUtils.STUDENT){
+                    startActivity(new Intent(this, StudentActivity.class));
+                    finish();
                     //link = ServerUtils.STUDENT_LINK;
                     //cv.put(ServerUtils.STUDENT_USERNAME, sUsername);
                     //cv.put(ServerUtils.STUDENT_PASSWORD, sPassword);
                     //STILL NOT WORKING
-                    Ldap ldap = Ldap.connect("student", sUsername, sPassword);
-                    Person person = ldap.getUser(sUsername);
-                    if (person == null){
-                       Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(this, "works", Toast.LENGTH_SHORT).show();
-                    }
-                    ldap.close();
+                    //Ldap ldap = Ldap.connect("student", sUsername, sPassword);
+                    //Person person = ldap.getUser(sUsername);
+                    //if (person == null){
+                       //Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
+                    //}
+                    //else{
+                        //Toast.makeText(this, "works", Toast.LENGTH_SHORT).show();
+                    //}
+                    //ldap.close();
                 }
                 else {
-                    link = ServerUtils.SRC_MEMBER_LINK;
-                    cv.put(ServerUtils.SRC_USERNAME, sUsername);
-                    cv.put(ServerUtils.SRC_PASSWORD, sPassword);
+                    startActivity(new Intent(this, SrcMemberActivity.class));
+                    finish();
+//                    link = ServerUtils.SRC_MEMBER_LINK;
+//                    cv.put(ServerUtils.SRC_USERNAME, sUsername);
+//                    cv.put(ServerUtils.SRC_PASSWORD, sPassword);
                 }
 
                 //logIn(cv, link, LogInActivity.this);
@@ -175,6 +179,6 @@ public class LogInActivity extends Activity {
 
         TransitionManager.beginDelayedTransition(cc2, transition);
         constraintSet.applyTo(cc2);
-
     }
+
 }

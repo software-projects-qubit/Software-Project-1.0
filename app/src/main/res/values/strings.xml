@@ -6,11 +6,13 @@
     <string name="username">Username:</string>
     <string name="password">Password:</string>
     <string name="log_in">Log In</string>
-
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="stud_num">Student Number:</string>
     <string name="name">Name:</string>
     <string name="last_name">Last Name:</string>
     <string name="confirm_pass">Confirm Password:</string>
     <string name="register">Register</string>
     <string name="reg_stud">Register Student</string>
+    <string name="home">Home</string>
 </resources>

@@ -24,7 +24,8 @@
         </activity>
 
         <activity android:name=".activities.src_member.SrcMemberActivity"/>
-        <activity android:name=".activities.student.StudentActivity"/>
+        <activity android:name=".activities.student.StudentActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 
