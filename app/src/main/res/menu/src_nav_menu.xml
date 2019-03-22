@@ -7,6 +7,9 @@
         <item
             android:id="@+id/src_nav_home"
             android:title="@string/home"/>
+        <item
+            android:id="@+id/src_nav_activity_timeline"
+            android:title="@string/src_activity_time_line"/>
     </group>
 
     <item
