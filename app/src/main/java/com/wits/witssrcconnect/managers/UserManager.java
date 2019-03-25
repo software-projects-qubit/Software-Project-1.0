@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
-import com.wits.witssrcconnect.activities.student.StudentActivity;
+import com.wits.witssrcconnect.activities.src_member.SrcMemberActivity;
 import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
@@ -40,8 +40,8 @@ public class UserManager {
 
     //for src member
     //since their data is stored on our server
-    private static void logIn(ContentValues cv, String link, Context context){
-        new ServerCommunicator(link, cv) {
+    public static void logIn(int user, ContentValues cv, String link, Context context){
+        new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
 
@@ -50,14 +50,15 @@ public class UserManager {
             @Override
             protected void onPostExecute(String output) {
                 if (output != null && output.equals(ServerUtils.SUCCESS)){
-                    context.startActivity(new Intent(context, StudentActivity.class));
+                    UserManager.setUserLoggedIn(user);
+                    context.startActivity(new Intent(context, SrcMemberActivity.class));
                     ((Activity) context).finish();
                 }
                 else{
                     Toast.makeText(context, "LogIn failed", Toast.LENGTH_SHORT).show();
                 }
             }
-        }.execute();
+        }.execute(link);
     }
 
     //clear the data that stored in preferences

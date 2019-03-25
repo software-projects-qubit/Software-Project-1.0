@@ -19,15 +19,11 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
 
     private static final String TAG = ServerCommunicator.class.getSimpleName();
 
-    private final String address;
+    //private final String address;
     private final ContentValues params;
 
-    protected ServerCommunicator(String address, ContentValues params){
-        this.address = address;
+    protected ServerCommunicator(ContentValues params){
         this.params = params;
-
-        //authenticate admin first
-        //SecurityManager.addAuthenticationLayer(params);
     }
 
     @Override
@@ -37,8 +33,8 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
     protected String doInBackground(String... strings) {
         try {
             Log.d(TAG, "started");
-            Log.d(TAG, "address = "+address);
-            URL url = new URL(address);
+            //Log.d(TAG, "address = "+address);
+            URL url = new URL(strings[0]);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

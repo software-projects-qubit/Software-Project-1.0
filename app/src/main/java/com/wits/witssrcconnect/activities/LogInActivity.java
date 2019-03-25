@@ -132,10 +132,8 @@ public class LogInActivity extends Activity {
             }
 
             if (allIsOkay){
-                ContentValues cv = new ContentValues();
-                cv.put(ServerUtils.ACTION, ServerUtils.LOG_IN);
 
-                String link;
+
 
                 if (user == UserUtils.STUDENT){
                     UserManager.setUserLoggedIn(user);
@@ -156,15 +154,12 @@ public class LogInActivity extends Activity {
                     //ldap.close();
                 }
                 else {
-                    UserManager.setUserLoggedIn(user);
-                    startActivity(new Intent(this, SrcMemberActivity.class));
-                    finish();
-//                    link = ServerUtils.SRC_MEMBER_LINK;
-//                    cv.put(ServerUtils.SRC_USERNAME, sUsername);
-//                    cv.put(ServerUtils.SRC_PASSWORD, sPassword);
+                    ContentValues cv = new ContentValues();
+                    cv.put(ServerUtils.ACTION, ServerUtils.LOG_IN);
+                    cv.put(ServerUtils.SRC_USERNAME, sUsername);
+                    cv.put(ServerUtils.SRC_PASSWORD, sPassword);
+                    UserManager.logIn(user, cv, ServerUtils.SRC_MEMBER_LINK, LogInActivity.this);
                 }
-
-                //logIn(cv, link, LogInActivity.this);
             }
         });
     }
