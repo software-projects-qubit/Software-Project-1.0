@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.fragments.SrcMemberActivitiesFragment;
 import com.wits.witssrcconnect.fragments.SrcMemberFragment;
 import com.wits.witssrcconnect.managers.UiManager;
 
@@ -51,9 +52,15 @@ public class SrcMemberActivity extends AppCompatActivity implements NavigationVi
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
+
+            case R.id.src_nav_activity_timeline:
+                loadFragment(new SrcMemberActivitiesFragment(), getString(R.string.src_activity_time_line));
+                break;
+
             case R.id.src_nav_log_out:
                 UiManager.logOut(this);
                 break;
+
         }
         return true;
     }
