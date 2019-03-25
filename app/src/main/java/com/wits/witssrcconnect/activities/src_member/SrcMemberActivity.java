@@ -55,6 +55,7 @@ public class SrcMemberActivity extends AppCompatActivity implements NavigationVi
 
             case R.id.src_nav_activity_timeline:
                 loadFragment(new SrcMemberActivitiesFragment(), getString(R.string.src_activity_time_line));
+
                 break;
 
             case R.id.src_nav_log_out:
