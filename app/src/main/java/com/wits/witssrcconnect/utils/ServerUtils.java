@@ -23,6 +23,12 @@ public interface ServerUtils {
     String SRC_USERNAME = "member_username";
     String SRC_PASSWORD = "member_password";
 
+    //activity
+    String POST_ACTIVITY = "postActivity";
+    String ACTIVITY_CURRENT = "activity_current";
+    String ACTIVITY_POST_DATE = "activity_post_date";
+    String ACTIVITY_POST_TIME = "activity_post_time";
+
     //homepage
     String HOME_PAGE_JSON_LINK = "http://lamp.ms.wits.ac.za/~s1712776/Homepage.json";
     String MISSION = "Mission";
