@@ -17,4 +17,6 @@
     <string name="home">Home</string>
     <string name="log_out">Log Out</string>
     <string name="src_activity_time_line">SRC Activities Timeline</string>
+    <string name="src_post_activity">Post Activity</string>
+    <string name="activity">Activity</string>
 </resources>

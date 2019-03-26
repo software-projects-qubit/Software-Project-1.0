@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.activities.src_member.SrcMemberActivity;
+import com.wits.witssrcconnect.activities.SrcMemberActivity;
 import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;

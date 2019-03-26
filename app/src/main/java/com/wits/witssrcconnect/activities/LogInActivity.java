@@ -14,8 +14,6 @@ import android.transition.TransitionManager;
 import android.view.animation.AnticipateInterpolator;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.activities.src_member.SrcMemberActivity;
-import com.wits.witssrcconnect.activities.student.StudentActivity;
 import com.wits.witssrcconnect.managers.UserManager;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;

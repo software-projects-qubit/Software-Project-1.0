@@ -1,4 +1,4 @@
-package com.wits.witssrcconnect.activities.student;
+package com.wits.witssrcconnect.activities;
 
 
 import android.os.Bundle;

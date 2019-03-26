@@ -1,4 +1,4 @@
-package com.wits.witssrcconnect.activities.src_member;
+package com.wits.witssrcconnect.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

@@ -2,18 +2,18 @@ package com.wits.witssrcconnect.managers;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.LogInActivity;
-import com.wits.witssrcconnect.activities.student.StudentActivity;
 
 public class UiManager {
 
@@ -44,5 +44,11 @@ public class UiManager {
         ((Activity) context).finish();
     }
 
-
+    //When used, forces any bottom sheet to fully expand
+    public static void forceBottomSheetToFullyExpand(DialogInterface dialog1) {
+        BottomSheetDialog d = (BottomSheetDialog) dialog1;
+        FrameLayout bottomSheet = d.findViewById(android.support.design.R.id.design_bottom_sheet);
+        assert bottomSheet != null;
+        BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
 }

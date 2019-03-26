@@ -23,9 +23,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.src_member.SrcMemberActivity"
+        <activity android:name=".activities.SrcMemberActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activities.student.StudentActivity"
+        <activity android:name=".activities.StudentActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
