@@ -52,6 +52,7 @@ public class SrcPostActivityBottomSheet extends BottomSheetDialogFragment {
         Context c = dialog.getContext();
         Toast.makeText(c, "Please wait...", Toast.LENGTH_SHORT).show();
 
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm", Locale.getDefault());
         String sDateTime = simpleDateFormat.format(new Date());
         String[] dateTimeList = sDateTime.split("-");
