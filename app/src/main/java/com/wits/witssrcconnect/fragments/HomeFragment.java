@@ -19,7 +19,7 @@ import com.wits.witssrcconnect.utils.ServerUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class StudentHomeFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     @Nullable
     @Override

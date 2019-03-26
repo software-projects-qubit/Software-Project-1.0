@@ -13,7 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.fragments.StudentHomeFragment;
+import com.wits.witssrcconnect.fragments.HomeFragment;
 import com.wits.witssrcconnect.managers.UiManager;
 
 public class StudentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,7 +30,7 @@ public class StudentActivity extends AppCompatActivity implements NavigationView
         toolbar = findViewById(R.id.toolbar);
 
         //load the default fragment
-        loadFragment(new StudentHomeFragment(), getString(R.string.home));
+        loadFragment(new HomeFragment(), getString(R.string.home));
 
         setSupportActionBar(toolbar);
 

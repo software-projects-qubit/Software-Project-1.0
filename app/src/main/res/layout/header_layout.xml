@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/appCompatTextView"
+        android:id="@+id/header_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -46,14 +46,15 @@
         app:layout_constraintVertical_bias="0.424" />
 
     <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/header_user_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="user type"
-        app:layout_constraintEnd_toEndOf="@+id/appCompatTextView"
+        app:layout_constraintEnd_toEndOf="@+id/header_username"
         app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="@+id/appCompatTextView"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
+        app:layout_constraintStart_toStartOf="@+id/header_username"
+        app:layout_constraintTop_toBottomOf="@+id/header_username"
         android:textStyle="bold"
         android:textColor="@android:color/black"/>
 

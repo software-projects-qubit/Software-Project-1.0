@@ -17,7 +17,7 @@ import java.nio.charset.Charset;
 
 public abstract class ServerCommunicator extends AsyncTask<String, String, String> {
 
-    private static final String TAG = ServerCommunicator.class.getSimpleName();
+    private static final String TAG = "SERVER_COMMUNICATOR";
 
     //private final String address;
     private final ContentValues params;
@@ -33,7 +33,7 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
     protected String doInBackground(String... strings) {
         try {
             Log.d(TAG, "started");
-            //Log.d(TAG, "address = "+address);
+            Log.d(TAG, "address = "+strings[0]);
             URL url = new URL(strings[0]);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");

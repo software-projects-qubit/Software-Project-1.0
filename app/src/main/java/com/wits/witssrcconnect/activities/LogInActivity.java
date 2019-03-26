@@ -12,14 +12,11 @@ import android.text.TextUtils;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
 import android.view.animation.AnticipateInterpolator;
-import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.src_member.SrcMemberActivity;
 import com.wits.witssrcconnect.activities.student.StudentActivity;
 import com.wits.witssrcconnect.managers.UserManager;
-import com.wits.witssrcconnect.utils.Ldap;
-import com.wits.witssrcconnect.utils.Person;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
@@ -40,7 +37,7 @@ public class LogInActivity extends Activity {
         UserManager.initUserManager(this);
 
         //check if user has already logged in
-        if (UserManager.userCurrentlyLoggedIn()){
+        if (UserManager.getCurrentlyLoggedInStatus()){
             //open next activity based on which user is already logged in
             Class nextClass = UserManager.getLoggedInUserType() == UserUtils.STUDENT ?
                     StudentActivity.class : SrcMemberActivity.class;
@@ -136,7 +133,7 @@ public class LogInActivity extends Activity {
 
 
                 if (user == UserUtils.STUDENT){
-                    UserManager.setUserLoggedIn(user);
+                    UserManager.setUserLoggedIn(user, sUsername);
                     startActivity(new Intent(this, StudentActivity.class));
                     finish();
                     //link = ServerUtils.STUDENT_LINK;
