@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.wits.witssrcconnect.bottom_sheets.SrcPostActivityBottomSheet;
 public class SrcMemberActivitiesFragment extends Fragment {
 
     private View v;
+    private SwipeRefreshLayout pullToRefresh;
 
     @Nullable
     @Override
@@ -33,6 +35,12 @@ public class SrcMemberActivitiesFragment extends Fragment {
         v.findViewById(R.id.FAB_src_activity_add).setOnClickListener(v1 -> {
             SrcPostActivityBottomSheet srcPostActivityBottomSheet = new SrcPostActivityBottomSheet();
             srcPostActivityBottomSheet.show(getChildFragmentManager(), "");
+        });
+
+        pullToRefresh = v.findViewById(R.id.src_activities_swipe_refresh_layout);
+        pullToRefresh.setOnRefreshListener(() -> {
+            //to remove the spinning circle after success or failure
+            //pullToRefresh.setRefreshing(false);
         });
     }
 }
