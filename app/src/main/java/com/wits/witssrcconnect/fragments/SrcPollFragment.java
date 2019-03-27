@@ -13,10 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
+import com.wits.witssrcconnect.activities.SrcPostPollActivity;
 import com.wits.witssrcconnect.adapters.ViewPagerAdapter;
 
-public class SrcMemberActivitiesFragment extends Fragment {
+public class SrcPollFragment extends Fragment {
 
     private View v;
 
@@ -24,7 +24,7 @@ public class SrcMemberActivitiesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return v = inflater.inflate(R.layout.fragment_src_activities, container, false);
+        return v = inflater.inflate(R.layout.fragment_src_polls, container, false);
     }
 
     @Override
@@ -36,20 +36,20 @@ public class SrcMemberActivitiesFragment extends Fragment {
     private void init() {
 
         //display the bottom sheet after user presses the floating action button
-        v.findViewById(R.id.FAB_src_activity_add).setOnClickListener(v1 ->
-                startActivity(new Intent(v.getContext(), SrcPostActivityActivity.class)));
+        v.findViewById(R.id.FAB_src_poll_add).setOnClickListener(v1 ->
+                startActivity(new Intent(v.getContext(), SrcPostPollActivity.class)));
 
-        ViewPager viewPager = v.findViewById(R.id.viewpager);
-        TabLayout tabLayout = v.findViewById(R.id.tabs);
+        ViewPager viewPager = v.findViewById(R.id.poll_viewpager);
+        TabLayout tabLayout = v.findViewById(R.id.poll_tabs);
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFragment(new AllSrcActivitiesFragment(), "All Activities");
-        adapter.addFragment(new MySrcActivitiesFragment(), "My Activities");
+        adapter.addFragment(new AllSrcPollFragment(), "All Polls");
+        adapter.addFragment(new MySrcPollFragment(), "My Polls");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
 
-        SwipeRefreshLayout pullToRefresh = v.findViewById(R.id.src_activities_swipe_refresh_layout);
+        SwipeRefreshLayout pullToRefresh = v.findViewById(R.id.src_poll_swipe_refresh_layout);
         pullToRefresh.setOnRefreshListener(() -> {
             //to remove the spinning circle after success or failure
             //pullToRefresh.setRefreshing(false);

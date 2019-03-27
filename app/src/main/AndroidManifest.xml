@@ -29,8 +29,11 @@
         <activity android:name=".activities.StudentActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
-        <activity android:name=".activities.SrcPostActivity"
+        <activity android:name=".activities.SrcPostActivityActivity"
             android:label="@string/src_post_activity"/>
+
+        <activity android:name=".activities.SrcPostPollActivity"
+            android:label="@string/poll_activity"/>
     </application>
 
 </manifest>

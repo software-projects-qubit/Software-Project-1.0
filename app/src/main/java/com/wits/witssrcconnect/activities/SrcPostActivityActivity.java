@@ -11,7 +11,7 @@ import com.wits.witssrcconnect.managers.SrcActivityManager;
 
 import java.util.Objects;
 
-public class SrcPostActivity extends AppCompatActivity {
+public class SrcPostActivityActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
