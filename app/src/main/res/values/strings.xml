@@ -22,4 +22,8 @@
     <string name="title">Title</string>
     <string name="src_polls">SRC Polls</string>
     <string name="poll_activity">Poll Activity</string>
+    <string name="like">like</string>
+    <string name="dislike">dislike</string>
+    <string name="comment">Comment</string>
+    <string name="view_comments">view Comments</string>
 </resources>

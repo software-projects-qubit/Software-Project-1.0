@@ -42,9 +42,9 @@ public class HomeFragment extends Fragment {
                 //the server is gonna return a json object which contains mission, vision, contact details
                 try {
                     //the data will be displayed in cardViews, each data on its own cardView
-                    View card1 = View.inflate(context, R.layout.title_desc_card_item, null);
-                    View card2 = View.inflate(context, R.layout.title_desc_card_item, null);
-                    View card3 = View.inflate(context, R.layout.title_desc_card_item, null);
+                    View card1 = View.inflate(context, R.layout.item_title_desc_card, null);
+                    View card2 = View.inflate(context, R.layout.item_title_desc_card, null);
+                    View card3 = View.inflate(context, R.layout.item_title_desc_card, null);
                     LinearLayout.LayoutParams params = UiManager.getLayoutParams(15);
 
                     //populate the cardViews with the data
