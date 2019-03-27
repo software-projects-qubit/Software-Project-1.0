@@ -1,43 +1,55 @@
 package com.wits.witssrcconnect.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.bottom_sheets.SrcPostActivityBottomSheet;
+import com.wits.witssrcconnect.activities.SrcPostActivity;
+import com.wits.witssrcconnect.adapters.ViewPagerAdapter;
 
 public class SrcMemberActivitiesFragment extends Fragment {
 
     private View v;
-    private SwipeRefreshLayout pullToRefresh;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         return v = inflater.inflate(R.layout.fragment_src_activities, container, false);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        init(v);
+        init();
     }
 
-    private void init(View v) {
+    private void init() {
 
         //display the bottom sheet after user presses the floating action button
-        v.findViewById(R.id.FAB_src_activity_add).setOnClickListener(v1 -> {
-            SrcPostActivityBottomSheet srcPostActivityBottomSheet = new SrcPostActivityBottomSheet();
-            srcPostActivityBottomSheet.show(getChildFragmentManager(), "");
-        });
+        v.findViewById(R.id.FAB_src_activity_add).setOnClickListener(v1 ->
+                startActivity(new Intent(v.getContext(), SrcPostActivity.class)));
 
-        pullToRefresh = v.findViewById(R.id.src_activities_swipe_refresh_layout);
+        ViewPager viewPager = v.findViewById(R.id.viewpager);
+        TabLayout tabLayout = v.findViewById(R.id.tabs);
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new AllSrcActivitiesFragment(), "All Activities");
+        adapter.addFragment(new MySrcActivitiesFragment(), "My Activities");
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+
+        SwipeRefreshLayout pullToRefresh = v.findViewById(R.id.src_activities_swipe_refresh_layout);
         pullToRefresh.setOnRefreshListener(() -> {
             //to remove the spinning circle after success or failure
             //pullToRefresh.setRefreshing(false);

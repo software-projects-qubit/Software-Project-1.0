@@ -25,7 +25,8 @@ public interface ServerUtils {
 
     //activity
     String POST_ACTIVITY = "postActivity";
-    String ACTIVITY_CURRENT = "activity_current";
+    String ACTIVITY_TITLE = "activity_title";
+    String ACTIVITY_DESC = "activity_desc";
     String ACTIVITY_POST_DATE = "activity_post_date";
     String ACTIVITY_POST_TIME = "activity_post_time";
 

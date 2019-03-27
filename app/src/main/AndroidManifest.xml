@@ -25,9 +25,12 @@
 
         <activity android:name=".activities.SrcMemberActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".activities.StudentActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
+        <activity android:name=".activities.SrcPostActivity"
+            android:label="@string/src_post_activity"/>
     </application>
 
 </manifest>
