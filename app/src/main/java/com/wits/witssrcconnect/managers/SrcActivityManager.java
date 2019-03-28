@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.fragments.AllSrcActivitiesFragment;
@@ -133,5 +134,9 @@ public class SrcActivityManager {
                 }
             }
         }.execute(ServerUtils.COMMENT_LINK);
+    }
+
+    public static void populateViewWithComments(LinearLayout commentsHolder, int activityId) {
+
     }
 }

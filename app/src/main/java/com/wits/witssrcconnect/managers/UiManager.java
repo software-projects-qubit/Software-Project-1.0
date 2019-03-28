@@ -170,6 +170,8 @@ public class UiManager {
                 //set on click listener to view comments to show a bottom sheet which contains comments
                 activityItemView.findViewById(R.id.view_comments).setOnClickListener(v -> {
                     ViewCommentsBottomSheet viewCommentsBottomSheet = new ViewCommentsBottomSheet();
+                    //passes the activity id, title, desc to the bottom sheet
+                    //the bottom sheet will then display
                     viewCommentsBottomSheet.setActivityId(activityId);
                     viewCommentsBottomSheet.setActivityTitle(title);
                     viewCommentsBottomSheet.setActivityDesc(desc);
