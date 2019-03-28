@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.fragments.HomeFragment;
 import com.wits.witssrcconnect.fragments.SrcPollFragment;
+import com.wits.witssrcconnect.fragments.StudentViewSrcActivitiesFragment;
 import com.wits.witssrcconnect.managers.UiManager;
 
 public class StudentActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -65,7 +66,7 @@ public class StudentActivity extends AppCompatActivity implements NavigationView
             //opens src activities fragment after user presses the src activities
             //option on the navigation view
             case R.id.nav_activity_timeline:
-                //loadFragment(new SrcMemberActivitiesFragment(), getString(R.string.src_activity_time_line));
+                loadFragment(new StudentViewSrcActivitiesFragment(), getString(R.string.src_activity_time_line));
                 break;
 
             //opens polls fragment

@@ -18,7 +18,11 @@ public class StudentViewSrcActivitiesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_student_view_src_activities, container, false);
-
+        init();
         return v;
+    }
+
+    private void init() {
+        if (v == null) return;
     }
 }
