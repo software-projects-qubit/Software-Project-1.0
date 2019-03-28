@@ -26,6 +26,7 @@ public interface ServerUtils {
     //activity
     String POST_ACTIVITY = "postActivity";
     String READ_ALL_ACTIVITIES = "readAllActivities";
+    String ACTIVITY_ID = "activity_id";
     String ACTIVITY_TITLE = "activity_title";
     String ACTIVITY_DESC = "activity_desc";
     String ACTIVITY_DATE = "activity_date";
@@ -38,6 +39,11 @@ public interface ServerUtils {
     String CONTACT_US = "ContactUs";
 
     //activities comment
+    String POST_COMMENT = "postComment";
     int ANONYMOUS_COMMENT_ON = 1;
     int ANONYMOUS_COMMENT_OFF = 0;
+    String STUDENT_COMMENT = "stud_comment";
+    String STUDENT_ANONYMITY = "stud_anonymity";
+    String STUDENT_DATE = "stud_date";
+    String STUDENT_TIME = "stud_time";
 }

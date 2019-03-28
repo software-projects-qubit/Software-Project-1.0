@@ -3,6 +3,7 @@ package com.wits.witssrcconnect.managers;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.Toast;
 
@@ -27,19 +28,15 @@ public class SrcActivityManager {
     public static void postActivity(String title, String activity, Activity activityClass) {
         Toast.makeText(activityClass, "Please wait...", Toast.LENGTH_SHORT).show();
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm", Locale.getDefault());
-        String sDateTime = simpleDateFormat.format(new Date());
-        String[] dateTimeList = sDateTime.split("-");
-        String date = dateTimeList[0].trim();
-        String time = dateTimeList[1].trim();
+        String[] dateTime = UiManager.getDateTime();
 
         ContentValues cv = new ContentValues();
         cv.put(ServerUtils.ACTION, ServerUtils.POST_ACTIVITY);
         cv.put(ServerUtils.SRC_USERNAME, UserManager.getCurrentlyLoggedInUsername());
         cv.put(ServerUtils.ACTIVITY_TITLE, title);
         cv.put(ServerUtils.ACTIVITY_DESC, activity);
-        cv.put(ServerUtils.ACTIVITY_DATE, date);
-        cv.put(ServerUtils.ACTIVITY_TIME, time);
+        cv.put(ServerUtils.ACTIVITY_DATE, dateTime[0]);
+        cv.put(ServerUtils.ACTIVITY_TIME, dateTime[1]);
 
         new ServerCommunicator(cv) {
             @Override
@@ -109,5 +106,9 @@ public class SrcActivityManager {
                 }
             }
         }.execute(ServerUtils.SRC_MEMBER_LINK);
+    }
+
+    public static void postComment(ContentValues cv, TextInputEditText comment) {
+
     }
 }

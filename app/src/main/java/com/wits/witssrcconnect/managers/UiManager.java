@@ -1,6 +1,7 @@
 package com.wits.witssrcconnect.managers;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class UiManager {
@@ -64,6 +68,15 @@ public class UiManager {
         BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
     }
 
+    //this function gets the current date and time and provides a string array which has date and time
+    public static String[] getDateTime(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm", Locale.getDefault());
+        String sDateTime = simpleDateFormat.format(new Date());
+        String[] dateTimeList = sDateTime.split("-");
+        String date = dateTimeList[0].trim();
+        String time = dateTimeList[1].trim();
+        return new String[]{date, time};
+    }
     //this function populates any given linear layout with src activities
     public static void populateWithSrcActivities(LinearLayout holder, JSONArray activities) {
         holder.removeAllViews();
@@ -73,6 +86,8 @@ public class UiManager {
                 //get JsonObject from jsonArray which contains data about each and every activity
                 JSONObject activity = (JSONObject) activities.get(i);
 
+                //get activity id
+                int activityId = activity.getInt(ServerUtils.ACTIVITY_ID);
                 //inflate a card view that will display all the date
                 View activityItemView = View.inflate(holder.getContext(), R.layout.item_src_activity_card, null);
 
@@ -124,6 +139,19 @@ public class UiManager {
                     }
                     else {
                         sComment = sComment.replace("\n", "\\n");
+                        ContentValues cv = new ContentValues();
+
+                        String[] dateTime = getDateTime();
+
+                        cv.put(ServerUtils.ACTION, ServerUtils.POST_COMMENT);
+                        cv.put(ServerUtils.ACTIVITY_ID, activityId);
+                        cv.put(ServerUtils.STUDENT_USERNAME, UserManager.getCurrentlyLoggedInUsername());
+                        cv.put(ServerUtils.STUDENT_COMMENT, sComment);
+                        cv.put(ServerUtils.STUDENT_ANONYMITY, anonymityTracker[0]);
+                        cv.put(ServerUtils.STUDENT_DATE, dateTime[0]);
+                        cv.put(ServerUtils.STUDENT_TIME, dateTime[1]);
+
+                        SrcActivityManager.postComment(cv, comment);
                     }
                 });
 
