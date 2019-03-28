@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
@@ -92,6 +93,11 @@ public class UiManager {
                     if (isChecked) message = "Anonymous comment on";
                     else message = "Anonymous comment off";
                     Toast.makeText(holder.getContext(), message, Toast.LENGTH_SHORT).show();
+                });
+
+                TextInputEditText comment = activityItemView.findViewById(R.id.input_comment);
+                activityItemView.findViewById(R.id.send_comment).setOnClickListener(v -> {
+
                 });
 
                 holder.addView(activityItemView, UiManager.getLayoutParams(15));
