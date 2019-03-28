@@ -171,7 +171,7 @@ public class SrcActivityManager {
                             ((AppCompatTextView) commentView.findViewById(R.id.comment_view))
                                     .setText(comment.getString(ServerUtils.STUDENT_COMMENT));
 
-                            commentsHolder.addView(commentView, UiManager.getLayoutParams(10));
+                            commentsHolder.addView(commentView, UiManager.getLayoutParams(15));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
