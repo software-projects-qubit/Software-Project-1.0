@@ -11,6 +11,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -88,6 +89,7 @@ public class UiManager {
 
                 //get activity id
                 int activityId = activity.getInt(ServerUtils.ACTIVITY_ID);
+
                 //inflate a card view that will display all the date
                 View activityItemView = View.inflate(holder.getContext(), R.layout.item_src_activity_card, null);
 
@@ -138,16 +140,19 @@ public class UiManager {
                         comment.setError("Comment required");
                     }
                     else {
+                        Log.d("POPULATE_TEST", String.valueOf(activityId));
+                        Log.d("POPULATE_TEST", String.valueOf(anonymityTracker[0]));
+
                         sComment = sComment.replace("\n", "\\n");
                         ContentValues cv = new ContentValues();
 
                         String[] dateTime = getDateTime();
 
                         cv.put(ServerUtils.ACTION, ServerUtils.POST_COMMENT);
-                        cv.put(ServerUtils.ACTIVITY_ID, activityId);
+                        cv.put(ServerUtils.ACTIVITY_ID, String.valueOf(activityId));
                         cv.put(ServerUtils.STUDENT_USERNAME, UserManager.getCurrentlyLoggedInUsername());
                         cv.put(ServerUtils.STUDENT_COMMENT, sComment);
-                        cv.put(ServerUtils.STUDENT_ANONYMITY, anonymityTracker[0]);
+                        cv.put(ServerUtils.STUDENT_ANONYMITY, String.valueOf(anonymityTracker[0]));
                         cv.put(ServerUtils.STUDENT_DATE, dateTime[0]);
                         cv.put(ServerUtils.STUDENT_TIME, dateTime[1]);
 

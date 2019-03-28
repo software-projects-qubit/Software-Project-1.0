@@ -13,7 +13,6 @@ public interface ServerUtils {
 
     //student
     String STUDENT_LINK = "http://lamp.ms.wits.ac.za/~s1712776/student.php";
-    String STUDENT_USERNAME = "student_username";
     String STUDENT_FIRSTNAME = "student_firstName";
     String STUDENT_LASTNAME = "student_lastName";
     String STUDENT_PASSWORD = "student_Password";
@@ -39,10 +38,11 @@ public interface ServerUtils {
     String CONTACT_US = "ContactUs";
 
     //activities comment
-    String COMMENT_LINK = "http://lamp.ms.wits.ac.za/~s1712776/student_comment.php";
-    String POST_COMMENT = "postComment";
     int ANONYMOUS_COMMENT_ON = 1;
     int ANONYMOUS_COMMENT_OFF = 0;
+    String COMMENT_LINK = "http://lamp.ms.wits.ac.za/~s1712776/student_comment.php";
+    String STUDENT_USERNAME = "stud_username";
+    String POST_COMMENT = "postComment";
     String STUDENT_COMMENT = "stud_comment";
     String STUDENT_ANONYMITY = "stud_anonymity";
     String STUDENT_DATE = "stud_date";
