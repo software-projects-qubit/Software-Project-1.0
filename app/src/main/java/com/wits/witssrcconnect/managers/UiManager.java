@@ -9,6 +9,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -97,7 +98,13 @@ public class UiManager {
 
                 TextInputEditText comment = activityItemView.findViewById(R.id.input_comment);
                 activityItemView.findViewById(R.id.send_comment).setOnClickListener(v -> {
-
+                    String sComment = comment.getText().toString().trim();
+                    if (TextUtils.isEmpty(sComment)){
+                        comment.setError("Comment required");
+                    }
+                    else {
+                        sComment = sComment.replace("\n", "\\n");
+                    }
                 });
 
                 holder.addView(activityItemView, UiManager.getLayoutParams(15));
