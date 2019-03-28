@@ -60,7 +60,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="17dp"
             android:src="@drawable/icon_like_unpressed"
             app:layout_constraintStart_toStartOf="@+id/src_activity_card_activity"
             app:layout_constraintTop_toBottomOf="@+id/src_activity_card_activity" />
@@ -82,7 +82,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="17dp"
             android:src="@drawable/icon_dis_like_unpressed"
             app:layout_constraintStart_toEndOf="@+id/src_activity_card_num_likes"
             app:layout_constraintTop_toBottomOf="@+id/src_activity_card_activity" />
@@ -105,7 +105,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:layout_marginStart="48dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="17dp"
             android:src="@drawable/icon_comment"
             app:layout_constraintStart_toEndOf="@+id/src_activity_card_num_dislike"
             app:layout_constraintTop_toBottomOf="@+id/src_activity_card_activity" />
