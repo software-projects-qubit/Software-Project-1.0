@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -77,6 +78,9 @@ public class UiManager {
 
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_activity))
                         .setText(activity.getString(ServerUtils.ACTIVITY_DESC).replace("\\n", "\n"));
+
+                SwitchCompat anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
+
 
                 holder.addView(activityItemView, UiManager.getLayoutParams(15));
             }
