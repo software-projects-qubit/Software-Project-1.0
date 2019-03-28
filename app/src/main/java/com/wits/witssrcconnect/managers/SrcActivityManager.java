@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.fragments.AllSrcActivitiesFragment;
@@ -26,8 +27,6 @@ public class SrcActivityManager {
 
     //this function posts an activity to
     public static void postActivity(String title, String activity, Activity activityClass) {
-        Toast.makeText(activityClass, "Please wait...", Toast.LENGTH_SHORT).show();
-
         String[] dateTime = UiManager.getDateTime();
 
         ContentValues cv = new ContentValues();
@@ -38,10 +37,17 @@ public class SrcActivityManager {
         cv.put(ServerUtils.ACTIVITY_DATE, dateTime[0]);
         cv.put(ServerUtils.ACTIVITY_TIME, dateTime[1]);
 
+        Log.d("POST_TEST", ServerUtils.ACTION+":"+ServerUtils.POST_ACTIVITY);
+        Log.d("POST_TEST", ServerUtils.SRC_USERNAME+":"+UserManager.getCurrentlyLoggedInUsername());
+        Log.d("POST_TEST", ServerUtils.ACTIVITY_TITLE+":"+title);
+        Log.d("POST_TEST", ServerUtils.ACTIVITY_DESC+":"+activity);
+        Log.d("POST_TEST", ServerUtils.ACTIVITY_DATE+":"+dateTime[0]);
+        Log.d("POST_TEST", ServerUtils.ACTIVITY_TIME+":"+dateTime[1]);
+
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
-
+                Toast.makeText(activityClass, "Posting Activity...", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -120,6 +126,7 @@ public class SrcActivityManager {
                 if (output != null && output.equals(ServerUtils.SUCCESS)){
                     Toast.makeText(comment.getContext(), "Comment posted", Toast.LENGTH_SHORT).show();
                     comment.setText("");
+                    comment.clearFocus();
                 }
                 else{
                     Toast.makeText(comment.getContext(), "Failed to post comment", Toast.LENGTH_SHORT).show();

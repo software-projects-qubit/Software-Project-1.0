@@ -140,8 +140,7 @@ public class UiManager {
                         comment.setError("Comment required");
                     }
                     else {
-                        Log.d("POPULATE_TEST", String.valueOf(activityId));
-                        Log.d("POPULATE_TEST", String.valueOf(anonymityTracker[0]));
+
 
                         sComment = sComment.replace("\n", "\\n");
                         ContentValues cv = new ContentValues();
