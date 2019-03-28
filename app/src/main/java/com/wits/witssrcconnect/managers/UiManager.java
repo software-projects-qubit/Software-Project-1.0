@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.LogInActivity;
+import com.wits.witssrcconnect.bottom_sheets.ViewCommentsBottomSheet;
 import com.wits.witssrcconnect.utils.ServerUtils;
 
 import org.json.JSONArray;
@@ -79,7 +81,7 @@ public class UiManager {
         return new String[]{date, time};
     }
     //this function populates any given linear layout with src activities
-    public static void populateWithSrcActivities(LinearLayout holder, JSONArray activities) {
+    public static void populateWithSrcActivities(LinearLayout holder, JSONArray activities, FragmentManager fragmentManager) {
         holder.removeAllViews();
 
         try {
@@ -90,12 +92,18 @@ public class UiManager {
                 //get activity id
                 int activityId = activity.getInt(ServerUtils.ACTIVITY_ID);
 
+                //get activity title
+                String title = activity.getString(ServerUtils.ACTIVITY_TITLE);
+
+                //get activity desc
+                String desc = activity.getString(ServerUtils.ACTIVITY_DESC).replace("\\n", "\n");
+
                 //inflate a card view that will display all the date
                 View activityItemView = View.inflate(holder.getContext(), R.layout.item_src_activity_card, null);
 
                 //display title of the activity
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_title))
-                        .setText(activity.getString(ServerUtils.ACTIVITY_TITLE));
+                        .setText(title);
 
                 //display the src member who posted the activity
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_posted_by))
@@ -108,7 +116,7 @@ public class UiManager {
 
                 //display the activity description
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_activity))
-                        .setText(activity.getString(ServerUtils.ACTIVITY_DESC).replace("\\n", "\n"));
+                        .setText(desc);
 
                 //create a reference to the anonymous comment switch
                 SwitchCompat anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
@@ -159,6 +167,15 @@ public class UiManager {
                     }
                 });
 
+                //set on click listener to view comments to show a bottom sheet which contains comments
+                activityItemView.findViewById(R.id.view_comments).setOnClickListener(v -> {
+                    ViewCommentsBottomSheet viewCommentsBottomSheet = new ViewCommentsBottomSheet();
+                    viewCommentsBottomSheet.setActivityId(activityId);
+                    viewCommentsBottomSheet.setActivityTitle(title);
+                    viewCommentsBottomSheet.setActivityDesc(desc);
+                    viewCommentsBottomSheet.show(fragmentManager, "");
+                });
+                //add card to the linear layout that holds all of the activity cards
                 holder.addView(activityItemView, UiManager.getLayoutParams(15));
             }
         } catch (JSONException e) {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +20,12 @@ import org.json.JSONArray;
 public class StudentViewSrcActivitiesFragment extends Fragment {
 
     private static View v;
+    private static FragmentManager fragmentManager = null;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        fragmentManager = getChildFragmentManager();
         v = inflater.inflate(R.layout.fragment_student_view_src_activities, container, false);
         init();
         return v;
@@ -36,6 +40,6 @@ public class StudentViewSrcActivitiesFragment extends Fragment {
 
     public static void init(JSONArray activities) {
         if (v == null) return;
-        UiManager.populateWithSrcActivities(v.findViewById(R.id.student_src_activities_view), activities);
+        UiManager.populateWithSrcActivities(v.findViewById(R.id.student_src_activities_view), activities, fragmentManager);
     }
 }

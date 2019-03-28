@@ -132,8 +132,8 @@ public class LogInActivity extends Activity {
                 if (user == UserUtils.STUDENT){
                     //Ldap ldap = Ldap.connect("student", sUsername, sPassword);
                     //Person u = ldap.getUser(sUsername);
-                    //UserManager.setUserLoggedIn(user, sUsername);
-                    //startActivity(new Intent(this, StudentActivity.class));
+                    UserManager.setUserLoggedIn(user, sUsername);
+                    startActivity(new Intent(this, StudentActivity.class));
                     //finish();
                     //link = ServerUtils.STUDENT_LINK;
                     //cv.put(ServerUtils.STUDENT_USERNAME, sUsername);

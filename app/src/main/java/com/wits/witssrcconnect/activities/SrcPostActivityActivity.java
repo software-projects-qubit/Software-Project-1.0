@@ -39,7 +39,7 @@ public class SrcPostActivityActivity extends AppCompatActivity {
             }
 
             if (everythingOkay){
-                SrcActivityManager.postActivity(sTitle, sActivity.replace("\n", " \\n "), this);
+                SrcActivityManager.postActivity(sTitle, sActivity.replace("\n", "\\n"), this);
             }
         });
     }
