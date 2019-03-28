@@ -10,8 +10,10 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.LogInActivity;
@@ -81,6 +83,16 @@ public class UiManager {
 
                 SwitchCompat anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
 
+                //declare a variable to save the anonymity switch
+                final int[] anonymityTracker = {ServerUtils.ANONYMOUS_COMMENT_OFF};
+
+                anonymitySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    anonymityTracker[0] = isChecked ? ServerUtils.ANONYMOUS_COMMENT_ON : ServerUtils.ANONYMOUS_COMMENT_OFF;
+                    String message;
+                    if (isChecked) message = "Anonymous comment on";
+                    else message = "Anonymous comment off";
+                    Toast.makeText(holder.getContext(), message, Toast.LENGTH_SHORT).show();
+                });
 
                 holder.addView(activityItemView, UiManager.getLayoutParams(15));
             }
