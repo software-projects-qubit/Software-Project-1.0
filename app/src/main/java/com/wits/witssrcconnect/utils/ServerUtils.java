@@ -43,6 +43,7 @@ public interface ServerUtils {
     String COMMENT_LINK = "http://lamp.ms.wits.ac.za/~s1712776/student_comment.php";
     String STUDENT_USERNAME = "stud_username";
     String POST_COMMENT = "postComment";
+    String READ_COMMENT = "readComment";
     String STUDENT_COMMENT = "stud_comment";
     String STUDENT_ANONYMITY = "stud_anonymity";
     String STUDENT_DATE = "stud_date";

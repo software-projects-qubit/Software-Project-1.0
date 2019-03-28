@@ -41,6 +41,8 @@ public class ViewCommentsBottomSheet extends BottomSheetDialogFragment {
 
         //create reference to Linear layout that will hold all the comments
         LinearLayout commentsHolder = commentsView.findViewById(R.id.comments_holder);
+        //this function will fetch all the comments from the database
+        //related to the selected activity and then display them on the linear layout
         SrcActivityManager.populateViewWithComments(commentsHolder, activityId);
 
         ((AppCompatTextView) commentsView.findViewById(R.id.comment_view_activity_title)).setText(title);
