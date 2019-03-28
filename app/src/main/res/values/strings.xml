@@ -26,4 +26,5 @@
     <string name="dislike">dislike</string>
     <string name="comment">Comment</string>
     <string name="view_comments">view Comments</string>
+    <string name="student_anonymity">Anonymous Comment</string>
 </resources>

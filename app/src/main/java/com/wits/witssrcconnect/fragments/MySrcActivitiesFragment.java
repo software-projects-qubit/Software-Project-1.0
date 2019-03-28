@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.managers.UiManager;
+
+import org.json.JSONArray;
 
 public class MySrcActivitiesFragment extends Fragment {
 
@@ -18,13 +21,15 @@ public class MySrcActivitiesFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.fragment_all_my_src_activities, container, false);
-        init();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.fragment_src_activity_view, container, false);
         return v;
     }
 
-    public static void init() {
+    public static void init(JSONArray activities) {
         if (v == null) return;
+        UiManager.populateWithSrcActivities(v.findViewById(R.id.src_activities_holder), activities);
     }
+
 }

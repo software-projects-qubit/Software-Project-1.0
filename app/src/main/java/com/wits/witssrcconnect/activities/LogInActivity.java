@@ -15,6 +15,8 @@ import android.view.animation.AnticipateInterpolator;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.managers.UserManager;
+import com.wits.witssrcconnect.utils.Ldap;
+import com.wits.witssrcconnect.utils.Person;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
@@ -127,13 +129,12 @@ public class LogInActivity extends Activity {
             }
 
             if (allIsOkay){
-
-
-
                 if (user == UserUtils.STUDENT){
-                    UserManager.setUserLoggedIn(user, sUsername);
-                    startActivity(new Intent(this, StudentActivity.class));
-                    finish();
+                    //Ldap ldap = Ldap.connect("student", sUsername, sPassword);
+                    //Person u = ldap.getUser(sUsername);
+                    //UserManager.setUserLoggedIn(user, sUsername);
+                    //startActivity(new Intent(this, StudentActivity.class));
+                    //finish();
                     //link = ServerUtils.STUDENT_LINK;
                     //cv.put(ServerUtils.STUDENT_USERNAME, sUsername);
                     //cv.put(ServerUtils.STUDENT_PASSWORD, sPassword);

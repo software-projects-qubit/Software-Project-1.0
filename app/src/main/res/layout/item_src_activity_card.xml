@@ -16,7 +16,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Wits Hunger Strile"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -24,40 +23,37 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView2"
+            android:id="@+id/src_activity_card_posted_by"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="posted by: srcpresident"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="@+id/src_activity_card_title"
             app:layout_constraintTop_toBottomOf="@+id/src_activity_card_title" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView3"
+            android:id="@+id/src_activity_card_date_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="on 27/03/2018 at 16:09"
             android:textSize="12sp"
             android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="@+id/appCompatTextView2"
+            app:layout_constraintEnd_toEndOf="@+id/src_activity_card_posted_by"
             app:layout_constraintHorizontal_bias="0.368"
-            app:layout_constraintStart_toStartOf="@+id/appCompatTextView2"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2" />
+            app:layout_constraintStart_toStartOf="@+id/src_activity_card_posted_by"
+            app:layout_constraintTop_toBottomOf="@+id/src_activity_card_posted_by" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView4"
+            android:id="@+id/src_activity_card_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="18dp"
-            android:text="In the next 3 weeks we not eating, habib will know us, he thinks we came to play"
             android:textColor="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView3" />
+            app:layout_constraintTop_toBottomOf="@+id/src_activity_card_date_time" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/appCompatImageView4"
@@ -66,15 +62,15 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/icon_like_unpressed"
-            app:layout_constraintStart_toStartOf="@+id/appCompatTextView4"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4" />
+            app:layout_constraintStart_toStartOf="@+id/src_activity_card_activity"
+            app:layout_constraintTop_toBottomOf="@+id/src_activity_card_activity" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView"
+            android:id="@+id/src_activity_card_num_likes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="30"
+            android:text="0  "
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView4"
             app:layout_constraintStart_toEndOf="@+id/appCompatImageView4"
@@ -87,15 +83,15 @@
             android:layout_marginStart="48dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/icon_dis_like_unpressed"
-            app:layout_constraintStart_toEndOf="@+id/appCompatTextView"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4" />
+            app:layout_constraintStart_toEndOf="@+id/src_activity_card_num_likes"
+            app:layout_constraintTop_toBottomOf="@+id/src_activity_card_activity" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView5"
+            android:id="@+id/src_activity_card_num_dislike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="10"
+            android:text="0  "
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView5"
             app:layout_constraintStart_toEndOf="@+id/appCompatImageView5"
@@ -109,14 +105,15 @@
             android:layout_marginStart="48dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/icon_comment"
-            app:layout_constraintStart_toEndOf="@+id/appCompatTextView5"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4" />
+            app:layout_constraintStart_toEndOf="@+id/src_activity_card_num_dislike"
+            app:layout_constraintTop_toBottomOf="@+id/src_activity_card_activity" />
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/src_activity_card_num_comments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="60"
+            android:text="0  "
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView6"
             app:layout_constraintStart_toEndOf="@+id/appCompatImageView6"
@@ -129,7 +126,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4"
+            app:layout_constraintTop_toBottomOf="@+id/src_activity_card_activity"
             tools:layout_editor_absoluteX="0dp">
 
             <LinearLayout
@@ -215,6 +212,17 @@
                         app:layout_constraintVertical_bias="0.0" />
                 </android.support.constraint.ConstraintLayout>
             </LinearLayout>
+
+            <android.support.v7.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layoutDirection="rtl"
+                android:text="@string/student_anonymity"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

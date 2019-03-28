@@ -14,6 +14,11 @@ import android.widget.LinearLayout;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.LogInActivity;
+import com.wits.witssrcconnect.utils.ServerUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class UiManager {
 
@@ -50,5 +55,33 @@ public class UiManager {
         FrameLayout bottomSheet = d.findViewById(android.support.design.R.id.design_bottom_sheet);
         assert bottomSheet != null;
         BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+    }
+
+    //this function populates any given linear layout with src activities
+    public static void populateWithSrcActivities(LinearLayout holder, JSONArray activities) {
+        holder.removeAllViews();
+
+        try {
+            for (int i = 0; i < activities.length(); i++){
+                JSONObject activity = (JSONObject) activities.get(i);
+                View activityItemView = View.inflate(holder.getContext(), R.layout.item_src_activity_card, null);
+                ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_title))
+                        .setText(activity.getString(ServerUtils.ACTIVITY_TITLE));
+
+                ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_posted_by))
+                        .setText(String.format("posted by: %s  ", activity.getString(ServerUtils.SRC_USERNAME)));
+
+                ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_date_time))
+                        .setText(String.format("on %s : %s  ", activity.getString(ServerUtils.ACTIVITY_DATE),
+                                activity.getString(ServerUtils.ACTIVITY_TIME)));
+
+                ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_activity))
+                        .setText(activity.getString(ServerUtils.ACTIVITY_DESC).replace("\\n", "\n"));
+
+                holder.addView(activityItemView, UiManager.getLayoutParams(15));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

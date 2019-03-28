@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
 import com.wits.witssrcconnect.adapters.ViewPagerAdapter;
+import com.wits.witssrcconnect.managers.SrcActivityManager;
 
 public class SrcMemberActivitiesFragment extends Fragment {
 
@@ -48,11 +49,15 @@ public class SrcMemberActivitiesFragment extends Fragment {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        SrcActivityManager.fetchAllActivities(getContext(), null);
 
         SwipeRefreshLayout pullToRefresh = v.findViewById(R.id.src_activities_swipe_refresh_layout);
         pullToRefresh.setOnRefreshListener(() -> {
             //to remove the spinning circle after success or failure
             //pullToRefresh.setRefreshing(false);
+            SrcActivityManager.fetchAllActivities(getContext(), pullToRefresh);
         });
+
+
     }
 }
