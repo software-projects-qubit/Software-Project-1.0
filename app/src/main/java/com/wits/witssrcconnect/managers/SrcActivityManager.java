@@ -169,7 +169,8 @@ public class SrcActivityManager {
                                             comment.getString(ServerUtils.STUDENT_TIME)));
 
                             ((AppCompatTextView) commentView.findViewById(R.id.comment_view))
-                                    .setText(comment.getString(ServerUtils.STUDENT_COMMENT));
+                                    .setText(comment.getString(ServerUtils.STUDENT_COMMENT)
+                                            .replace("\\n", "\n"));
 
                             commentsHolder.addView(commentView, UiManager.getLayoutParams(15));
                         }
