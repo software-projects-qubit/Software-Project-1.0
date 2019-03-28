@@ -36,4 +36,8 @@ public interface ServerUtils {
     String MISSION = "Mission";
     String VISION = "Vision";
     String CONTACT_US = "ContactUs";
+
+    //activities comment
+    int ANONYMOUS_COMMENT_ON = 1;
+    int ANONYMOUS_COMMENT_OFF = 0;
 }
