@@ -162,10 +162,10 @@ public class SrcActivityManager {
                                     UserUtils.ANONYMOUS : comment.getString(ServerUtils.STUDENT_USERNAME);
 
                             ((AppCompatTextView) commentView.findViewById(R.id.comment_owner))
-                                    .setText(String.format("comment by: %s", name));
+                                    .setText(String.format("comment by: %s ", name));
 
                             ((AppCompatTextView) commentView.findViewById(R.id.comment_view_date_time))
-                                    .setText(String.format("on %s at %s", comment.getString(ServerUtils.STUDENT_DATE),
+                                    .setText(String.format("on %s at %s ", comment.getString(ServerUtils.STUDENT_DATE),
                                             comment.getString(ServerUtils.STUDENT_TIME)));
 
                             ((AppCompatTextView) commentView.findViewById(R.id.comment_view))
