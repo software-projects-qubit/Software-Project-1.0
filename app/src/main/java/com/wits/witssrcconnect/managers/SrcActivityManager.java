@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.wits.witssrcconnect.fragments.AllSrcActivitiesFragment;
 import com.wits.witssrcconnect.fragments.MySrcActivitiesFragment;
+import com.wits.witssrcconnect.fragments.StudentViewSrcActivitiesFragment;
 import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
@@ -99,7 +100,7 @@ public class SrcActivityManager {
                                 break;
 
                             case UserUtils.STUDENT:
-
+                                StudentViewSrcActivitiesFragment.init(activities);
                                 break;
                         }
                     } catch (JSONException e) {
