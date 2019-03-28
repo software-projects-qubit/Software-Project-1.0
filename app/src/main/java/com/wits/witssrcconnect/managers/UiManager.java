@@ -25,6 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class UiManager {
 
     //This function creates a layout Params for LinearLayout
@@ -68,26 +70,37 @@ public class UiManager {
 
         try {
             for (int i = 0; i < activities.length(); i++){
+                //get JsonObject from jsonArray which contains data about each and every activity
                 JSONObject activity = (JSONObject) activities.get(i);
+
+                //inflate a card view that will display all the date
                 View activityItemView = View.inflate(holder.getContext(), R.layout.item_src_activity_card, null);
+
+                //display title of the activity
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_title))
                         .setText(activity.getString(ServerUtils.ACTIVITY_TITLE));
 
+                //display the src member who posted the activity
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_posted_by))
                         .setText(String.format("posted by: %s  ", activity.getString(ServerUtils.SRC_USERNAME)));
 
+                //display the date and time of when the activity was posted
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_date_time))
                         .setText(String.format("on %s : %s  ", activity.getString(ServerUtils.ACTIVITY_DATE),
                                 activity.getString(ServerUtils.ACTIVITY_TIME)));
 
+                //display the activity description
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_activity))
                         .setText(activity.getString(ServerUtils.ACTIVITY_DESC).replace("\\n", "\n"));
 
+                //create a reference to the anonymous comment switch
                 SwitchCompat anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
 
                 //declare a variable to save the anonymity switch
                 final int[] anonymityTracker = {ServerUtils.ANONYMOUS_COMMENT_OFF};
 
+                //this allows the app to listen for anonymous comment states (on and off) and displays
+                //a notification at the change of each state
                 anonymitySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     anonymityTracker[0] = isChecked ? ServerUtils.ANONYMOUS_COMMENT_ON : ServerUtils.ANONYMOUS_COMMENT_OFF;
                     String message;
@@ -96,9 +109,16 @@ public class UiManager {
                     Toast.makeText(holder.getContext(), message, Toast.LENGTH_SHORT).show();
                 });
 
+                //create a reference to the TextInputEditText used to input comments
                 TextInputEditText comment = activityItemView.findViewById(R.id.input_comment);
+
+                //set an onClickListener to send comment button, when pressed it will send the comment
+                //to the database
                 activityItemView.findViewById(R.id.send_comment).setOnClickListener(v -> {
-                    String sComment = comment.getText().toString().trim();
+                    //retrieves what the user entered
+                    String sComment = Objects.requireNonNull(comment.getText()).toString().trim();
+                    //check if the user actually entered something
+                    //if he or she didn't enter anything, show error, else post the comment to the database
                     if (TextUtils.isEmpty(sComment)){
                         comment.setError("Comment required");
                     }
