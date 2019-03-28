@@ -39,6 +39,7 @@ public interface ServerUtils {
     String CONTACT_US = "ContactUs";
 
     //activities comment
+    String COMMENT_LINK = "http://lamp.ms.wits.ac.za/~s1712776/student_comment.php";
     String POST_COMMENT = "postComment";
     int ANONYMOUS_COMMENT_ON = 1;
     int ANONYMOUS_COMMENT_OFF = 0;

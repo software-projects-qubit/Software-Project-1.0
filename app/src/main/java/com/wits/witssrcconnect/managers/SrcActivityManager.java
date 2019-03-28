@@ -109,6 +109,22 @@ public class SrcActivityManager {
     }
 
     public static void postComment(ContentValues cv, TextInputEditText comment) {
+        new ServerCommunicator(cv) {
+            @Override
+            protected void onPreExecute() {
+                Toast.makeText(comment.getContext(), "posting comment...", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            protected void onPostExecute(String output) {
+                if (output != null && output.equals(ServerUtils.SUCCESS)){
+                    Toast.makeText(comment.getContext(), "Comment posted", Toast.LENGTH_SHORT).show();
+                    comment.setText("");
+                }
+                else{
+                    Toast.makeText(comment.getContext(), "Failed to post comment", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute(ServerUtils.COMMENT_LINK);
     }
 }
