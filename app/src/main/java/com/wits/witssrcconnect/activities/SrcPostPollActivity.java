@@ -75,6 +75,5 @@ public class SrcPostPollActivity extends AppCompatActivity {
     }
 
     private void addVotingOption(ArrayList<String> optionsArrayList, LinearLayout optionsHolder) {
-
     }
 }
