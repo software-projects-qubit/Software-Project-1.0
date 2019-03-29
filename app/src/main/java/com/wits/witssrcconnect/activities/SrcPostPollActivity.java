@@ -24,6 +24,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 singleSelect = findViewById(R.id.src_single_select),
                 multiSelect = findViewById(R.id.src_multi_select);
 
+        findViewById(R.id.src_add_poll_option).setOnClickListener(v -> {
 
+        });
     }
 }
