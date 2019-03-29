@@ -78,11 +78,17 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
     private void addVotingOption(ArrayList<String> optionsArrayList, LinearLayout optionsHolder) {
         AppCompatEditText choiceInput = new AppCompatEditText(this);
-        new AlertDialog.Builder(this)
+        choiceInput.setHint("Enter option");
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Add Option")
                 .setView(choiceInput)
                 .setPositiveButton("Add", null)
                 .setPositiveButton("Cancel", null)
-                .create().show();
+                .create();
+
+
+
+
     }
 }
