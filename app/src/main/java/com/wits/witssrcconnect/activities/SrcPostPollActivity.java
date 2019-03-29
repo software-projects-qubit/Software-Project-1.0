@@ -100,7 +100,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 cv.put(ServerUtils.SRC_USERNAME, UserManager.getCurrentlyLoggedInUsername());
                 cv.put(ServerUtils.POLL_TITLE, sTitle);
                 cv.put(ServerUtils.POLL_DESC, sPollDesc);
-                cv.put(ServerUtils.POLL_CHOICE, pollType);
+                cv.put(ServerUtils.POLL_CHOICE, stringBuilder.toString());
                 cv.put(ServerUtils.POLL_TYPE, pollType);
                 cv.put(ServerUtils.POLL_DATE, dateTime[0]);
                 cv.put(ServerUtils.POLL_TIME, dateTime[1]);
