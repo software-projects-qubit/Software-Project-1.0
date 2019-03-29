@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 
 import com.wits.witssrcconnect.R;
 
+import java.util.Objects;
+
 public class SrcPostPollActivity extends AppCompatActivity {
 
     @Override
@@ -32,7 +34,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
         LinearLayout optionsHolder = findViewById(R.id.options_holder);
 
         findViewById(R.id.src_post_poll).setOnClickListener(v -> {
-
+            String sTitle = Objects.requireNonNull(title.getText()).toString().trim();
+            String sPollDesc = Objects.requireNonNull(pollDesc.getText()).toString().trim();
         });
     }
 }
