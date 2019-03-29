@@ -48,4 +48,15 @@ public interface ServerUtils {
     String STUDENT_ANONYMITY = "stud_anonymity";
     String STUDENT_DATE = "stud_date";
     String STUDENT_TIME = "stud_time";
+
+    //src poll
+    String POST_POLL = "postPoll";
+    String POLL_TITLE ="poll_title";
+    String POLL_DESC = "poll_desc";
+    String POLL_CHOICE="poll_choices";
+    String POLL_DATE = "poll_date";
+    String POLL_TIME = "poll_time";
+    String POLL_TYPE = "poll_type";
+    int POLL_TYPE_SINGLE_SELECT = 1;
+    int POLL_TYPE_MULTI_SELECT = 0;
 }

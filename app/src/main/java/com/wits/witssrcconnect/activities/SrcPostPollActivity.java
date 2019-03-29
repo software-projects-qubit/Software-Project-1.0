@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.managers.UiManager;
+import com.wits.witssrcconnect.managers.UserManager;
+import com.wits.witssrcconnect.utils.ServerUtils;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -64,11 +66,12 @@ public class SrcPostPollActivity extends AppCompatActivity {
             boolean singleSelected = singleSelect.isChecked();
             boolean multiSelected = multiSelect.isChecked();
 
+            int pollType = -1;
             if (singleSelected){
-
+                pollType = ServerUtils.POLL_TYPE_SINGLE_SELECT;
             }
             else if(multiSelected){
-
+                pollType = ServerUtils.POLL_TYPE_MULTI_SELECT;
             }
             else{
                 everythingOkay = false;
@@ -81,8 +84,19 @@ public class SrcPostPollActivity extends AppCompatActivity {
             }
 
             if (everythingOkay){
+
+                String[] dateTime = UiManager.getDateTime();
+
                 sPollDesc = sPollDesc.replace("\n", "\\n");
                 ContentValues cv = new ContentValues();
+                cv.put(ServerUtils.ACTION, ServerUtils.POST_POLL);
+                cv.put(ServerUtils.SRC_USERNAME, UserManager.getCurrentlyLoggedInUsername());
+                cv.put(ServerUtils.POLL_TITLE, sTitle);
+                cv.put(ServerUtils.POLL_DESC, sPollDesc);
+                cv.put(ServerUtils.POLL_CHOICE, pollType);
+                cv.put(ServerUtils.POLL_TYPE, pollType);
+                cv.put(ServerUtils.POLL_DATE, dateTime[0]);
+                cv.put(ServerUtils.POLL_TIME, dateTime[1]);
             }
         });
     }
