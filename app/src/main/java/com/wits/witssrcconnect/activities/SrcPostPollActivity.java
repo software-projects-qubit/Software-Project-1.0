@@ -10,6 +10,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -92,6 +93,9 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
         dialog.setOnShowListener(dialog1 -> {
             Button add = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            add.setOnClickListener(v -> {
+                String sChoice = Objects.requireNonNull(choiceInput.getText()).toString().trim();
+            });
         });
 
         dialog.show();
