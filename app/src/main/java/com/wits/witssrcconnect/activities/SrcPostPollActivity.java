@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class SrcPostPollActivity extends AppCompatActivity {
@@ -30,6 +31,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 multiSelect = findViewById(R.id.src_multi_select);
 
         LinearLayout optionsHolder = findViewById(R.id.options_holder);
+        ArrayList<String> optionsArrayList = new ArrayList<>();
 
         findViewById(R.id.src_add_poll_option).setOnClickListener(v -> {
 
