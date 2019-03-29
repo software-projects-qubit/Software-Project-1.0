@@ -100,6 +100,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 }
                 else{
                     optionsArrayList.add(sChoice);
+                    View itemOption = View.inflate(this, R.layout.item_option_holder, null);
+
                 }
             });
         });
