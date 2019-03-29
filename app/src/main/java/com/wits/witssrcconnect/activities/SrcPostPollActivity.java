@@ -33,9 +33,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
         LinearLayout optionsHolder = findViewById(R.id.options_holder);
         ArrayList<String> optionsArrayList = new ArrayList<>();
 
-        findViewById(R.id.src_add_poll_option).setOnClickListener(v -> {
-
-        });
+        findViewById(R.id.src_add_poll_option).setOnClickListener(v ->
+                addVotingOption(optionsArrayList, optionsHolder));
 
         findViewById(R.id.src_post_poll).setOnClickListener(v -> {
             String sTitle = Objects.requireNonNull(title.getText()).toString().trim();
@@ -73,5 +72,9 @@ public class SrcPostPollActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    private void addVotingOption(ArrayList<String> optionsArrayList, LinearLayout optionsHolder) {
+
     }
 }
