@@ -23,6 +23,7 @@ cache:
   - $HOME/.gradle/wrapper     #Cache the gradle
 
 android:
+  update_sdk: true
   components:
   - platform-tools
   - tools
