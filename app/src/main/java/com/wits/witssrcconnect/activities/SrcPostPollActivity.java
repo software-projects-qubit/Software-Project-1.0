@@ -79,6 +79,9 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 Toast.makeText(v.getContext(), "Add at least 2 options", Toast.LENGTH_SHORT).show();
             }
 
+            if (everythingOkay){
+                sPollDesc = sPollDesc.replace("\n", "\\n");
+            }
         });
     }
 
@@ -101,12 +104,15 @@ public class SrcPostPollActivity extends AppCompatActivity {
                     choiceInput.setError("Enter option");
                 }
                 else{
+                    sChoice = sChoice.replace("\n", "\\n");
                     optionsArrayList.add(sChoice);
                     View itemOption = View.inflate(this, R.layout.item_option_holder, null);
 
                     ((AppCompatTextView) itemOption.findViewById(R.id.choice_view)).setText(sChoice);
+
+                    String finalSChoice = sChoice;
                     itemOption.findViewById(R.id.delete_choice).setOnClickListener(v1 -> {
-                        optionsArrayList.remove(sChoice);
+                        optionsArrayList.remove(finalSChoice);
                         optionsHolder.removeView(itemOption);
                     });
 
