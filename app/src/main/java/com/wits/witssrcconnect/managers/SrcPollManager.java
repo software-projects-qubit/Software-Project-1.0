@@ -1,6 +1,7 @@
 package com.wits.witssrcconnect.managers;
 
 import android.content.ContentValues;
+import android.widget.Toast;
 
 import com.wits.witssrcconnect.activities.SrcPostPollActivity;
 import com.wits.witssrcconnect.services.ServerCommunicator;
@@ -11,7 +12,7 @@ public class SrcPollManager {
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
-
+                Toast.makeText(srcPostPollActivity, "Posting poll...", Toast.LENGTH_SHORT).show();
             }
 
             @Override
