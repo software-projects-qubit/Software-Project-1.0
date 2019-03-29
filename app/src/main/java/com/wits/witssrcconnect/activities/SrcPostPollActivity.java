@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.managers.UiManager;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -109,6 +110,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
                         optionsHolder.removeView(itemOption);
                     });
 
+                    optionsHolder.addView(itemOption, UiManager.getLayoutParams(15));
                 }
             });
         });
