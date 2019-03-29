@@ -17,7 +17,13 @@ public class SrcPollManager {
 
             @Override
             protected void onPostExecute(String output) {
-
+                if (output != null && output.equals(ServerUtils.SUCCESS)){
+                    Toast.makeText(srcPostPollActivity, "Poll posted", Toast.LENGTH_SHORT).show();
+                    srcPostPollActivity.finish();
+                }
+                else{
+                    Toast.makeText(srcPostPollActivity, "Failed to post poll", Toast.LENGTH_SHORT).show();
+                }
             }
         }.execute(ServerUtils.POLL_LINK);
     }
