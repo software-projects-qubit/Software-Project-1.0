@@ -1,5 +1,6 @@
 package com.wits.witssrcconnect.activities;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -81,6 +82,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
             if (everythingOkay){
                 sPollDesc = sPollDesc.replace("\n", "\\n");
+                ContentValues cv = new ContentValues();
             }
         });
     }
