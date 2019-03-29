@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.text.TextUtils;
 import android.widget.LinearLayout;
 
 import com.wits.witssrcconnect.R;
@@ -36,6 +37,18 @@ public class SrcPostPollActivity extends AppCompatActivity {
         findViewById(R.id.src_post_poll).setOnClickListener(v -> {
             String sTitle = Objects.requireNonNull(title.getText()).toString().trim();
             String sPollDesc = Objects.requireNonNull(pollDesc.getText()).toString().trim();
+
+            boolean everythingOkay = true;
+
+            if (TextUtils.isEmpty(sTitle)){
+                everythingOkay = false;
+                title.setError("Title required");
+            }
+
+            if (TextUtils.isEmpty(sPollDesc)){
+                everythingOkay = false;
+                pollDesc.setError("Poll Description required");
+            }
         });
     }
 }
