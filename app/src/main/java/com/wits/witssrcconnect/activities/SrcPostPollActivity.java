@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
 
@@ -53,6 +54,16 @@ public class SrcPostPollActivity extends AppCompatActivity {
             boolean singleSelected = singleSelect.isSelected();
             boolean multiSelected = multiSelect.isSelected();
 
+            if (singleSelected){
+
+            }
+            else if(multiSelected){
+
+            }
+            else{
+                everythingOkay = false;
+                Toast.makeText(v.getContext(), "Select poll type", Toast.LENGTH_SHORT).show();
+            }
 
         });
     }
