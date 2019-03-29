@@ -31,6 +31,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
         LinearLayout optionsHolder = findViewById(R.id.options_holder);
 
+        findViewById(R.id.src_post_poll).setOnClickListener(v -> {
 
+        });
     }
 }
