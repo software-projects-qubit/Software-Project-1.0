@@ -95,6 +95,12 @@ public class SrcPostPollActivity extends AppCompatActivity {
             Button add = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
             add.setOnClickListener(v -> {
                 String sChoice = Objects.requireNonNull(choiceInput.getText()).toString().trim();
+                if (TextUtils.isEmpty(sChoice)){
+                    choiceInput.setError("Enter option");
+                }
+                else{
+
+                }
             });
         });
 
