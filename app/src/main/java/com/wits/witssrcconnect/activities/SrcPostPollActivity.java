@@ -29,11 +29,11 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 singleSelect = findViewById(R.id.src_single_select),
                 multiSelect = findViewById(R.id.src_multi_select);
 
+        LinearLayout optionsHolder = findViewById(R.id.options_holder);
+
         findViewById(R.id.src_add_poll_option).setOnClickListener(v -> {
 
         });
-
-        LinearLayout optionsHolder = findViewById(R.id.options_holder);
 
         findViewById(R.id.src_post_poll).setOnClickListener(v -> {
             String sTitle = Objects.requireNonNull(title.getText()).toString().trim();
