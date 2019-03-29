@@ -87,6 +87,13 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
                 String[] dateTime = UiManager.getDateTime();
 
+                StringBuilder stringBuilder = new StringBuilder();
+                for (String choice : optionsArrayList){
+                    stringBuilder.append(choice);
+                    stringBuilder.append('~');
+                }
+                stringBuilder.deleteCharAt(stringBuilder.toString().lastIndexOf("~"));
+
                 sPollDesc = sPollDesc.replace("\n", "\\n");
                 ContentValues cv = new ContentValues();
                 cv.put(ServerUtils.ACTION, ServerUtils.POST_POLL);
