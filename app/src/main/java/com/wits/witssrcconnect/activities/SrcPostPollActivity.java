@@ -102,7 +102,12 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 else{
                     optionsArrayList.add(sChoice);
                     View itemOption = View.inflate(this, R.layout.item_option_holder, null);
+
                     ((AppCompatTextView) itemOption.findViewById(R.id.choice_view)).setText(sChoice);
+                    itemOption.findViewById(R.id.delete_choice).setOnClickListener(v1 -> {
+                        optionsArrayList.remove(sChoice);
+                        optionsHolder.removeView(itemOption);
+                    });
 
                 }
             });
