@@ -90,7 +90,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 .setTitle("Add Option")
                 .setView(choiceInput)
                 .setPositiveButton("Add", null)
-                .setPositiveButton("Cancel", (dialog12, which) -> dialog12.dismiss())
+                .setNegativeButton("Cancel", (dialog12, which) -> dialog12.dismiss())
                 .create();
 
         dialog.setOnShowListener(dialog1 -> {
