@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.managers.SrcPollManager;
 import com.wits.witssrcconnect.managers.UiManager;
 import com.wits.witssrcconnect.managers.UserManager;
 import com.wits.witssrcconnect.utils.ServerUtils;
@@ -104,6 +105,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 cv.put(ServerUtils.POLL_TYPE, pollType);
                 cv.put(ServerUtils.POLL_DATE, dateTime[0]);
                 cv.put(ServerUtils.POLL_TIME, dateTime[1]);
+
+                SrcPollManager.postPoll(cv, this);
             }
         });
     }
