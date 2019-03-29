@@ -111,6 +111,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
                     });
 
                     optionsHolder.addView(itemOption, UiManager.getLayoutParams(15));
+                    dialog1.dismiss();
                 }
             });
         });
