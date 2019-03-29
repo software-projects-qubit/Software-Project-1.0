@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils;
 import android.widget.LinearLayout;
@@ -68,12 +69,14 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
             if (optionsArrayList.size() < 2){
                 everythingOkay = false;
-                Toast.makeText(v.getContext(), "Add atleast 2 options", Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Add at least 2 options", Toast.LENGTH_SHORT).show();
             }
 
         });
     }
 
     private void addVotingOption(ArrayList<String> optionsArrayList, LinearLayout optionsHolder) {
+        AppCompatEditText choiceInput = new AppCompatEditText(this);
+
     }
 }
