@@ -1,13 +1,16 @@
 package com.wits.witssrcconnect.activities;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.text.TextUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -84,11 +87,13 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 .setTitle("Add Option")
                 .setView(choiceInput)
                 .setPositiveButton("Add", null)
-                .setPositiveButton("Cancel", null)
+                .setPositiveButton("Cancel", (dialog12, which) -> dialog12.dismiss())
                 .create();
 
+        dialog.setOnShowListener(dialog1 -> {
+            Button add = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+        });
 
-
-
+        dialog.show();
     }
 }
