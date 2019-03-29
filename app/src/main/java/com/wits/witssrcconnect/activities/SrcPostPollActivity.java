@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatRadioButton;
 
 import com.wits.witssrcconnect.R;
 
@@ -18,6 +19,10 @@ public class SrcPostPollActivity extends AppCompatActivity {
         TextInputEditText
                 title = findViewById(R.id.src_poll_title),
                 pollDesc = findViewById(R.id.src_poll_desc);
+
+        AppCompatRadioButton
+                singleSelect = findViewById(R.id.src_single_select),
+                multiSelect = findViewById(R.id.src_multi_select);
 
 
     }
