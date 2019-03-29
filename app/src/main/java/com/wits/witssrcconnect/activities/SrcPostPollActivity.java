@@ -11,7 +11,9 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -114,6 +116,27 @@ public class SrcPostPollActivity extends AppCompatActivity {
     private void addVotingOption(ArrayList<String> optionsArrayList, LinearLayout optionsHolder) {
         AppCompatEditText choiceInput = new AppCompatEditText(this);
         choiceInput.setHint("Enter option");
+
+        choiceInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String input = s.toString();
+                if (input.contains("~")){
+                    input = input.replace("~","");
+                    choiceInput.setText(input);
+                }
+            }
+        });
 
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Add Option")
