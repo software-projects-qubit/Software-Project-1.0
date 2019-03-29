@@ -50,6 +50,7 @@ public interface ServerUtils {
     String STUDENT_TIME = "stud_time";
 
     //src poll
+    String POLL_LINK = "http://lamp.ms.wits.ac.za/~s1712776/src_poll.php";
     String POST_POLL = "postPoll";
     String POLL_TITLE ="poll_title";
     String POLL_DESC = "poll_desc";
