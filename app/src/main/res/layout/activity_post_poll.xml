@@ -58,12 +58,14 @@
                 android:layout_height="wrap_content">
 
                 <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/src_single_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/single_select_desc"
                     android:layout_margin="5dp"/>
 
                 <android.support.v7.widget.AppCompatRadioButton
+                    android:id="@+id/src_multi_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/multi_select_desc"
