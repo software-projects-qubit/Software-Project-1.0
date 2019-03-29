@@ -99,7 +99,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
                     choiceInput.setError("Enter option");
                 }
                 else{
-
+                    optionsArrayList.add(sChoice);
                 }
             });
         });
