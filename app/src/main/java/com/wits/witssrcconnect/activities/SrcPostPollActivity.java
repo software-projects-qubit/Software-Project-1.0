@@ -49,6 +49,11 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 everythingOkay = false;
                 pollDesc.setError("Poll Description required");
             }
+
+            boolean singleSelected = singleSelect.isSelected();
+            boolean multiSelected = multiSelect.isSelected();
+
+
         });
     }
 }
