@@ -60,8 +60,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 pollDesc.setError("Poll Description required");
             }
 
-            boolean singleSelected = singleSelect.isSelected();
-            boolean multiSelected = multiSelect.isSelected();
+            boolean singleSelected = singleSelect.isChecked();
+            boolean multiSelected = multiSelect.isChecked();
 
             if (singleSelected){
 
