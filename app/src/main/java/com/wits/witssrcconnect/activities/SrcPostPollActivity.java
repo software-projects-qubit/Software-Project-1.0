@@ -134,6 +134,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 if (input.contains("~")){
                     input = input.replace("~","");
                     choiceInput.setText(input);
+                    choiceInput.setSelection(input.length());
                 }
             }
         });
