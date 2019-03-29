@@ -67,6 +67,11 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 Toast.makeText(v.getContext(), "Select poll type", Toast.LENGTH_SHORT).show();
             }
 
+            if (optionsArrayList.size() < 2){
+                everythingOkay = false;
+                Toast.makeText(v.getContext(), "Add atleast 2 options", Toast.LENGTH_SHORT).show();
+            }
+
         });
     }
 }
