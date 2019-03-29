@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.widget.LinearLayout;
 
 import com.wits.witssrcconnect.R;
 
@@ -27,5 +28,9 @@ public class SrcPostPollActivity extends AppCompatActivity {
         findViewById(R.id.src_add_poll_option).setOnClickListener(v -> {
 
         });
+
+        LinearLayout optionsHolder = findViewById(R.id.options_holder);
+
+
     }
 }
