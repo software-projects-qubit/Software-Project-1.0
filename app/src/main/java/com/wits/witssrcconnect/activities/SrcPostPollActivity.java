@@ -3,6 +3,7 @@ package com.wits.witssrcconnect.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
@@ -77,6 +78,11 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
     private void addVotingOption(ArrayList<String> optionsArrayList, LinearLayout optionsHolder) {
         AppCompatEditText choiceInput = new AppCompatEditText(this);
-
+        new AlertDialog.Builder(this)
+                .setTitle("Add Option")
+                .setView(choiceInput)
+                .setPositiveButton("Add", null)
+                .setPositiveButton("Cancel", null)
+                .create().show();
     }
 }
