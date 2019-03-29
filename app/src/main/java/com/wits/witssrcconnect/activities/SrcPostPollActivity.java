@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -101,6 +102,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 else{
                     optionsArrayList.add(sChoice);
                     View itemOption = View.inflate(this, R.layout.item_option_holder, null);
+                    ((AppCompatTextView) itemOption.findViewById(R.id.choice_view)).setText(sChoice);
 
                 }
             });
