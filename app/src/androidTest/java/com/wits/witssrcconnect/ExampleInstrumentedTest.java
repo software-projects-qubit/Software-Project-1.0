@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.triplec.paul.phinda.skhumbuzo.mulisa.witssrcconnect", appContext.getPackageName());
+        assertEquals("com.wits.witssrcconnect", appContext.getPackageName());
     }
 }
