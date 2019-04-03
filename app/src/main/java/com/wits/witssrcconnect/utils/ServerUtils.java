@@ -11,14 +11,15 @@ public interface ServerUtils {
     String SUCCESS = "1";
     String FAILED = "0";
 
+
     //student
-    String STUDENT_LINK = "http://lamp.ms.wits.ac.za/~s1712776/student.php";
+    String STUDENT_LINK = "http://1627982.ms.wits.ac.za/~student/student.php";
     String STUDENT_FIRSTNAME = "student_firstName";
     String STUDENT_LASTNAME = "student_lastName";
     String STUDENT_PASSWORD = "student_Password";
 
     //src member
-    String SRC_MEMBER_LINK = "http://lamp.ms.wits.ac.za/~s1712776/src_member.php";
+    String SRC_MEMBER_LINK = "http://1627982.ms.wits.ac.za/~student/src_member.php";
     String SRC_USERNAME = "member_username";
     String SRC_PASSWORD = "member_password";
 
@@ -32,7 +33,7 @@ public interface ServerUtils {
     String ACTIVITY_TIME = "activity_time";
 
     //homepage
-    String HOME_PAGE_JSON_LINK = "http://lamp.ms.wits.ac.za/~s1712776/Homepage.json";
+    String HOME_PAGE_JSON_LINK = "http://1627982.ms.wits.ac.za/~student/Homepage.json";
     String MISSION = "Mission";
     String VISION = "Vision";
     String CONTACT_US = "ContactUs";
@@ -40,7 +41,7 @@ public interface ServerUtils {
     //activities comment
     int ANONYMOUS_COMMENT_ON = 1;
     int ANONYMOUS_COMMENT_OFF = 0;
-    String COMMENT_LINK = "http://lamp.ms.wits.ac.za/~s1712776/student_comment.php";
+    String COMMENT_LINK = "http://1627982.ms.wits.ac.za/~student/student_comment.php";
     String STUDENT_USERNAME = "stud_username";
     String POST_COMMENT = "postComment";
     String READ_COMMENT = "readComment";
@@ -50,7 +51,7 @@ public interface ServerUtils {
     String STUDENT_TIME = "stud_time";
 
     //src poll
-    String POLL_LINK = "http://lamp.ms.wits.ac.za/~s1712776/src_poll.php";
+    String POLL_LINK = "http://1627982.ms.wits.ac.za/~student/src_poll.php";
     String POST_POLL = "postPoll";
     String POLL_TITLE ="poll_title";
     String POLL_DESC = "poll_desc";
@@ -58,6 +59,7 @@ public interface ServerUtils {
     String POLL_DATE = "poll_date";
     String POLL_TIME = "poll_time";
     String POLL_TYPE = "poll_type";
+
     int POLL_TYPE_SINGLE_SELECT = 1;
     int POLL_TYPE_MULTI_SELECT = 0;
 }

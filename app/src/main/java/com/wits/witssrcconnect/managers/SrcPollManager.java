@@ -25,6 +25,6 @@ public class SrcPollManager {
                     Toast.makeText(srcPostPollActivity, "Failed to post poll", Toast.LENGTH_SHORT).show();
                 }
             }
-        }.execute(ServerUtils.POLL_LINK);
+        }.execute(ServerUtils.SRC_MEMBER_LINK);
     }
 }
