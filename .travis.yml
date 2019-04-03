@@ -1,9 +1,12 @@
 sudo: false
+
 language: android
+
 env:
   global:
     - ANDROID_TARGET=android-22
     - ANDROID_ABI=armeabi-v7a
+
 android:
   components:
   - tools #
@@ -15,13 +18,20 @@ android:
   - extra
   - $ANDROID_TARGET
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+
 licenses:
 - 'android-sdk-license-.+'
+
 before_install:
   - yes | sdkmanager "platforms;android-27"
+
 script:
-- echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
-- emulator -avd test -no-skin -no-audio -no-window &
-- android-wait-for-emulator
-- adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
-- ./gradlew connectedCheck
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
+  - ./gradlew connectedCheck
+  - ./gradlew build jacocoTestReport
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
