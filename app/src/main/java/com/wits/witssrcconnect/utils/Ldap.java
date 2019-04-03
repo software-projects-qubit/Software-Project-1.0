@@ -1,7 +1,9 @@
 package com.wits.witssrcconnect.utils;
 
+public class Ldap{
 
-import java.util.Hashtable;
+}
+/*import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,11 +17,6 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
-
-/**
- *
- * @author steve
- */
 public class Ldap {
 
     private LdapContext context; 
@@ -107,4 +104,4 @@ public class Ldap {
         return person;
     }
 
-}
+}*/
