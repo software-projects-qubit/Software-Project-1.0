@@ -96,18 +96,18 @@ public class UserManager {
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                showLogInFailedToast(context);
                             }
                             break;
 
                         case UserUtils.SRC_MEMBER:
-                            if (output.equals(ServerUtils.FAILED)){
-                                showLogInFailedToast(context);
-                                return;
+                            if (output.equals(ServerUtils.SUCCESS)){
+                                UserManager.setUserLoggedIn(user, cv.getAsString(ServerUtils.SRC_USERNAME));
+                                context.startActivity(new Intent(context, SrcMemberActivity.class));
+                                ((Activity) context).finish();
                             }
+                            else showLogInFailedToast(context);
 
-                            UserManager.setUserLoggedIn(user, cv.getAsString(ServerUtils.SRC_USERNAME));
-                            context.startActivity(new Intent(context, SrcMemberActivity.class));
-                            ((Activity) context).finish();
                             break;
                     }
                 }

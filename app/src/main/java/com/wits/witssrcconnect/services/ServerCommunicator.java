@@ -33,6 +33,15 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
     private static int positionHolder = 0;
     private static AppCompatTextView message = null;
     private static final Handler handler = new Handler();
+    private static final Handler patienceHandler = new Handler();
+
+    private static final Runnable patienceRunnable = new Runnable() {
+        @Override
+        public void run() {
+            handler.postDelayed(runnable, 500);
+            progressDialog.show();
+        }
+    };
 
     private static final Runnable runnable = new Runnable() {
         @Override
@@ -98,12 +107,13 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
                 .setCancelable(false)
                 .setView(progressLayout)
                 .create();
-        handler.postDelayed(runnable, 500);
-        progressDialog.show();
+
+        patienceHandler.postDelayed(patienceRunnable, 450);
 
     }
 
     public static void closeLoadingDialog(){
+        patienceHandler.removeCallbacks(patienceRunnable);
         if (progressDialog != null && progressDialog.isShowing()){
             positionHolder = 0;
             progressDialog.dismiss();
