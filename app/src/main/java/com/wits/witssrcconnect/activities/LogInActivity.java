@@ -15,8 +15,6 @@ import android.view.animation.AnticipateInterpolator;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.managers.UserManager;
-import com.wits.witssrcconnect.utils.Ldap;
-import com.wits.witssrcconnect.utils.Person;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
@@ -129,33 +127,23 @@ public class LogInActivity extends Activity {
             }
 
             if (allIsOkay){
+                ContentValues cv = new ContentValues();
+                String link;
                 if (user == UserUtils.STUDENT){
-                    //Ldap ldap = Ldap.connect("student", sUsername, sPassword);
-                    //Person u = ldap.getUser(sUsername);
-                    UserManager.setUserLoggedIn(user, sUsername);
-                    startActivity(new Intent(this, StudentActivity.class));
-                    //finish();
-                    //link = ServerUtils.STUDENT_LINK;
-                    //cv.put(ServerUtils.STUDENT_USERNAME, sUsername);
-                    //cv.put(ServerUtils.STUDENT_PASSWORD, sPassword);
-                    //STILL NOT WORKING
-                    //Ldap ldap = Ldap.connect("student", sUsername, sPassword);
-                    //Person person = ldap.getUser(sUsername);
-                    //if (person == null){
-                       //Toast.makeText(this, "Failed to login", Toast.LENGTH_SHORT).show();
-                    //}
-                    //else{
-                        //Toast.makeText(this, "works", Toast.LENGTH_SHORT).show();
-                    //}
-                    //ldap.close();
+                    cv.put(ServerUtils.USERNAME, sUsername);
+                    cv.put(ServerUtils.PASSWORD, sPassword);
+                    link = ServerUtils.LOG_IN_LINK;
                 }
                 else {
-                    ContentValues cv = new ContentValues();
+
                     cv.put(ServerUtils.ACTION, ServerUtils.LOG_IN);
                     cv.put(ServerUtils.SRC_USERNAME, sUsername);
                     cv.put(ServerUtils.SRC_PASSWORD, sPassword);
-                    UserManager.logIn(user, cv, ServerUtils.SRC_MEMBER_LINK, LogInActivity.this);
+                    link = ServerUtils.SRC_MEMBER_LINK;
+
+
                 }
+                UserManager.logIn(user, cv, link, LogInActivity.this);
             }
         });
     }

@@ -11,6 +11,12 @@ public interface ServerUtils {
     String SUCCESS = "1";
     String FAILED = "0";
 
+    //LOG_IN
+    String LOG_IN_LINK = "http://1627982.ms.wits.ac.za/~student/auth.php";
+    String USERNAME = "USERNAME";
+    String PASSWORD = "PASSWORD";
+    String NAME = "name";
+    String SURNAME = "surname";
 
     //student
     String STUDENT_LINK = "http://1627982.ms.wits.ac.za/~student/student.php";

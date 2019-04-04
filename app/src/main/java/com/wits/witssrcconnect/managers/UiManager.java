@@ -24,6 +24,7 @@ import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.LogInActivity;
 import com.wits.witssrcconnect.bottom_sheets.ViewCommentsBottomSheet;
 import com.wits.witssrcconnect.utils.ServerUtils;
+import com.wits.witssrcconnect.utils.UserUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,8 +51,16 @@ public class UiManager {
     //Function that populates the navigation head with username and user type
     //of the currently logged in user
     public static void populateNavHead(View headerView) {
-        ((AppCompatTextView) headerView.findViewById(R.id.header_username))
-                .setText(UserManager.getCurrentlyLoggedInUsername());
+        String name;
+        //check which user logged in and choose correct name to be displayed
+        //if it's a student who logged in, display their name and surname
+        //if it's an src member who logged in, display their position
+        if (UserManager.getLoggedInUserType() == UserUtils.STUDENT){
+            name = UserManager.getUserNameSurname();
+        }
+        else name = UserManager.getCurrentlyLoggedInUsername();
+
+        ((AppCompatTextView) headerView.findViewById(R.id.header_username)).setText(name);
         ((AppCompatTextView) headerView.findViewById(R.id.header_user_type))
                 .setText(UserManager.getLoggedInUserTypeName(headerView.getContext()));
     }
@@ -80,8 +89,10 @@ public class UiManager {
         String time = dateTimeList[1].trim();
         return new String[]{date, time};
     }
+
     //this function populates any given linear layout with src activities
-    public static void populateWithSrcActivities(LinearLayout holder, JSONArray activities, FragmentManager fragmentManager) {
+    public static void populateWithSrcActivities(LinearLayout holder, JSONArray activities,
+                                                 FragmentManager fragmentManager) {
         holder.removeAllViews();
 
         try {
