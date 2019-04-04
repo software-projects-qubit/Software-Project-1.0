@@ -44,11 +44,13 @@ public class SrcActivityManager {
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
+                ServerCommunicator.showLoadingDialog(activityClass);
                 Toast.makeText(activityClass, "Posting Activity...", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             protected void onPostExecute(String output) {
+                ServerCommunicator.closeLoadingDialog();
                 if (output != null && output.equals(ServerUtils.SUCCESS)){
                     Toast.makeText(activityClass, "Activity posted", Toast.LENGTH_SHORT).show();
                     activityClass.finish();
@@ -66,11 +68,11 @@ public class SrcActivityManager {
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
-
             }
 
             @Override
             protected void onPostExecute(String output) {
+
                 if (pullToRefresh != null) pullToRefresh.setRefreshing(false);
 
                 if (output == null ){

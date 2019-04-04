@@ -8,13 +8,16 @@ import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
+import android.view.View;
 import android.view.animation.AnticipateInterpolator;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.managers.UserManager;
+import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
@@ -45,9 +48,12 @@ public class LogInActivity extends Activity {
         }
 
         setContentView(R.layout.activity_log_in_splash);
+
         cc1 = findViewById(R.id.cc1);
         new Handler().postDelayed(this::showAnimation, 3000);
     }
+
+
 
     @Override
     public void onBackPressed(){

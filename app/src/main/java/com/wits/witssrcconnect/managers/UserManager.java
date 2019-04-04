@@ -75,11 +75,12 @@ public class UserManager {
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
-
+                ServerCommunicator.showLoadingDialog(context);
             }
 
             @Override
             protected void onPostExecute(String output) {
+                ServerCommunicator.closeLoadingDialog();
                 if (output == null) showLogInFailedToast(context);
                 else{
                     switch (user){

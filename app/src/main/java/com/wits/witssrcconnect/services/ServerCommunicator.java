@@ -1,9 +1,18 @@
 package com.wits.witssrcconnect.services;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
+import android.view.View;
+
+import com.wits.witssrcconnect.R;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,9 +24,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 
+@SuppressLint("StaticFieldLeak")
 public abstract class ServerCommunicator extends AsyncTask<String, String, String> {
 
     private static final String TAG = "SERVER_COMMUNICATOR";
+    private static AlertDialog progressDialog = null;
+    private static String[] wordList = {"Please wait ", "Please wait. ","Please wait.. ","Please wait... "};
+    private static int positionHolder = 0;
+    private static AppCompatTextView message = null;
+    private static final Handler handler = new Handler();
+
+    private static final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (positionHolder == 4) positionHolder = 0;
+            message.setText(wordList[positionHolder++]);
+            handler.postDelayed(runnable, 500);
+        }
+    };
 
     //private final String address;
     private final ContentValues params;
@@ -64,4 +88,26 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
     }
     @Override
     protected abstract void onPostExecute(String output);
+
+    public static void showLoadingDialog(Context context) {
+        View progressLayout = View.inflate(context, R.layout.progress_layout, null);
+        message = progressLayout.findViewById(R.id.progress_textView);
+        progressDialog = new AlertDialog.Builder(context)
+                .setTitle("Loading")
+                .setIcon(R.mipmap.ic_launcher_round)
+                .setCancelable(false)
+                .setView(progressLayout)
+                .create();
+        handler.postDelayed(runnable, 500);
+        progressDialog.show();
+
+    }
+
+    public static void closeLoadingDialog(){
+        if (progressDialog != null && progressDialog.isShowing()){
+            positionHolder = 0;
+            progressDialog.dismiss();
+            handler.removeCallbacks(runnable);
+        }
+    }
 }
