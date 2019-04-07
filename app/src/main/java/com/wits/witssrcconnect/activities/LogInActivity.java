@@ -12,10 +12,12 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnticipateInterpolator;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.managers.SecurityManager;
 import com.wits.witssrcconnect.managers.UserManager;
 import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
@@ -51,6 +53,8 @@ public class LogInActivity extends Activity {
 
         cc1 = findViewById(R.id.cc1);
         new Handler().postDelayed(this::showAnimation, 3000);
+
+
     }
 
 
