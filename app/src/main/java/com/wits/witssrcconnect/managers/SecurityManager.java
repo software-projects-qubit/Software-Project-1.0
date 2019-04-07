@@ -1,26 +1,12 @@
 package com.wits.witssrcconnect.managers;
 
-import android.content.ContentValues;
 
-import com.triplec.paul.phinda.skhumbuzo.mulisa.witsieonthemove.utils.ServerUtils;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SecurityManager {
-
-    private static String userName, userPass;
-
-    public static void saveUserCredentials(String userName, String userPass){
-        SecurityManager.userName = userName;
-        SecurityManager.userPass = userPass;
-    }
-
-    public static void addAuthenticationLayer(ContentValues contentValues){
-        contentValues.put(ServerUtils.AUTH_NAME, SecurityManager.userName);
-        contentValues.put(ServerUtils.AUTH_PASSWORD, SecurityManager.userPass);
-    }
 
     public static String SHA1(String text){
         try {
