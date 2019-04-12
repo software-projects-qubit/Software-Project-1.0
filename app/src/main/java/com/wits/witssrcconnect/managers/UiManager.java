@@ -197,7 +197,44 @@ public class UiManager {
     }
 
     //this function populates any given linear layout with src polls
-    public static void populateWithPollActivities(LinearLayout holder, JSONArray polls, FragmentManager fragmentManager){
+    public static void populateWithPolls(LinearLayout holder, JSONArray polls, FragmentManager fragmentManager){
+        try {
+            for (int i = 0; i < polls.length(); i++){
+                JSONObject poll = (JSONObject) polls.get(i);
+                View pollItem = View.inflate(holder.getContext(), R.layout.item_poll_card, null);
+
+                ((AppCompatTextView) pollItem.findViewById(R.id.poll_title))
+                        .setText(poll.getString(ServerUtils.POLL_TITLE));
+                ((AppCompatTextView) pollItem.findViewById(R.id.poll_poster))
+                        .setText(String.format("posted by: %s",
+                                poll.getString(ServerUtils.SRC_USERNAME)));
+                ((AppCompatTextView) pollItem.findViewById(R.id.poll_date_time))
+                        .setText(String.format("on %s at %s",
+                                poll.getString(ServerUtils.POLL_DATE),
+                                poll.getString(ServerUtils.POLL_TIME)));
+                ((AppCompatTextView) pollItem.findViewById(R.id.poll_desc))
+                        .setText(poll.getString(ServerUtils.POLL_DESC));
+
+                String[] pollChoices = poll.getString(ServerUtils.POLL_CHOICE).split("~");
+                StringBuilder builder = new StringBuilder();
+
+                for (int k = 0; k < pollChoices.length; k++){
+                    builder.append(String.format(Locale.getDefault(),"%s: %d", pollChoices[k], 0//for now
+                    ));
+                    if (k + 1 != pollChoices.length) builder.append("\n\n");
+                }
+
+                //saved for future use
+                int pollType = poll.getInt(ServerUtils.POLL_TYPE);
+                pollItem.findViewById(R.id.poll_vote).setOnClickListener(v -> {
+
+                });
+
+                holder.addView(pollItem, UiManager.getLayoutParams(15));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 }
