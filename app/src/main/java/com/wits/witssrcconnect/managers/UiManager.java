@@ -122,7 +122,7 @@ public class UiManager {
 
                 //display the date and time of when the activity was posted
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_date_time))
-                        .setText(String.format("on %s : %s  ", activity.getString(ServerUtils.ACTIVITY_DATE),
+                        .setText(String.format("on %s at %s  ", activity.getString(ServerUtils.ACTIVITY_DATE),
                                 activity.getString(ServerUtils.ACTIVITY_TIME)));
 
                 //display the activity description
@@ -194,5 +194,10 @@ public class UiManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    //this function populates any given linear layout with src polls
+    public static void populateWithPollActivities(LinearLayout holder, JSONArray polls, FragmentManager fragmentManager){
+
     }
 }
