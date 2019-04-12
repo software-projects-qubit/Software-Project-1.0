@@ -49,6 +49,7 @@ public class SrcPollFragment extends Fragment {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        SrcPollManager.fetchAllPolls(getContext(), null);
 
         SwipeRefreshLayout pullToRefresh = v.findViewById(R.id.src_poll_swipe_refresh_layout);
         pullToRefresh.setOnRefreshListener(() -> {

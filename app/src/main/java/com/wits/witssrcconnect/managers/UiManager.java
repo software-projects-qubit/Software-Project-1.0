@@ -224,6 +224,8 @@ public class UiManager {
                     if (k + 1 != pollChoices.length) builder.append("\n\n");
                 }
 
+                ((AppCompatTextView) pollItem.findViewById(R.id.poll_choice_stats))
+                        .setText(builder.toString());
                 //saved for future use
                 int pollType = poll.getInt(ServerUtils.POLL_TYPE);
                 pollItem.findViewById(R.id.poll_vote).setOnClickListener(v -> {
