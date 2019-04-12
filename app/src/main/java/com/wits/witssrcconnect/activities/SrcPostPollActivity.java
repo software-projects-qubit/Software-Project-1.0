@@ -14,6 +14,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -100,6 +101,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 sPollDesc = sPollDesc.replace("\n", "\\n");
                 ContentValues cv = new ContentValues();
                 cv.put(ServerUtils.ACTION, ServerUtils.POST_POLL);
+
                 cv.put(ServerUtils.SRC_USERNAME, UserManager.getCurrentlyLoggedInUsername());
                 cv.put(ServerUtils.POLL_TITLE, sTitle);
                 cv.put(ServerUtils.POLL_DESC, sPollDesc);

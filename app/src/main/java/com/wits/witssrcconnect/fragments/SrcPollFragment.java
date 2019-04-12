@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.SrcPostPollActivity;
 import com.wits.witssrcconnect.adapters.ViewPagerAdapter;
+import com.wits.witssrcconnect.managers.SrcPollManager;
 
 public class SrcPollFragment extends Fragment {
 
@@ -53,6 +54,7 @@ public class SrcPollFragment extends Fragment {
         pullToRefresh.setOnRefreshListener(() -> {
             //to remove the spinning circle after success or failure
             //pullToRefresh.setRefreshing(false);
+            SrcPollManager.fetchAllPolls(getContext(), pullToRefresh);
         });
     }
 }

@@ -75,16 +75,17 @@ public class SrcActivityManager {
 
                 if (pullToRefresh != null) pullToRefresh.setRefreshing(false);
 
-                if (output == null ){
+                if (output == null || output.equals("")){
                     Toast.makeText(c, "Failed to get activities", Toast.LENGTH_SHORT).show();
-                }
-                else if(output.equals("")){
-                    Toast.makeText(c, "There are no activities", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     try {
                         JSONArray activities = new JSONArray(output);
 
+                        if (activities.length() == 0){
+                            Toast.makeText(c, "There are no activities", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         switch (UserManager.getLoggedInUserType()){
                             case UserUtils.SRC_MEMBER:
                                 String current_src_username = UserManager.getCurrentlyLoggedInUsername();

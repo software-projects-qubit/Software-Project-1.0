@@ -11,20 +11,24 @@ import android.view.ViewGroup;
 
 import com.wits.witssrcconnect.R;
 
+import org.json.JSONArray;
+
 public class AllSrcPollFragment extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     private static View v = null;
 
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_src_activity_view, container, false);
-        init();
         return v;
     }
 
-    public static void init() {
+
+    public static void init(JSONArray polls) {
         if (v == null) return;
     }
 }
