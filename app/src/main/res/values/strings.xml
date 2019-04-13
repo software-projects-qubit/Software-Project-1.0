@@ -34,4 +34,6 @@
     <string name="multi_select_desc">Multi Select\nWhen selected this allows students to select more than one option when voting</string>
     <string name="add_option">add option</string>
     <string name="vote">vote</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
 </resources>

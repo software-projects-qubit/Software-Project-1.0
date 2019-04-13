@@ -9,15 +9,18 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
@@ -92,7 +95,7 @@ public class UiManager {
 
     //this function populates any given linear layout with src activities
     public static void populateWithSrcActivities(LinearLayout holder, JSONArray activities,
-                                                 FragmentManager fragmentManager) {
+                                                 FragmentManager fragmentManager, boolean mine) {
         holder.removeAllViews();
 
         try {
@@ -188,6 +191,29 @@ public class UiManager {
                     viewCommentsBottomSheet.setActivityDesc(desc);
                     viewCommentsBottomSheet.show(fragmentManager, "");
                 });
+
+                //create reference to the menu button
+                AppCompatImageButton menu = activityItemView.findViewById(R.id.src_activity_menu);
+                if (mine){
+                    PopupMenu popupMenu = new PopupMenu(menu.getContext(), menu);
+                    popupMenu.inflate(R.menu.src_activity_menu);
+                    popupMenu.setOnMenuItemClickListener(item -> {
+                        switch (item.getItemId()){
+                            case R.id.src_activity_menu_update:
+
+                                break;
+
+                            case R.id.src_activity_menu_delete:
+
+                                break;
+                        }
+                        return false;
+                    });
+                    menu.setOnClickListener(v -> popupMenu.show());
+                }
+                else{
+                    menu.setVisibility(View.GONE);
+                }
                 //add card to the linear layout that holds all of the activity cards
                 holder.addView(activityItemView, UiManager.getLayoutParams(15));
             }

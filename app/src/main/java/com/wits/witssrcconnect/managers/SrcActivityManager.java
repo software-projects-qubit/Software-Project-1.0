@@ -144,7 +144,7 @@ public class SrcActivityManager {
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
-                Toast.makeText(c, "Retrieving comments...", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(c, "Retrieving comments...", Toast.LENGTH_SHORT).show();
             }
 
             @Override

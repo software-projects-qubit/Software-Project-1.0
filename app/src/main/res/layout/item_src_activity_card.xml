@@ -10,6 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/src_activity_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.966"
+            app:layout_constraintStart_toEndOf="@+id/src_activity_card_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/src_activity_card_title"
             android:layout_width="wrap_content"
