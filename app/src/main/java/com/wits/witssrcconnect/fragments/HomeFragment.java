@@ -1,10 +1,12 @@
 package com.wits.witssrcconnect.fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +21,25 @@ import com.wits.witssrcconnect.utils.ServerUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@SuppressLint("StaticFieldLeak")
 public class HomeFragment extends Fragment {
+
+    private View v;
+    private static SwipeRefreshLayout refresh = null;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_student_home, container, false);
-        populateHomePage(v.findViewById(R.id.home_page_items_holder));
+        v = inflater.inflate(R.layout.fragment_home, container, false);
+        refresh = v.findViewById(R.id.home_refresh_layout);
+        refresh.setOnRefreshListener(() -> populateHomePage(v.findViewById(R.id.home_page_items_holder)));
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateHomePage(v.findViewById(R.id.home_page_items_holder));
     }
 
     //connect to server and retrieve data from Homepage.json
@@ -34,6 +47,7 @@ public class HomeFragment extends Fragment {
         new JSONDownloader() {
             @Override
             protected void onPostExecute(JSONObject jsonObject) {
+                if (refresh != null) refresh.setRefreshing(false);
                 if (jsonObject == null) return;
 
                 Context context = holder.getContext();

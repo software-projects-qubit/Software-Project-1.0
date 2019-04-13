@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
 import com.wits.witssrcconnect.fragments.AllSrcActivitiesFragment;
 import com.wits.witssrcconnect.fragments.MySrcActivitiesFragment;
 import com.wits.witssrcconnect.fragments.StudentViewSrcActivitiesFragment;
@@ -183,5 +184,33 @@ public class SrcActivityManager {
                 }
             }
         }.execute(ServerUtils.COMMENT_LINK);
+    }
+
+    public static void updateActivity(int finalActivityId, String sTitle, String sActivity, Activity activity) {
+        ContentValues cv = new ContentValues();
+        cv.put(ServerUtils.ACTION, ServerUtils.UPDATE_ACTIVITY);
+        cv.put(ServerUtils.ACTIVITY_ID, finalActivityId);
+        cv.put(ServerUtils.ACTIVITY_TITLE, sTitle);
+        cv.put(ServerUtils.ACTIVITY_DESC, sActivity);
+
+        new ServerCommunicator(cv) {
+            @Override
+            protected void onPreExecute() {
+                ServerCommunicator.showLoadingDialog(activity);
+                Toast.makeText(activity, "Updating Activity...", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected void onPostExecute(String output) {
+                ServerCommunicator.closeLoadingDialog();
+                if (output != null && output.equals(ServerUtils.SUCCESS)){
+                    Toast.makeText(activity, "Activity updated", Toast.LENGTH_SHORT).show();
+                    activity.finish();
+                }
+                else{
+                    Toast.makeText(activity, "Activity update failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute(ServerUtils.SRC_MEMBER_LINK);
     }
 }

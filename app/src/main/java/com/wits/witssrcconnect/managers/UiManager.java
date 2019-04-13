@@ -9,6 +9,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
@@ -25,7 +26,9 @@ import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.LogInActivity;
+import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
 import com.wits.witssrcconnect.bottom_sheets.ViewCommentsBottomSheet;
+import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
@@ -200,11 +203,17 @@ public class UiManager {
                     popupMenu.setOnMenuItemClickListener(item -> {
                         switch (item.getItemId()){
                             case R.id.src_activity_menu_update:
-
+                                menu.getContext().startActivity(new Intent(menu.getContext(), SrcPostActivityActivity.class)
+                                .putExtra(ServerUtils.ACTIVITY_ID, activityId)
+                                .putExtra(ServerUtils.ACTIVITY_TITLE, title)
+                                .putExtra(ServerUtils.ACTIVITY_DESC, desc));
                                 break;
 
                             case R.id.src_activity_menu_delete:
-
+                                ContentValues cv = new ContentValues();
+                                cv.put(ServerUtils.ACTION, ServerUtils.DELETE_ACTIVITY);
+                                cv.put(ServerUtils.ACTIVITY_ID, activityId);
+                                deleteItem(cv, holder, activityItemView, ServerUtils.SRC_MEMBER_LINK);
                                 break;
                         }
                         return false;
@@ -220,6 +229,36 @@ public class UiManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    //this function deletes item from database and removes from linear layout
+    public static void deleteItem(ContentValues cv, LinearLayout holder, View view, String link){
+        new AlertDialog.Builder(holder.getContext())
+                .setTitle("Delete")
+                .setMessage("Are you sure you want to delete this item?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    new ServerCommunicator(cv) {
+                        @Override
+                        protected void onPreExecute() {
+                            Toast.makeText(view.getContext(), "Deleting item...", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        protected void onPostExecute(String output) {
+                            if (output != null && output.equals(ServerUtils.SUCCESS)){
+                                holder.removeView(view);
+                                Toast.makeText(view.getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(view.getContext(), "Failed to delete item", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }.execute(link);
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .create().show();
+
+
     }
 
     //this function populates any given linear layout with src polls

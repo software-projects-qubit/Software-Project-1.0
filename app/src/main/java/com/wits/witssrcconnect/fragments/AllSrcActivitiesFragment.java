@@ -38,6 +38,6 @@ public class AllSrcActivitiesFragment extends Fragment {
 
     public static void init(JSONArray activities) {
         if (v == null) return;
-        UiManager.populateWithSrcActivities(v.findViewById(R.id.src_activities_holder), activities, fragmentManager);
+        UiManager.populateWithSrcActivities(v.findViewById(R.id.src_activities_holder), activities, fragmentManager, false);
     }
 }

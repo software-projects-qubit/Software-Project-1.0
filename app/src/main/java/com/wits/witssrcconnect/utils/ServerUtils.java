@@ -32,6 +32,8 @@ public interface ServerUtils {
     //activity
     String POST_ACTIVITY = "postActivity";
     String READ_ALL_ACTIVITIES = "readAllActivities";
+    String UPDATE_ACTIVITY = "updateActivity";
+    String DELETE_ACTIVITY = "deleteActivity";
     String ACTIVITY_ID = "activity_id";
     String ACTIVITY_TITLE = "activity_title";
     String ACTIVITY_DESC = "activity_desc";
