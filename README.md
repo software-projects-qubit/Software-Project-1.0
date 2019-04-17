@@ -7,4 +7,4 @@ parts, app side(this repo) and server side on <a href='https://github.com/Perman
 
 [![Build Status](https://travis-ci.org/software-projects-qubit/Software-Project-1.0.svg?branch=master)](https://travis-ci.org/software-projects-qubit/Software-Project-1.0)
 
-[![Coverage Status](https://coveralls.io/repos/github/software-projects-qubit/Software-Project-1.0/badge.svg?branch=master)](https://coveralls.io/github/software-projects-qubit/Software-Project-1.0?branch=master)
+[![codecov](https://codecov.io/gh/software-projects-qubit/Software-Project-1.0/branch/master/graph/badge.svg)](https://codecov.io/gh/software-projects-qubit/Software-Project-1.0)
