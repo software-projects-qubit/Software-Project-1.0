@@ -54,7 +54,6 @@ public class LogInActivity extends Activity {
         cc1 = findViewById(R.id.cc1);
         new Handler().postDelayed(this::showAnimation, 3000);
 
-
     }
 
 
