@@ -3,16 +3,13 @@ package com.wits.witssrcconnect.managers;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.text.TextUtils;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.utils.UserUtils;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -95,4 +92,5 @@ public class UserManagerTest {
                         loggedInUserType == UserUtils.DEFAULT_USER
         );
     }
+
 }

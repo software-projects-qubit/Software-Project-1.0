@@ -232,7 +232,7 @@ public class UiManager {
     }
 
     //this function deletes item from database and removes from linear layout
-    public static void deleteItem(ContentValues cv, LinearLayout holder, View view, String link){
+    private static void deleteItem(ContentValues cv, LinearLayout holder, View view, String link){
         new AlertDialog.Builder(holder.getContext())
                 .setTitle("Delete")
                 .setMessage("Are you sure you want to delete this item?")
