@@ -19,8 +19,8 @@ import org.json.JSONObject;
 
 public class UserManager {
 
-    private static SharedPreferences SHARED_PREFERENCES;
-    private static String NAME = "USER_PREF";
+    public static SharedPreferences SHARED_PREFERENCES = null;
+    public static String NAME = "USER_PREF";
     private static String USER_NAME_SURNAME = "NAME_SURNAME";
     private static String LOGGED_IN_USER_KEY = "LOGGED_IN_USERNAME";
     private static String LOGGED_IN_KEY = "LOGGED_IN";
