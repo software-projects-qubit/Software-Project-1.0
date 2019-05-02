@@ -19,8 +19,8 @@ import org.json.JSONObject;
 
 public class UserManager {
 
-    public static SharedPreferences SHARED_PREFERENCES = null;
-    public static String NAME = "USER_PREF";
+    static SharedPreferences SHARED_PREFERENCES = null;
+    private static String NAME = "USER_PREF";
     private static String USER_NAME_SURNAME = "NAME_SURNAME";
     private static String LOGGED_IN_USER_KEY = "LOGGED_IN_USERNAME";
     private static String LOGGED_IN_KEY = "LOGGED_IN";
@@ -31,7 +31,7 @@ public class UserManager {
     }
 
     //saves which type of user logged into shared preferences
-    public static void setUserLoggedIn(int userType, String username){
+    static void setUserLoggedIn(int userType, String username){
         SHARED_PREFERENCES.edit()
                 .putString(LOGGED_IN_USER_KEY, username)
                 .putBoolean(LOGGED_IN_KEY, true)
@@ -45,9 +45,16 @@ public class UserManager {
     }
 
     //retrieves the type of user logged in as type of string e.g. Student, SRC Member
-    public static String getLoggedInUserTypeName(Context context){
-        return getLoggedInUserType() == UserUtils.STUDENT ?
-                context.getString(R.string.student) : context.getString(R.string.src_member);
+    static String getLoggedInUserTypeName(Context context){
+        switch (getLoggedInUserType()){
+            case UserUtils.STUDENT:
+                return context.getString(R.string.student);
+
+            case UserUtils.SRC_MEMBER:
+                return context.getString(R.string.src_member);
+
+            default: return "";
+        }
     }
 
     //checks if you are loggedIn
@@ -61,12 +68,12 @@ public class UserManager {
     }
 
     //save name and surname of a user after logging in
-    private static void setUserNameSurname(String name, String surname){
+    static void setUserNameSurname(String name, String surname){
         SHARED_PREFERENCES.edit().putString(USER_NAME_SURNAME, String.format("%s %s", name, surname))
                 .apply();
     }
 
-    public static String getUserNameSurname(){
+    static String getUserNameSurname(){
         return SHARED_PREFERENCES.getString(USER_NAME_SURNAME, "");
     }
     //for src member and student
