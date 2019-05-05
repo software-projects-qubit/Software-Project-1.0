@@ -1,10 +1,13 @@
 package com.wits.witssrcconnect.managers;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.services.ServerCommunicator;
+import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
 import org.junit.BeforeClass;
@@ -92,5 +95,4 @@ public class UserManagerTest {
                         loggedInUserType == UserUtils.DEFAULT_USER
         );
     }
-
 }

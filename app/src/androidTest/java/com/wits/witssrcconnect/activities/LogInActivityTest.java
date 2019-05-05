@@ -22,16 +22,4 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 @RunWith(AndroidJUnit4.class)
 public class LogInActivityTest {
 
-    @Rule
-    public ActivityTestRule<LogInActivity> activityTest = new ActivityTestRule<>(LogInActivity.class);
-
-    @Test
-    public void test() {
-        ViewInteraction userNameInt = onView(withId(R.id.username));
-        userNameInt.check(matches(isDisplayed()));
-        ViewInteraction passInt = onView(withId(R.id.pass));
-        passInt.check(matches(isDisplayed()));
-        ViewInteraction cc1Int = onView(withId(R.id.cc1));
-        ViewInteraction cc2Int = onView(withId(R.id.cc2));
-    }
 }
