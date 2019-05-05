@@ -15,7 +15,7 @@ public class LogInActivityTest {
 
     @BeforeClass
     public static void init(){
-        logInActivity = new LogInActivity();
+        //logInActivity = new LogInActivity();
     }
 
     @Test
