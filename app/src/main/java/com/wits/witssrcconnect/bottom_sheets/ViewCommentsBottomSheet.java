@@ -3,7 +3,6 @@ package com.wits.witssrcconnect.bottom_sheets;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatTextView;
@@ -68,10 +67,9 @@ public class ViewCommentsBottomSheet extends BottomSheetDialogFragment {
         TextInputEditText comment = commentsView.findViewById(R.id.input_comment_vc);
         commentsView.findViewById(R.id.send_comment_vc).setOnClickListener(v -> {
             String sComment = Objects.requireNonNull(comment.getText()).toString().trim();
-            if (TextUtils.isEmpty(sComment)){
+            if (TextUtils.isEmpty(sComment)) {
                 comment.setError("Comment required");
-            }
-            else{
+            } else {
                 sComment = sComment.replace("\n", "\\n");
                 ContentValues cv = new ContentValues();
 

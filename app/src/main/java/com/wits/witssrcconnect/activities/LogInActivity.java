@@ -35,7 +35,7 @@ public class LogInActivity extends AppCompatActivity {
         UserManager.initUserManager(this);
 
         //check if user has already logged in
-        if (UserManager.getCurrentlyLoggedInStatus()){
+        if (UserManager.getCurrentlyLoggedInStatus()) {
             //open next activity based on which user is already logged in
             Class nextClass = UserManager.getLoggedInUserType() == UserUtils.STUDENT ?
                     StudentActivity.class : SrcMemberActivity.class;
@@ -48,13 +48,11 @@ public class LogInActivity extends AppCompatActivity {
 
         cc1 = findViewById(R.id.cc1);
         new Handler().postDelayed(this::showAnimation, 3000);
-
     }
 
 
-
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         if (user == UserUtils.DEFAULT_USER) super.onBackPressed();
         else {
             user = UserUtils.DEFAULT_USER;
@@ -76,7 +74,7 @@ public class LogInActivity extends AppCompatActivity {
         new Handler().postDelayed(this::initUserSelector, 1200);
     }
 
-    private void animateView(int id){
+    private void animateView(int id) {
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(this, id);
 
@@ -88,7 +86,7 @@ public class LogInActivity extends AppCompatActivity {
         constraintSet.applyTo(cc2);
     }
 
-    public void resetInputs(){
+    public void resetInputs() {
         username.setText("");
         password.setText("");
         username.clearFocus();
@@ -120,38 +118,33 @@ public class LogInActivity extends AppCompatActivity {
 
             boolean allIsOkay = true;
 
-            if (TextUtils.isEmpty(sUsername)){
+            if (TextUtils.isEmpty(sUsername)) {
                 username.setError("Enter username");
                 allIsOkay = false;
             }
 
-            if (TextUtils.isEmpty(sPassword)){
+            if (TextUtils.isEmpty(sPassword)) {
                 password.setError("Enter password");
                 allIsOkay = false;
             }
 
-            if (allIsOkay){
+            if (allIsOkay) {
                 ContentValues cv = new ContentValues();
                 String link;
-                if (user == UserUtils.STUDENT){
+                if (user == UserUtils.STUDENT) {
                     cv.put(ServerUtils.USERNAME, sUsername);
                     cv.put(ServerUtils.PASSWORD, sPassword);
                     link = ServerUtils.LOG_IN_LINK;
-                }
-                else {
-
+                } else {
                     cv.put(ServerUtils.ACTION, ServerUtils.LOG_IN);
                     cv.put(ServerUtils.SRC_USERNAME, sUsername);
                     cv.put(ServerUtils.SRC_PASSWORD, sPassword);
                     link = ServerUtils.SRC_MEMBER_LINK;
-
-
                 }
                 UserManager.logIn(user, cv, link, LogInActivity.this);
             }
         });
     }
-
 
 
     private void revertAnimation() {

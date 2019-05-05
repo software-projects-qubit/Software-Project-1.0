@@ -6,13 +6,11 @@ import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatTextView;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
 import com.wits.witssrcconnect.fragments.AllSrcActivitiesFragment;
 import com.wits.witssrcconnect.fragments.MySrcActivitiesFragment;
 import com.wits.witssrcconnect.fragments.StudentViewSrcActivitiesFragment;
@@ -24,46 +22,43 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 public class SrcActivityManager {
 
     //this function posts an activity to
-    public static void postActivity(String title, String activity, Activity activityClass) {
+    public static void postActivity(String title, String desc, Context context) {
         String[] dateTime = UiManager.getDateTime();
 
         ContentValues cv = new ContentValues();
         cv.put(ServerUtils.ACTION, ServerUtils.POST_ACTIVITY);
         cv.put(ServerUtils.SRC_USERNAME, UserManager.getCurrentlyLoggedInUsername());
         cv.put(ServerUtils.ACTIVITY_TITLE, title);
-        cv.put(ServerUtils.ACTIVITY_DESC, activity);
+        cv.put(ServerUtils.ACTIVITY_DESC, desc);
         cv.put(ServerUtils.ACTIVITY_DATE, dateTime[0]);
         cv.put(ServerUtils.ACTIVITY_TIME, dateTime[1]);
 
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
-                ServerCommunicator.showLoadingDialog(activityClass);
-                Toast.makeText(activityClass, "Posting Activity...", Toast.LENGTH_SHORT).show();
+                ServerCommunicator.showLoadingDialog(context);
+                Toast.makeText(context, "Posting Activity...", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             protected void onPostExecute(String output) {
                 ServerCommunicator.closeLoadingDialog();
-                if (output != null && output.equals(ServerUtils.SUCCESS)){
-                    Toast.makeText(activityClass, "Activity posted", Toast.LENGTH_SHORT).show();
-                    activityClass.finish();
-                }
-                else{
-                    Toast.makeText(activityClass, "Activity post failed", Toast.LENGTH_SHORT).show();
+                if (output != null && output.equals(ServerUtils.SUCCESS)) {
+                    Toast.makeText(context, "Activity posted", Toast.LENGTH_SHORT).show();
+                    if (context instanceof Activity) {
+                        ((Activity) context).finish();
+                    }
+                } else {
+                    Toast.makeText(context, "Activity post failed", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute(ServerUtils.SRC_MEMBER_LINK);
     }
 
-    public static void fetchAllActivities(Context c, SwipeRefreshLayout pullToRefresh){
+    public static void fetchAllActivities(Context context, SwipeRefreshLayout pullToRefresh) {
         ContentValues cv = new ContentValues();
         cv.put(ServerUtils.ACTION, ServerUtils.READ_ALL_ACTIVITIES);
         new ServerCommunicator(cv) {
@@ -76,25 +71,24 @@ public class SrcActivityManager {
 
                 if (pullToRefresh != null) pullToRefresh.setRefreshing(false);
 
-                if (output == null || output.equals("")){
-                    Toast.makeText(c, "Failed to get activities", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                if (output == null || output.equals("")) {
+                    Toast.makeText(context, "Failed to get activities", Toast.LENGTH_SHORT).show();
+                } else {
                     try {
                         JSONArray activities = new JSONArray(output);
 
-                        if (activities.length() == 0){
-                            Toast.makeText(c, "There are no activities", Toast.LENGTH_SHORT).show();
+                        if (activities.length() == 0) {
+                            Toast.makeText(context, "There are no activities", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        switch (UserManager.getLoggedInUserType()){
+                        switch (UserManager.getLoggedInUserType()) {
                             case UserUtils.SRC_MEMBER:
                                 String current_src_username = UserManager.getCurrentlyLoggedInUsername();
                                 JSONArray myActivities = new JSONArray();
 
-                                for (int i = 0; i < activities.length(); i++){
+                                for (int i = 0; i < activities.length(); i++) {
                                     JSONObject activity = (JSONObject) activities.get(i);
-                                    if (current_src_username.equals(activity.getString(ServerUtils.SRC_USERNAME))){
+                                    if (current_src_username.equals(activity.getString(ServerUtils.SRC_USERNAME))) {
                                         myActivities.put(activity);
                                     }
                                 }
@@ -124,12 +118,11 @@ public class SrcActivityManager {
 
             @Override
             protected void onPostExecute(String output) {
-                if (output != null && output.equals(ServerUtils.SUCCESS)){
+                if (output != null && output.equals(ServerUtils.SUCCESS)) {
                     Toast.makeText(comment.getContext(), "Comment posted", Toast.LENGTH_SHORT).show();
                     comment.setText("");
                     comment.clearFocus();
-                }
-                else{
+                } else {
                     Toast.makeText(comment.getContext(), "Failed to post comment", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -150,14 +143,16 @@ public class SrcActivityManager {
 
             @Override
             protected void onPostExecute(String output) {
-                if (output == null) Toast.makeText(c, "Failed to get comments", Toast.LENGTH_SHORT).show();
-                else{
+                if (output == null)
+                    Toast.makeText(c, "Failed to get comments", Toast.LENGTH_SHORT).show();
+                else {
                     try {
                         JSONArray comments = new JSONArray(output);
                         int length = comments.length();
-                        if (length == 0) Toast.makeText(c, "There are no comments", Toast.LENGTH_SHORT).show();
+                        if (length == 0)
+                            Toast.makeText(c, "There are no comments", Toast.LENGTH_SHORT).show();
 
-                        for (int i = 0; i < length; i++){
+                        for (int i = 0; i < length; i++) {
                             JSONObject comment = (JSONObject) comments.get(i);
                             View commentView = View.inflate(c, R.layout.item_comment_view_card, null);
 
@@ -186,7 +181,7 @@ public class SrcActivityManager {
         }.execute(ServerUtils.COMMENT_LINK);
     }
 
-    public static void updateActivity(int finalActivityId, String sTitle, String sActivity, Activity activity) {
+    public static void updateActivity(int finalActivityId, String sTitle, String sActivity, Context context) {
         ContentValues cv = new ContentValues();
         cv.put(ServerUtils.ACTION, ServerUtils.UPDATE_ACTIVITY);
         cv.put(ServerUtils.ACTIVITY_ID, finalActivityId);
@@ -196,19 +191,20 @@ public class SrcActivityManager {
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
-                ServerCommunicator.showLoadingDialog(activity);
-                Toast.makeText(activity, "Updating Activity...", Toast.LENGTH_SHORT).show();
+                ServerCommunicator.showLoadingDialog(context);
+                Toast.makeText(context, "Updating Activity...", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             protected void onPostExecute(String output) {
                 ServerCommunicator.closeLoadingDialog();
-                if (output != null && output.equals(ServerUtils.SUCCESS)){
-                    Toast.makeText(activity, "Activity updated", Toast.LENGTH_SHORT).show();
-                    activity.finish();
-                }
-                else{
-                    Toast.makeText(activity, "Activity update failed", Toast.LENGTH_SHORT).show();
+                if (output != null && output.equals(ServerUtils.SUCCESS)) {
+                    Toast.makeText(context, "Activity updated", Toast.LENGTH_SHORT).show();
+                    if (context instanceof Activity) {
+                        ((Activity) context).finish();
+                    }
+                } else {
+                    Toast.makeText(context, "Activity update failed", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute(ServerUtils.SRC_MEMBER_LINK);

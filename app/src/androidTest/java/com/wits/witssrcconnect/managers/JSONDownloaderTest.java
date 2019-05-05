@@ -5,7 +5,8 @@ import com.wits.witssrcconnect.utils.ServerUtils;
 import org.json.JSONObject;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class JSONDownloaderTest {
 

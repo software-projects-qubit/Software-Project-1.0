@@ -30,12 +30,12 @@ public class SrcPostActivityActivity extends AppCompatActivity {
         //check if the activity received any intent
         Bundle b = getIntent().getExtras();
         int activityId = -1;
-        if (b != null){
+        if (b != null) {
             activityId = b.getInt(ServerUtils.ACTIVITY_ID, -1);
             String sTitle = b.getString(ServerUtils.ACTIVITY_TITLE);
             String sDesc = b.getString(ServerUtils.ACTIVITY_DESC);
 
-            if (activityId != -1){
+            if (activityId != -1) {
                 title.setText(sTitle);
                 activity.setText(sDesc);
                 postUpdateActivity.setText(getString(R.string.update_activity));
@@ -49,22 +49,21 @@ public class SrcPostActivityActivity extends AppCompatActivity {
             String sActivity = Objects.requireNonNull(activity.getText()).toString().trim();
 
             boolean everythingOkay = true;
-            if (TextUtils.isEmpty(sTitle)){
+            if (TextUtils.isEmpty(sTitle)) {
                 everythingOkay = false;
                 title.setError("Title required");
             }
 
-            if (TextUtils.isEmpty(sActivity)){
+            if (TextUtils.isEmpty(sActivity)) {
                 everythingOkay = false;
                 activity.setError("Activity required");
             }
 
-            if (everythingOkay){
+            if (everythingOkay) {
                 sActivity = sActivity.replace("\n", "\\n");
-                if (finalActivityId == -1){
+                if (finalActivityId == -1) {
                     SrcActivityManager.postActivity(sTitle, sActivity, this);
-                }
-                else{
+                } else {
                     SrcActivityManager.updateActivity(finalActivityId, sTitle, sActivity, this);
                 }
             }

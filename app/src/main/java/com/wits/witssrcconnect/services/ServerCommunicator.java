@@ -3,7 +3,6 @@ package com.wits.witssrcconnect.services;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -29,7 +28,7 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
 
     private static final String TAG = "SERVER_COMMUNICATOR";
     private static AlertDialog progressDialog = null;
-    private static String[] wordList = {"Please wait ", "Please wait. ","Please wait.. ","Please wait... "};
+    private static String[] wordList = {"Please wait ", "Please wait. ", "Please wait.. ", "Please wait... "};
     private static int positionHolder = 0;
     private static AppCompatTextView message = null;
     private static final Handler handler = new Handler();
@@ -55,7 +54,7 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
     //private final String address;
     private final ContentValues params;
 
-    protected ServerCommunicator(ContentValues params){
+    protected ServerCommunicator(ContentValues params) {
         this.params = params;
     }
 
@@ -66,7 +65,7 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
     protected String doInBackground(String... strings) {
         try {
             Log.d(TAG, "started");
-            Log.d(TAG, "address = "+strings[0]);
+            Log.d(TAG, "address = " + strings[0]);
             URL url = new URL(strings[0]);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
@@ -74,9 +73,10 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
             connection.setDoOutput(true);
             connection.setDoInput(true);
             connection.setConnectTimeout(2000);
-            if (params.size() > 0){
+            if (params.size() > 0) {
                 Uri.Builder builder = new Uri.Builder();
-                for (String s : params.keySet()) builder.appendQueryParameter(s, params.getAsString(s));
+                for (String s : params.keySet())
+                    builder.appendQueryParameter(s, params.getAsString(s));
                 String query = builder.build().getEncodedQuery();
                 OutputStream os = connection.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, Charset.forName("UTF-8")));
@@ -95,6 +95,7 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
         }
         return "";
     }
+
     @Override
     protected abstract void onPostExecute(String output);
 
@@ -112,9 +113,9 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
 
     }
 
-    public static void closeLoadingDialog(){
+    public static void closeLoadingDialog() {
         patienceHandler.removeCallbacks(patienceRunnable);
-        if (progressDialog != null && progressDialog.isShowing()){
+        if (progressDialog != null && progressDialog.isShowing()) {
             positionHolder = 0;
             progressDialog.dismiss();
             handler.removeCallbacks(runnable);

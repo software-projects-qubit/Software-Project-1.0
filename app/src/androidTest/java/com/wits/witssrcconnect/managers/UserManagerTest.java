@@ -6,7 +6,6 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
@@ -14,24 +13,26 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @RunWith(AndroidJUnit4.class)
 public class UserManagerTest {
 
-
-    private static Context c = InstrumentationRegistry.getTargetContext();
+    private static Context testContext = InstrumentationRegistry.getTargetContext();
 
     @BeforeClass
-    public static void initUserManagerVar(){
-        UserManager.initUserManager(c);
+    public static void initUserManagerVar() {
+        UserManager.initUserManager(testContext);
     }
 
     @Test
     public void initUserManager() {
-        UserManager.initUserManager(c);
+        UserManager.initUserManager(testContext);
         assertNotNull(UserManager.SHARED_PREFERENCES);
     }
 
@@ -52,8 +53,8 @@ public class UserManagerTest {
     @Test
     public void getLoggedInUserTypeName() {
         UserManager.setUserLoggedIn(UserUtils.STUDENT, anyString());
-        assertEquals(UserManager.getLoggedInUserTypeName(c),
-                c.getResources().getString(R.string.student));
+        assertEquals(UserManager.getLoggedInUserTypeName(testContext),
+                testContext.getResources().getString(R.string.student));
     }
 
     @Test
@@ -79,20 +80,30 @@ public class UserManagerTest {
     }
 
     @Test
+    public void login() {
+        ContentValues cv = new ContentValues();
+        cv.put(ServerUtils.USERNAME, "1627982");
+        cv.put(ServerUtils.PASSWORD, "mulisa6854727");
+
+        getInstrumentation().runOnMainSync(() -> {
+            UserManager.logIn(UserUtils.STUDENT, cv, ServerUtils.LOG_IN_LINK, testContext);
+            assertEquals(UserManager.getLoggedInUserType(), UserUtils.STUDENT);
+        });
+    }
+
+    @Test
     public void userLoggedOut() {
-        UserManager.userLoggedOut();
+        UserManager.userLoggedOut(testContext);
         String currentlyLoggedInUsername = UserManager.getCurrentlyLoggedInUsername();
-        String userTypeName = UserManager.getLoggedInUserTypeName(c);
+        String userTypeName = UserManager.getLoggedInUserTypeName(testContext);
         String userNameSurname = UserManager.getUserNameSurname();
         boolean currentlyLoggedInStatus = UserManager.getCurrentlyLoggedInStatus();
         int loggedInUserType = UserManager.getLoggedInUserType();
 
-        assertTrue(
-                currentlyLoggedInUsername.equals("") &&
-                        userTypeName.equals("") &&
-                        userNameSurname.equals("") &&
-                        !currentlyLoggedInStatus &&
-                        loggedInUserType == UserUtils.DEFAULT_USER
-        );
+        assertTrue(currentlyLoggedInUsername.equals("")
+                && userTypeName.equals("")
+                && userNameSurname.equals("")
+                && !currentlyLoggedInStatus
+                && loggedInUserType == UserUtils.DEFAULT_USER);
     }
 }

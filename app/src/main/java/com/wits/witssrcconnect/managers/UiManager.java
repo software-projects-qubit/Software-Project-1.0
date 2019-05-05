@@ -1,6 +1,5 @@
 package com.wits.witssrcconnect.managers;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,11 +13,8 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
@@ -61,10 +57,11 @@ public class UiManager {
         //check which user logged in and choose correct name to be displayed
         //if it's a student who logged in, display their name and surname
         //if it's an src member who logged in, display their position
-        if (UserManager.getLoggedInUserType() == UserUtils.STUDENT){
+        if (UserManager.getLoggedInUserType() == UserUtils.STUDENT) {
             name = UserManager.getUserNameSurname();
+        } else {
+            name = UserManager.getCurrentlyLoggedInUsername();
         }
-        else name = UserManager.getCurrentlyLoggedInUsername();
 
         ((AppCompatTextView) headerView.findViewById(R.id.header_username)).setText(name);
         ((AppCompatTextView) headerView.findViewById(R.id.header_user_type))
@@ -73,21 +70,25 @@ public class UiManager {
 
     //logs the user out and clears all the data in shared preferences
     public static void logOut(Context context) {
-        context.startActivity(new Intent(context, LogInActivity.class));
-        UserManager.userLoggedOut();
-        ((Activity) context).finish();
+        Intent intent = new Intent(context, LogInActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+        UserManager.userLoggedOut(context);
     }
 
     //When used, forces any bottom sheet to fully expand
     public static void forceBottomSheetToFullyExpand(DialogInterface dialog1) {
         BottomSheetDialog d = (BottomSheetDialog) dialog1;
         FrameLayout bottomSheet = d.findViewById(android.support.design.R.id.design_bottom_sheet);
-        assert bottomSheet != null;
-        BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+        try {
+            BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+        } catch (Exception ignored) {
+
+        }
     }
 
     //this function gets the current date and time and provides a string array which has date and time
-    public static String[] getDateTime(){
+    public static String[] getDateTime() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm", Locale.getDefault());
         String sDateTime = simpleDateFormat.format(new Date());
         String[] dateTimeList = sDateTime.split("-");
@@ -102,7 +103,7 @@ public class UiManager {
         holder.removeAllViews();
 
         try {
-            for (int i = 0; i < activities.length(); i++){
+            for (int i = 0; i < activities.length(); i++) {
                 //get JsonObject from jsonArray which contains data about each and every activity
                 JSONObject activity = (JSONObject) activities.get(i);
 
@@ -161,10 +162,9 @@ public class UiManager {
                     String sComment = Objects.requireNonNull(comment.getText()).toString().trim();
                     //check if the user actually entered something
                     //if he or she didn't enter anything, show error, else post the comment to the database
-                    if (TextUtils.isEmpty(sComment)){
+                    if (TextUtils.isEmpty(sComment)) {
                         comment.setError("Comment required");
-                    }
-                    else {
+                    } else {
 
 
                         sComment = sComment.replace("\n", "\\n");
@@ -197,16 +197,16 @@ public class UiManager {
 
                 //create reference to the menu button
                 AppCompatImageButton menu = activityItemView.findViewById(R.id.src_activity_menu);
-                if (mine){
+                if (mine) {
                     PopupMenu popupMenu = new PopupMenu(menu.getContext(), menu);
                     popupMenu.inflate(R.menu.src_activity_menu);
                     popupMenu.setOnMenuItemClickListener(item -> {
-                        switch (item.getItemId()){
+                        switch (item.getItemId()) {
                             case R.id.src_activity_menu_update:
                                 menu.getContext().startActivity(new Intent(menu.getContext(), SrcPostActivityActivity.class)
-                                .putExtra(ServerUtils.ACTIVITY_ID, activityId)
-                                .putExtra(ServerUtils.ACTIVITY_TITLE, title)
-                                .putExtra(ServerUtils.ACTIVITY_DESC, desc));
+                                        .putExtra(ServerUtils.ACTIVITY_ID, activityId)
+                                        .putExtra(ServerUtils.ACTIVITY_TITLE, title)
+                                        .putExtra(ServerUtils.ACTIVITY_DESC, desc));
                                 break;
 
                             case R.id.src_activity_menu_delete:
@@ -219,8 +219,7 @@ public class UiManager {
                         return false;
                     });
                     menu.setOnClickListener(v -> popupMenu.show());
-                }
-                else{
+                } else {
                     menu.setVisibility(View.GONE);
                 }
                 //add card to the linear layout that holds all of the activity cards
@@ -232,7 +231,7 @@ public class UiManager {
     }
 
     //this function deletes item from database and removes from linear layout
-    private static void deleteItem(ContentValues cv, LinearLayout holder, View view, String link){
+    private static void deleteItem(ContentValues cv, LinearLayout holder, View view, String link) {
         new AlertDialog.Builder(holder.getContext())
                 .setTitle("Delete")
                 .setMessage("Are you sure you want to delete this item?")
@@ -245,11 +244,10 @@ public class UiManager {
 
                         @Override
                         protected void onPostExecute(String output) {
-                            if (output != null && output.equals(ServerUtils.SUCCESS)){
+                            if (output != null && output.equals(ServerUtils.SUCCESS)) {
                                 holder.removeView(view);
                                 Toast.makeText(view.getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
-                            }
-                            else{
+                            } else {
                                 Toast.makeText(view.getContext(), "Failed to delete item", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -261,10 +259,10 @@ public class UiManager {
 
     }
 
-    //this function populates any given linear layout with src polls
-    public static void populateWithPolls(LinearLayout holder, JSONArray polls, FragmentManager fragmentManager){
+    // this function populates any given linear layout with src polls
+    public static void populateWithPolls(LinearLayout holder, JSONArray polls, FragmentManager fragmentManager) {
         try {
-            for (int i = 0; i < polls.length(); i++){
+            for (int i = 0; i < polls.length(); i++) {
                 JSONObject poll = (JSONObject) polls.get(i);
                 View pollItem = View.inflate(holder.getContext(), R.layout.item_poll_card, null);
 
@@ -278,13 +276,13 @@ public class UiManager {
                                 poll.getString(ServerUtils.POLL_DATE),
                                 poll.getString(ServerUtils.POLL_TIME)));
                 ((AppCompatTextView) pollItem.findViewById(R.id.poll_desc))
-                        .setText(poll.getString(ServerUtils.POLL_DESC));
+                        .setText(poll.getString(ServerUtils.POLL_DESC).replace("\\n", "\n"));
 
                 String[] pollChoices = poll.getString(ServerUtils.POLL_CHOICE).split("~");
                 StringBuilder builder = new StringBuilder();
 
-                for (int k = 0; k < pollChoices.length; k++){
-                    builder.append(String.format(Locale.getDefault(),"%s: %d", pollChoices[k], 0//for now
+                for (int k = 0; k < pollChoices.length; k++) {
+                    builder.append(String.format(Locale.getDefault(), "%s: %d", pollChoices[k], 0//for now
                     ));
                     if (k + 1 != pollChoices.length) builder.append("\n\n");
                 }

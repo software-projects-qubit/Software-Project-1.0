@@ -23,7 +23,7 @@ public class SrcMemberActivity extends AppCompatActivity implements NavigationVi
     private Toolbar toolbar;
 
     @Override
-    protected void onCreate(Bundle bundle){
+    protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
 
         setContentView(R.layout.activity_base);
@@ -34,8 +34,6 @@ public class SrcMemberActivity extends AppCompatActivity implements NavigationVi
         loadFragment(new HomeFragment(), getString(R.string.home));
 
         setSupportActionBar(toolbar);
-
-
 
         drawerLayout = findViewById(R.id.drawer_layout_src);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -55,7 +53,7 @@ public class SrcMemberActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
 
             //opens Home fragment after user presses the home option on the navigation view
             case R.id.nav_home:
@@ -88,7 +86,7 @@ public class SrcMemberActivity extends AppCompatActivity implements NavigationVi
     //This function is responsible for displaying fragments
     //and switching them around
     //it also updates the title of the toolbar
-    private void loadFragment(Fragment fragment, String title){
+    private void loadFragment(Fragment fragment, String title) {
         getSupportFragmentManager().beginTransaction().replace(R.id.parentLayout_src, fragment).commit();
         toolbar.setTitle(title);
     }

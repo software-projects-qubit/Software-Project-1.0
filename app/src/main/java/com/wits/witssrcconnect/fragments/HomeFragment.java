@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
     }
 
     //connect to server and retrieve data from Homepage.json
-    private static void populateHomePage(LinearLayout holder){
+    private static void populateHomePage(LinearLayout holder) {
         new JSONDownloader() {
             @Override
             protected void onPostExecute(JSONObject jsonObject) {
@@ -73,8 +73,7 @@ public class HomeFragment extends Fragment {
                     holder.addView(card1, params);
                     holder.addView(card2, params);
                     holder.addView(card3, params);
-                }
-                catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }

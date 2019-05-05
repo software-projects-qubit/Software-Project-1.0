@@ -7,14 +7,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -57,12 +55,12 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
             boolean everythingOkay = true;
 
-            if (TextUtils.isEmpty(sTitle)){
+            if (TextUtils.isEmpty(sTitle)) {
                 everythingOkay = false;
                 title.setError("Title required");
             }
 
-            if (TextUtils.isEmpty(sPollDesc)){
+            if (TextUtils.isEmpty(sPollDesc)) {
                 everythingOkay = false;
                 pollDesc.setError("Poll Description required");
             }
@@ -71,28 +69,26 @@ public class SrcPostPollActivity extends AppCompatActivity {
             boolean multiSelected = multiSelect.isChecked();
 
             int pollType = -1;
-            if (singleSelected){
+            if (singleSelected) {
                 pollType = ServerUtils.POLL_TYPE_SINGLE_SELECT;
-            }
-            else if(multiSelected){
+            } else if (multiSelected) {
                 pollType = ServerUtils.POLL_TYPE_MULTI_SELECT;
-            }
-            else{
+            } else {
                 everythingOkay = false;
                 Toast.makeText(v.getContext(), "Select poll type", Toast.LENGTH_SHORT).show();
             }
 
-            if (optionsArrayList.size() < 2){
+            if (optionsArrayList.size() < 2) {
                 everythingOkay = false;
                 Toast.makeText(v.getContext(), "Add at least 2 options", Toast.LENGTH_SHORT).show();
             }
 
-            if (everythingOkay){
+            if (everythingOkay) {
 
                 String[] dateTime = UiManager.getDateTime();
 
                 StringBuilder stringBuilder = new StringBuilder();
-                for (String choice : optionsArrayList){
+                for (String choice : optionsArrayList) {
                     stringBuilder.append(choice);
                     stringBuilder.append('~');
                 }
@@ -101,7 +97,6 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 sPollDesc = sPollDesc.replace("\n", "\\n");
                 ContentValues cv = new ContentValues();
                 cv.put(ServerUtils.ACTION, ServerUtils.POST_POLL);
-
                 cv.put(ServerUtils.SRC_USERNAME, UserManager.getCurrentlyLoggedInUsername());
                 cv.put(ServerUtils.POLL_TITLE, sTitle);
                 cv.put(ServerUtils.POLL_DESC, sPollDesc);
@@ -133,8 +128,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String input = s.toString();
-                if (input.contains("~")){
-                    input = input.replace("~","");
+                if (input.contains("~")) {
+                    input = input.replace("~", "");
                     choiceInput.setText(input);
                     choiceInput.setSelection(input.length());
                 }
@@ -152,10 +147,9 @@ public class SrcPostPollActivity extends AppCompatActivity {
             Button add = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
             add.setOnClickListener(v -> {
                 String sChoice = Objects.requireNonNull(choiceInput.getText()).toString().trim();
-                if (TextUtils.isEmpty(sChoice)){
+                if (TextUtils.isEmpty(sChoice)) {
                     choiceInput.setError("Enter option");
-                }
-                else{
+                } else {
                     sChoice = sChoice.replace("\n", "\\n");
                     optionsArrayList.add(sChoice);
                     View itemOption = View.inflate(this, R.layout.item_option_holder, null);
@@ -173,7 +167,6 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 }
             });
         });
-
         dialog.show();
     }
 }
