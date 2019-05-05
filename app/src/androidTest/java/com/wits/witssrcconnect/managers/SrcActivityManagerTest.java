@@ -38,7 +38,7 @@ public class SrcActivityManagerTest {
         });
     }
 
-    @Test
+    /*@Test
     public void postComment() {
         UserManager.initUserManager(testContext);
         getInstrumentation().runOnMainSync(() -> {
@@ -53,7 +53,7 @@ public class SrcActivityManagerTest {
             cv.put(ServerUtils.STUDENT_TIME, dateTime[1]);
             SrcActivityManager.postComment(cv, new TextInputEditText(testContext));
         });
-    }
+    }*/
 
     @Test
     public void populateViewWithComments() {
