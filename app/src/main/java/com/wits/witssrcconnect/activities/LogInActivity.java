@@ -1,6 +1,5 @@
 package com.wits.witssrcconnect.activities;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,30 +7,26 @@ import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.transition.ChangeBounds;
 import android.transition.TransitionManager;
-import android.util.Log;
-import android.view.View;
 import android.view.animation.AnticipateInterpolator;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.managers.SecurityManager;
 import com.wits.witssrcconnect.managers.UserManager;
-import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
 import java.util.Objects;
 
-public class LogInActivity extends Activity {
+public class LogInActivity extends AppCompatActivity {
 
     public ConstraintLayout cc1 = null;
     public ConstraintLayout cc2 = null;
-    private int user = UserUtils.DEFAULT_USER;
-    TextInputEditText username;
-    TextInputEditText password;
+    public int user = UserUtils.DEFAULT_USER;
+    public TextInputEditText username;
+    public TextInputEditText password;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,14 +88,14 @@ public class LogInActivity extends Activity {
         constraintSet.applyTo(cc2);
     }
 
-    private void resetInputs(){
+    public void resetInputs(){
         username.setText("");
         password.setText("");
         username.clearFocus();
         password.clearFocus();
     }
 
-    private void initUserSelector() {
+    public void initUserSelector() {
         setContentView(R.layout.activity_log_in_user_selector);
         cc2 = findViewById(R.id.cc2);
 
@@ -170,5 +165,4 @@ public class LogInActivity extends Activity {
         TransitionManager.beginDelayedTransition(cc2, transition);
         constraintSet.applyTo(cc2);
     }
-
 }
