@@ -27,8 +27,8 @@ import java.util.Objects;
 
 public class LogInActivity extends Activity {
 
-    private ConstraintLayout cc1;
-    private ConstraintLayout cc2;
+    public ConstraintLayout cc1 = null;
+    public ConstraintLayout cc2 = null;
     private int user = UserUtils.DEFAULT_USER;
     TextInputEditText username;
     TextInputEditText password;
