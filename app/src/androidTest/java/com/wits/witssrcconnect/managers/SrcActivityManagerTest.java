@@ -34,7 +34,8 @@ public class SrcActivityManagerTest {
     @Test
     public void fetchAllActivities() {
         getInstrumentation().runOnMainSync(() -> {
-            SrcActivityManager.fetchAllActivities(testContext, new SwipeRefreshLayout(testContext));
+            SrcActivityManager.fetchAllActivities(testContext, null//new SwipeRefreshLayout(testContext)
+            );
         });
     }
 
