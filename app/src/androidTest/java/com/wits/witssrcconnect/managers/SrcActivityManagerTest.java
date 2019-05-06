@@ -31,13 +31,13 @@ public class SrcActivityManagerTest {
         });
     }
 
-    @Test
+    /*@Test
     public void fetchAllActivities() {
         getInstrumentation().runOnMainSync(() -> {
             SrcActivityManager.fetchAllActivities(testContext, null//new SwipeRefreshLayout(testContext)
             );
         });
-    }
+    }*/
 
     /*@Test
     public void postComment() {
