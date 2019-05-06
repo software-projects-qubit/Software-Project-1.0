@@ -23,21 +23,21 @@ public class SrcActivityManagerTest {
 
     private Context testContext = InstrumentationRegistry.getTargetContext();
 
-    /*@Test
+    @Test
     public void postActivity() {
         UserManager.initUserManager(testContext);
         getInstrumentation().runOnMainSync(() -> {
             SrcActivityManager.postActivity("title", "desc", testContext);
         });
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void fetchAllActivities() {
         getInstrumentation().runOnMainSync(() -> {
             SrcActivityManager.fetchAllActivities(testContext, null//new SwipeRefreshLayout(testContext)
             );
         });
-    }*/
+    }
 
     /*@Test
     public void postComment() {

@@ -79,7 +79,7 @@ public class UserManagerTest {
         assertEquals(nameSurname, UserManager.getUserNameSurname());
     }
 
-    /*@Test
+    @Test
     public void login() {
         ContentValues cv = new ContentValues();
         cv.put(ServerUtils.USERNAME, "1627982");
@@ -89,7 +89,7 @@ public class UserManagerTest {
             UserManager.logIn(UserUtils.STUDENT, cv, ServerUtils.LOG_IN_LINK, testContext);
             assertEquals(UserManager.getLoggedInUserType(), UserUtils.STUDENT);
         });
-    }*/
+    }
 
     @Test
     public void userLoggedOut() {

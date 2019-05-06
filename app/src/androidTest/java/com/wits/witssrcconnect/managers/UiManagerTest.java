@@ -25,15 +25,15 @@ import static org.junit.Assert.assertTrue;
 @RunWith(AndroidJUnit4.class)
 public class UiManagerTest {
 
-    //private final Context testContext = InstrumentationRegistry.getTargetContext();
+    private final Context testContext = InstrumentationRegistry.getTargetContext();
 
-    /*@Test
+    @Test
     public void getLayoutParams() {
         LinearLayout.LayoutParams params = UiManager.getLayoutParams(5);
         assertNotNull(params);
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void populateNavHead() {
         UserManager.initUserManager(testContext);
         getInstrumentation().runOnMainSync(() -> {
@@ -51,20 +51,20 @@ public class UiManagerTest {
             assertTrue(tvUsername.getText().length() > 0 || tvUsername.getText().equals("")
                     && tvUserType.getText().length() > 0 || tvUserType.getText().equals(""));
         });
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void logOut() {
         UiManager.logOut(testContext);
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void forceBottomSheetToFullyExpand() {
         getInstrumentation().runOnMainSync(() -> {
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(testContext);
             UiManager.forceBottomSheetToFullyExpand(bottomSheetDialog);
         });
-    }*/
+    }
 
     @Test
     public void getDateTime() {
@@ -72,7 +72,7 @@ public class UiManagerTest {
         assertTrue(dateTime[0] != null && dateTime[1] != null);
     }
 
-    /*@Test
+    @Test
     public void populateWithSrcActivities() {
         String activitiesArrayString = "[{" +
                 "  \"activity_id\": 1," +
@@ -90,9 +90,9 @@ public class UiManagerTest {
             UiManager.populateWithSrcActivities(view.findViewById(R.id.src_activities_holder),
                     activitiesJSONArray, new AppCompatActivity().getSupportFragmentManager(), false);
         });
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void populateWithPolls() {
         String pollArrayString = "[{" +
                 "\"poll_title\": \"title\"," +
@@ -112,7 +112,7 @@ public class UiManagerTest {
             UiManager.populateWithPolls(view.findViewById(R.id.src_activities_holder),
                     pollJSONArray, new AppCompatActivity().getSupportFragmentManager());
         });
-    }*/
+    }
 
     private JSONArray getJSONArray(String arrayString) {
         try {
