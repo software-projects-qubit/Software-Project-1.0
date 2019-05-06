@@ -72,7 +72,7 @@ public class UiManagerTest {
         assertTrue(dateTime[0] != null && dateTime[1] != null);
     }
 
-    @Test
+    /*@Test
     public void populateWithSrcActivities() {
         String activitiesArrayString = "[{" +
                 "  \"activity_id\": 1," +
@@ -90,7 +90,7 @@ public class UiManagerTest {
             UiManager.populateWithSrcActivities(view.findViewById(R.id.src_activities_holder),
                     activitiesJSONArray, new AppCompatActivity().getSupportFragmentManager(), false);
         });
-    }
+    }*/
 
     @Test
     public void populateWithPolls() {
