@@ -27,11 +27,11 @@ public class UiManagerTest {
 
     private final Context testContext = InstrumentationRegistry.getTargetContext();
 
-    @Test
+    /*@Test
     public void getLayoutParams() {
         LinearLayout.LayoutParams params = UiManager.getLayoutParams(5);
         assertNotNull(params);
-    }
+    }*/
 
     @Test
     public void populateNavHead() {
