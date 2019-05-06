@@ -28,7 +28,7 @@ public class SrcPostActivityActivityTest {
     private SrcPostActivityActivity srcPostActivityActivity = null;
 
     @Before
-    public void setUp() throws Exception{
+    public void setUp() {
         srcPostActivityActivity = srcPostActivityActivityTestRule.getActivity();
     }
 
@@ -38,10 +38,10 @@ public class SrcPostActivityActivityTest {
         assertEquals("", Objects.requireNonNull(srcPostActivityActivity.title.getText()).toString());
     }
 
-    @Test
+    /*@Test
     public void onPostActivityPressed(){
         onView(withId(R.id.src_activity_input)).perform(typeText("sample"));
         assertEquals("", Objects.requireNonNull(srcPostActivityActivity.activity.getText()).toString());
-    }
+    }*/
 
 }
