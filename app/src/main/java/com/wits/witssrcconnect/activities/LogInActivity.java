@@ -22,7 +22,6 @@ import java.util.Objects;
 
 public class LogInActivity extends AppCompatActivity {
 
-    public ConstraintLayout cc1 = null;
     public ConstraintLayout cc2 = null;
     public int user = UserUtils.DEFAULT_USER;
     public TextInputEditText username;
@@ -44,56 +43,6 @@ public class LogInActivity extends AppCompatActivity {
             return;
         }
 
-        setContentView(R.layout.activity_log_in_splash);
-
-        cc1 = findViewById(R.id.cc1);
-        new Handler().postDelayed(this::showAnimation, 3000);
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        if (user == UserUtils.DEFAULT_USER) super.onBackPressed();
-        else {
-            user = UserUtils.DEFAULT_USER;
-            revertAnimation();
-        }
-    }
-
-    private void showAnimation() {
-        ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(this, R.layout.activity_log_in_user_selector);
-
-        ChangeBounds transition = new ChangeBounds();
-        transition.setInterpolator(new AnticipateInterpolator(1.0f));
-        transition.setDuration(1200);
-
-        TransitionManager.beginDelayedTransition(cc1, transition);
-        constraintSet.applyTo(cc1);
-
-        new Handler().postDelayed(this::initUserSelector, 1200);
-    }
-
-    private void animateView(int id) {
-        ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(this, id);
-
-        ChangeBounds transition = new ChangeBounds();
-        transition.setInterpolator(new AnticipateInterpolator(1.0f));
-        transition.setDuration(1200);
-
-        TransitionManager.beginDelayedTransition(cc2, transition);
-        constraintSet.applyTo(cc2);
-    }
-
-    public void resetInputs() {
-        username.setText("");
-        password.setText("");
-        username.clearFocus();
-        password.clearFocus();
-    }
-
-    public void initUserSelector() {
         setContentView(R.layout.activity_log_in_user_selector);
         cc2 = findViewById(R.id.cc2);
 
@@ -116,19 +65,15 @@ public class LogInActivity extends AppCompatActivity {
             String sUsername = Objects.requireNonNull(username.getText()).toString().trim().toLowerCase();
             String sPassword = Objects.requireNonNull(password.getText()).toString().trim();
 
-            boolean allIsOkay = true;
-
             if (TextUtils.isEmpty(sUsername)) {
                 username.setError("Enter username");
-                allIsOkay = false;
             }
 
-            if (TextUtils.isEmpty(sPassword)) {
+            else if (TextUtils.isEmpty(sPassword)) {
                 password.setError("Enter password");
-                allIsOkay = false;
             }
 
-            if (allIsOkay) {
+            else {
                 ContentValues cv = new ContentValues();
                 String link;
                 if (user == UserUtils.STUDENT) {
@@ -146,6 +91,34 @@ public class LogInActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (user == UserUtils.DEFAULT_USER) super.onBackPressed();
+        else {
+            user = UserUtils.DEFAULT_USER;
+            revertAnimation();
+        }
+    }
+
+    private void animateView(int id) {
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(this, id);
+
+        ChangeBounds transition = new ChangeBounds();
+        transition.setInterpolator(new AnticipateInterpolator(1.0f));
+        transition.setDuration(1200);
+
+        TransitionManager.beginDelayedTransition(cc2, transition);
+        constraintSet.applyTo(cc2);
+    }
+
+    public void resetInputs() {
+        username.setText("");
+        password.setText("");
+        username.clearFocus();
+        password.clearFocus();
+    }
 
     private void revertAnimation() {
         ConstraintSet constraintSet = new ConstraintSet();
