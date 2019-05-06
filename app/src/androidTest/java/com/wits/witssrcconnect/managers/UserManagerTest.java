@@ -23,7 +23,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 @RunWith(AndroidJUnit4.class)
 public class UserManagerTest {
 
-    private static Context testContext = InstrumentationRegistry.getTargetContext();
+    private static Context testContext = InstrumentationRegistry.getContext();
 
     @BeforeClass
     public static void initUserManagerVar() {
