@@ -3,6 +3,7 @@ package com.wits.witssrcconnect.activities;
 import android.support.test.rule.ActivityTestRule;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.utils.UserUtils;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -28,6 +29,19 @@ public class LogInActivityTest {
     @Test
     public void pressStudent(){
         onView(withId(R.id.appCompatImageView2)).perform(click());
+        assertEquals(UserUtils.STUDENT, logInActivity.user);
     }
 
+    @Test
+    public void pressSRCMember(){
+        onView(withId(R.id.member_icon_holder)).perform(click());
+        assertEquals(UserUtils.SRC_MEMBER, logInActivity.user);
+    }
+
+    @Test
+    public void pressAnyThenStudent(){
+        onView(withId(R.id.appCompatImageView2)).perform(click());
+        logInActivity.onBackPressed();
+        assertEquals(UserUtils.DEFAULT_USER, logInActivity.user);
+    }
 }
