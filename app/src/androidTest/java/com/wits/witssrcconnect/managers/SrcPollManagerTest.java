@@ -41,7 +41,8 @@ public class SrcPollManagerTest {
     @Test
     public void fetchAllPolls() {
         getInstrumentation().runOnMainSync(() -> {
-            SrcPollManager.fetchAllPolls(testContext, new SwipeRefreshLayout(testContext));
+            SrcPollManager.fetchAllPolls(testContext, null //, new SwipeRefreshLayout(testContext)
+            );
         });
     }
 }
