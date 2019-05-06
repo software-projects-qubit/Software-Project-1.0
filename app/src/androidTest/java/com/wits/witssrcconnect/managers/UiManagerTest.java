@@ -92,7 +92,7 @@ public class UiManagerTest {
         });
     }*/
 
-    @Test
+    /*@Test
     public void populateWithPolls() {
         String pollArrayString = "[{" +
                 "\"poll_title\": \"title\"," +
@@ -112,7 +112,7 @@ public class UiManagerTest {
             UiManager.populateWithPolls(view.findViewById(R.id.src_activities_holder),
                     pollJSONArray, new AppCompatActivity().getSupportFragmentManager());
         });
-    }
+    }*/
 
     private JSONArray getJSONArray(String arrayString) {
         try {
