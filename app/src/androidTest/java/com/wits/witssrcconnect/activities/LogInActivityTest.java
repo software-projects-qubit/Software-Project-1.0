@@ -38,10 +38,4 @@ public class LogInActivityTest {
         assertEquals(UserUtils.SRC_MEMBER, logInActivity.user);
     }
 
-    @Test
-    public void pressAnyThenStudent(){
-        onView(withId(R.id.appCompatImageView2)).perform(click());
-        logInActivity.onBackPressed();
-        assertEquals(UserUtils.DEFAULT_USER, logInActivity.user);
-    }
 }

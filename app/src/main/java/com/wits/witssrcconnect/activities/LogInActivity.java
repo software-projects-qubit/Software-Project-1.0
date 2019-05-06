@@ -26,6 +26,7 @@ public class LogInActivity extends AppCompatActivity {
     public int user = UserUtils.DEFAULT_USER;
     public TextInputEditText username;
     public TextInputEditText password;
+    String link = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,6 @@ public class LogInActivity extends AppCompatActivity {
 
             else {
                 ContentValues cv = new ContentValues();
-                String link;
                 if (user == UserUtils.STUDENT) {
                     cv.put(ServerUtils.USERNAME, sUsername);
                     cv.put(ServerUtils.PASSWORD, sPassword);
