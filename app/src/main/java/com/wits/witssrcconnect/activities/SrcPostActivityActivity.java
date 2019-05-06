@@ -15,15 +15,17 @@ import java.util.Objects;
 
 public class SrcPostActivityActivity extends AppCompatActivity {
 
+    TextInputEditText title, activity;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_src_post_activity);
 
-        TextInputEditText
-                title = findViewById(R.id.src_activity_title),
-                activity = findViewById(R.id.src_activity_input);
+
+        title = findViewById(R.id.src_activity_title);
+        activity = findViewById(R.id.src_activity_input);
 
         AppCompatButton postUpdateActivity = findViewById(R.id.src_post_activity);
 
@@ -48,18 +50,15 @@ public class SrcPostActivityActivity extends AppCompatActivity {
             String sTitle = Objects.requireNonNull(title.getText()).toString().trim();
             String sActivity = Objects.requireNonNull(activity.getText()).toString().trim();
 
-            boolean everythingOkay = true;
             if (TextUtils.isEmpty(sTitle)) {
-                everythingOkay = false;
                 title.setError("Title required");
             }
 
-            if (TextUtils.isEmpty(sActivity)) {
-                everythingOkay = false;
+            else if (TextUtils.isEmpty(sActivity)) {
                 activity.setError("Activity required");
             }
 
-            if (everythingOkay) {
+            else {
                 sActivity = sActivity.replace("\n", "\\n");
                 if (finalActivityId == -1) {
                     SrcActivityManager.postActivity(sTitle, sActivity, this);

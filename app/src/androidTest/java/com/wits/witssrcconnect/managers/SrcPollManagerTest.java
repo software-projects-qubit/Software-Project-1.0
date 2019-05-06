@@ -38,11 +38,11 @@ public class SrcPollManagerTest {
         });
     }
 
-    @Test
+    /*@Test
     public void fetchAllPolls() {
         getInstrumentation().runOnMainSync(() -> {
             SrcPollManager.fetchAllPolls(testContext, null //, new SwipeRefreshLayout(testContext)
             );
         });
-    }
+    }*/
 }
