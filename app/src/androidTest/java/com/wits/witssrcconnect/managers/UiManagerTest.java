@@ -2,14 +2,13 @@ package com.wits.witssrcconnect.managers;
 
 import android.content.Context;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.design.widget.NavigationView;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.wits.witssrcconnect.R;
 
@@ -36,20 +35,21 @@ public class UiManagerTest {
 
     @Test
     public void populateNavHead() {
+        UserManager.initUserManager(testContext);
         getInstrumentation().runOnMainSync(() -> {
-            NavigationView navigationView = new NavigationView(testContext, null, R.style.AppTheme);
-
-            TextView tvUsername = new TextView(testContext);
+            AppCompatTextView tvUsername = new AppCompatTextView(testContext);
             tvUsername.setId(R.id.header_username);
-            TextView tvUserType = new TextView(testContext);
+            AppCompatTextView tvUserType = new AppCompatTextView(testContext);
             tvUserType.setId(R.id.header_user_type);
 
-            LinearLayout linearLayout = new LinearLayout(testContext);
-            linearLayout.addView(tvUsername);
-            linearLayout.addView(tvUserType);
-            navigationView.addHeaderView(linearLayout);
+            LinearLayout headerView = new LinearLayout(testContext);
+            headerView.addView(tvUsername);
+            headerView.addView(tvUserType);
 
-            UiManager.populateNavHead(navigationView);
+            UiManager.populateNavHead(headerView);
+
+            assertTrue(tvUsername.getText().length() > 0 || tvUsername.getText().equals("")
+                    && tvUserType.getText().length() > 0 || tvUserType.getText().equals(""));
         });
     }
 
