@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(AndroidJUnit4.class)
 public class UiManagerTest {
 
-    private final Context testContext = InstrumentationRegistry.getTargetContext();
+    //private final Context testContext = InstrumentationRegistry.getTargetContext();
 
     /*@Test
     public void getLayoutParams() {
@@ -33,7 +33,7 @@ public class UiManagerTest {
         assertNotNull(params);
     }*/
 
-    @Test
+    /*@Test
     public void populateNavHead() {
         UserManager.initUserManager(testContext);
         getInstrumentation().runOnMainSync(() -> {
@@ -51,20 +51,20 @@ public class UiManagerTest {
             assertTrue(tvUsername.getText().length() > 0 || tvUsername.getText().equals("")
                     && tvUserType.getText().length() > 0 || tvUserType.getText().equals(""));
         });
-    }
+    }*/
 
     /*@Test
     public void logOut() {
         UiManager.logOut(testContext);
     }*/
 
-    @Test
+    /*@Test
     public void forceBottomSheetToFullyExpand() {
         getInstrumentation().runOnMainSync(() -> {
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(testContext);
             UiManager.forceBottomSheetToFullyExpand(bottomSheetDialog);
         });
-    }
+    }*/
 
     @Test
     public void getDateTime() {
