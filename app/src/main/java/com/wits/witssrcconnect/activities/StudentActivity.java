@@ -50,7 +50,8 @@ public class StudentActivity extends AppCompatActivity implements
 
         // populate the navigation view with username and user type stored in shared preferences
         // this was stored the moment the user successfully logged in
-        UiManager.populateNavHead(navigationView.getHeaderView(0));
+        UiManager.populateNavHead(navigationView.getHeaderView(0).findViewById(R.id.header_username),
+                navigationView.getHeaderView(0).findViewById(R.id.header_user_type));
     }
 
     @Override

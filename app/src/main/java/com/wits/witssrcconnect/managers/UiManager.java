@@ -52,7 +52,7 @@ public class UiManager {
 
     //Function that populates the navigation head with username and user type
     //of the currently logged in user
-    public static void populateNavHead(View headerView) {
+    public static void populateNavHead(AppCompatTextView headerUsername, AppCompatTextView headerUserType) {
         String name;
         //check which user logged in and choose correct name to be displayed
         //if it's a student who logged in, display their name and surname
@@ -63,9 +63,8 @@ public class UiManager {
             name = UserManager.getCurrentlyLoggedInUsername();
         }
 
-        ((AppCompatTextView) headerView.findViewById(R.id.header_username)).setText(name);
-        ((AppCompatTextView) headerView.findViewById(R.id.header_user_type))
-                .setText(UserManager.getLoggedInUserTypeName(headerView.getContext()));
+        headerUsername.setText(name);
+        headerUserType.setText(UserManager.getLoggedInUserTypeName(headerUsername.getContext()));
     }
 
     //logs the user out and clears all the data in shared preferences
