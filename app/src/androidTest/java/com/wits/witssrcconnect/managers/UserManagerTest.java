@@ -1,11 +1,13 @@
 package com.wits.witssrcconnect.managers;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.text.TextUtils;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
 import org.junit.Before;
@@ -91,10 +93,30 @@ public class UserManagerTest {
     }
 
     @Test
-    public void logIn() {
-        //UserManager.showLogInFailedToast(c);
+    public void logInCorrectCredentialsStudent(){
+        getInstrumentation().runOnMainSync(() -> {
+            ContentValues cv = new ContentValues();
+            cv.put(ServerUtils.USERNAME, "1627982");
+            cv.put(ServerUtils.PASSWORD, "mulisa6854727");
+            UserManager.logIn(UserUtils.STUDENT, cv, ServerUtils.LOG_IN_LINK, c);
+        });
+    }
+
+    @Test
+    public void logInCorrectCredentialsSRCMember(){
+        getInstrumentation().runOnMainSync(() -> {
+            ContentValues cv = new ContentValues();
+            cv.put(ServerUtils.ACTION, ServerUtils.LOG_IN);
+            cv.put(ServerUtils.SRC_USERNAME, "srcpresident");
+            cv.put(ServerUtils.SRC_PASSWORD, "12345");
+            UserManager.logIn(UserUtils.SRC_MEMBER, cv, ServerUtils.SRC_MEMBER_LINK, c);
+        });
+    }
+
+    @Test
+    public void logInInCorrect() {
         getInstrumentation().runOnMainSync(()->{
-            UserManager.showLogInFailedToast(c);
+            UserManager.logIn(UserUtils.DEFAULT_USER, new ContentValues(), "", c);
         });
     }
 

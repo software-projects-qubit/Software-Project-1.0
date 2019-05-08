@@ -123,7 +123,7 @@ public class UserManager {
         }.execute(link);
     }
 
-    public static void showLogInFailedToast(Context context) {
+    private static void showLogInFailedToast(Context context) {
         Toast.makeText(context, "LogIn failed", Toast.LENGTH_SHORT).show();
     }
 
