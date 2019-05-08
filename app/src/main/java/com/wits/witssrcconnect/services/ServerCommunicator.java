@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
@@ -102,7 +103,7 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
     public static void showLoadingDialog(Context context) {
         View progressLayout = View.inflate(context, R.layout.progress_layout, null);
         message = progressLayout.findViewById(R.id.progress_textView);
-        progressDialog = new AlertDialog.Builder(context)
+        progressDialog = new AlertDialog.Builder(((AppCompatActivity) context))
                 .setTitle("Loading")
                 .setIcon(R.mipmap.ic_launcher_round)
                 .setCancelable(false)

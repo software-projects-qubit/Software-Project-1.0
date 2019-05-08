@@ -84,12 +84,12 @@ public class UserManager {
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
-                ServerCommunicator.showLoadingDialog(context);
+                //ServerCommunicator.showLoadingDialog(context);
             }
 
             @Override
             protected void onPostExecute(String output) {
-                ServerCommunicator.closeLoadingDialog();
+                //ServerCommunicator.closeLoadingDialog();
                 if (output == null) showLogInFailedToast(context);
                 else {
                     switch (user) {
@@ -124,7 +124,7 @@ public class UserManager {
     }
 
     private static void showLogInFailedToast(Context context) {
-        Toast.makeText(context, "LogIn failed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(((Activity) context), "LogIn failed", Toast.LENGTH_SHORT).show();
     }
 
     //clear the data that stored in preferences
