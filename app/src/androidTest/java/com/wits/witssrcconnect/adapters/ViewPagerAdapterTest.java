@@ -37,25 +37,4 @@ public class ViewPagerAdapterTest {
         boolean test3 = c == 1;
         assertTrue(test1 && test2 && test3);
     }
-
-    /*@Test
-    public void getItem() {
-
-        assertEquals(f, viewPagerAdapter.getItem(0));
-    }
-
-    @Test
-    public void getCount() {
-        ViewPagerAdapter v = new ViewPagerAdapter(fm);
-        Fragment f = new Fragment();
-        v.addFragment(f, "test");
-        assertEquals(1, v.getCount());
-    }
-
-    @Test
-    public void getPageTitle() {
-        Fragment f = new Fragment();
-        viewPagerAdapter.addFragment(f, "test");
-        assertEquals("test", viewPagerAdapter.getPageTitle(0));
-    }*/
 }
