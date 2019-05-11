@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 
 import com.wits.witssrcconnect.R;
@@ -103,7 +104,7 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
     public static void showLoadingDialog(Context context) {
         View progressLayout = View.inflate(context, R.layout.progress_layout, null);
         message = progressLayout.findViewById(R.id.progress_textView);
-        progressDialog = new AlertDialog.Builder(((AppCompatActivity) context))
+        progressDialog = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.myDialog))
                 .setTitle("Loading")
                 .setIcon(R.mipmap.ic_launcher_round)
                 .setCancelable(false)
