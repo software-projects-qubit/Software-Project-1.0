@@ -52,6 +52,59 @@ public class LogInActivityTest {
     }
 
     @Test
+    public void buttonPressedThenLogIn(){
+        try {
+            runOnUiThread(() -> {
+                activityTestRule.getActivity().findViewById(R.id.appCompatImageView2).performClick();
+                activityTestRule.getActivity().findViewById(R.id.log_in).performClick();
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void buttonPressedThenUserNameEnteredThenLoginPressed(){
+        try {
+            runOnUiThread(() -> {
+                activityTestRule.getActivity().findViewById(R.id.appCompatImageView2).performClick();
+                activityTestRule.getActivity().username.setText("test");
+                activityTestRule.getActivity().findViewById(R.id.log_in).performClick();
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void tryLoginAsStudent(){
+        try {
+            runOnUiThread(() -> {
+                activityTestRule.getActivity().findViewById(R.id.appCompatImageView2).performClick();
+                activityTestRule.getActivity().username.setText("1627982");
+                activityTestRule.getActivity().password.setText("wrong pass");
+                activityTestRule.getActivity().findViewById(R.id.log_in).performClick();
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void tryLogInAsSRCMember(){
+        try {
+            runOnUiThread(() -> {
+                activityTestRule.getActivity().findViewById(R.id.member_icon_holder).performClick();
+                activityTestRule.getActivity().username.setText("srcpresident");
+                activityTestRule.getActivity().password.setText("1234567");
+                activityTestRule.getActivity().findViewById(R.id.log_in).performClick();
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
     public void backPressed(){
 
         try {

@@ -5,6 +5,7 @@ android {
     compileSdkVersion 28
 
     testOptions {
+        animationsDisabled = true
         unitTests.returnDefaultValues = true
         unitTests.all{
             jacoco {
