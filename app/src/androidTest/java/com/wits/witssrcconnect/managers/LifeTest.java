@@ -10,7 +10,6 @@ import com.wits.witssrcconnect.activities.SrcMemberActivity;
 import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
 import com.wits.witssrcconnect.activities.SrcPostPollActivity;
 import com.wits.witssrcconnect.activities.StudentActivity;
-import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
 import org.junit.Test;
@@ -24,7 +23,21 @@ public class LifeTest {
     private Context c = InstrumentationRegistry.getTargetContext();
 
     @Test
+    public void startLoginActivityFirstTime(){
+        UserManager.initUserManager(c);
+        UserManager.userLoggedOut(c);
+        getInstrumentation().runOnMainSync(() ->{
+            Intent i = new Intent(c, LogInActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(i);
+        });
+    }
+
+    @Test
     public void startLoginActivity(){
+        int user = UserUtils.STUDENT;
+        UserManager.initUserManager(c);
+        UserManager.setUserLoggedIn(user, "1627982");
         getInstrumentation().runOnMainSync(() ->{
             Intent i = new Intent(c, LogInActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
