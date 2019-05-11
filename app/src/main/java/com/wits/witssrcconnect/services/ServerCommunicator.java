@@ -12,6 +12,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.wits.witssrcconnect.R;
 
@@ -24,6 +25,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Objects;
 
 @SuppressLint("StaticFieldLeak")
 public abstract class ServerCommunicator extends AsyncTask<String, String, String> {
@@ -110,7 +112,7 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
                 .setCancelable(false)
                 .setView(progressLayout)
                 .create();
-
+        Objects.requireNonNull(progressDialog.getWindow()).setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
         patienceHandler.postDelayed(patienceRunnable, 450);
 
     }

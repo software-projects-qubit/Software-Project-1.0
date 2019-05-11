@@ -124,7 +124,7 @@ public class UserManager {
     }
 
     private static void showLogInFailedToast(Context context) {
-        Toast.makeText(((Activity) context), "LogIn failed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "LogIn failed", Toast.LENGTH_SHORT).show();
     }
 
     //clear the data that stored in preferences
