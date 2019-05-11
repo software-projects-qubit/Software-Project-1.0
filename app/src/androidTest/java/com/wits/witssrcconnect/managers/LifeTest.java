@@ -48,6 +48,18 @@ public class LifeTest {
     }
 
     @Test
+    public void startLoginActivitySrcMember(){
+        int user = UserUtils.SRC_MEMBER;
+        UserManager.initUserManager(c);
+        UserManager.setUserLoggedIn(user, "srcpresident");
+        getInstrumentation().runOnMainSync(() ->{
+            Intent i = new Intent(c, LogInActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(i);
+        });
+    }
+
+    @Test
     public void startSrcMemberActivity(){
         int user = UserUtils.SRC_MEMBER;
         UserManager.initUserManager(c);

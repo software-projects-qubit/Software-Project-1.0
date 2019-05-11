@@ -35,13 +35,11 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_post_poll);
 
-        TextInputEditText
-                title = findViewById(R.id.src_poll_title),
-                pollDesc = findViewById(R.id.src_poll_desc);
+        TextInputEditText title = findViewById(R.id.src_poll_title);
+        TextInputEditText pollDesc = findViewById(R.id.src_poll_desc);
 
-        AppCompatRadioButton
-                singleSelect = findViewById(R.id.src_single_select),
-                multiSelect = findViewById(R.id.src_multi_select);
+        AppCompatRadioButton singleSelect = findViewById(R.id.src_single_select);
+        AppCompatRadioButton multiSelect = findViewById(R.id.src_multi_select);
 
         LinearLayout optionsHolder = findViewById(R.id.options_holder);
         ArrayList<String> optionsArrayList = new ArrayList<>();
