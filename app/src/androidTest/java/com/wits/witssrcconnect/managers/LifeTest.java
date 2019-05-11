@@ -10,12 +10,14 @@ import com.wits.witssrcconnect.activities.SrcMemberActivity;
 import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
 import com.wits.witssrcconnect.activities.SrcPostPollActivity;
 import com.wits.witssrcconnect.activities.StudentActivity;
+import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @RunWith(AndroidJUnit4.class)
 public class LifeTest {
@@ -76,6 +78,18 @@ public class LifeTest {
         getInstrumentation().runOnMainSync(() ->{
             Intent i = new Intent(c, SrcPostActivityActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(i);
+        });
+    }
+
+    @Test
+    public void startPostActivityWithBundle(){
+        getInstrumentation().runOnMainSync(() ->{
+            Intent i = new Intent(c, SrcPostActivityActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra(ServerUtils.ACTIVITY_ID, 2);
+            i.putExtra(ServerUtils.ACTIVITY_TITLE, anyString());
+            i.putExtra(ServerUtils.ACTIVITY_DESC, anyString());
             c.startActivity(i);
         });
     }

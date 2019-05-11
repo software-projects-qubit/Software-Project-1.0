@@ -15,14 +15,14 @@ import java.util.Objects;
 
 public class SrcPostActivityActivity extends AppCompatActivity {
 
-    TextInputEditText title, activity;
+    public TextInputEditText title, activity;
+    public int activityId = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_src_post_activity);
-
 
         title = findViewById(R.id.src_activity_title);
         activity = findViewById(R.id.src_activity_input);
@@ -31,7 +31,6 @@ public class SrcPostActivityActivity extends AppCompatActivity {
 
         //check if the activity received any intent
         Bundle b = getIntent().getExtras();
-        int activityId = -1;
         if (b != null) {
             activityId = b.getInt(ServerUtils.ACTIVITY_ID, -1);
             String sTitle = b.getString(ServerUtils.ACTIVITY_TITLE);

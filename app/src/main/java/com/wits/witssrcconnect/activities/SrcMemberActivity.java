@@ -19,7 +19,7 @@ import com.wits.witssrcconnect.managers.UiManager;
 
 public class SrcMemberActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout drawerLayout;
+    public DrawerLayout drawerLayout;
     private Toolbar toolbar;
 
     @Override
@@ -36,9 +36,7 @@ public class SrcMemberActivity extends AppCompatActivity implements NavigationVi
         setSupportActionBar(toolbar);
 
         drawerLayout = findViewById(R.id.drawer_layout_src);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 

@@ -37,8 +37,7 @@ public class LogInActivity extends AppCompatActivity {
         //check if user has already logged in
         if (UserManager.getCurrentlyLoggedInStatus()) {
             //open next activity based on which user is already logged in
-            Class nextClass = UserManager.getLoggedInUserType() == UserUtils.STUDENT ?
-                    StudentActivity.class : SrcMemberActivity.class;
+            Class nextClass = UserManager.getLoggedInUserType() == UserUtils.STUDENT ? StudentActivity.class : SrcMemberActivity.class;
             startActivity(new Intent(this, nextClass));
             finish();
             return;

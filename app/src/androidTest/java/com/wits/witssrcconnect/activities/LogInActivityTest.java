@@ -24,8 +24,6 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class LogInActivityTest {
 
-    private static Context c = InstrumentationRegistry.getTargetContext();
-
     @Rule
     public ActivityTestRule<LogInActivity> activityTestRule = new ActivityTestRule<>(LogInActivity.class);
 

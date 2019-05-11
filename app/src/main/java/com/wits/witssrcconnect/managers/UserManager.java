@@ -31,7 +31,7 @@ public class UserManager {
     }
 
     //saves which type of user logged into shared preferences
-    static void setUserLoggedIn(int userType, String username) {
+    public static void setUserLoggedIn(int userType, String username) {
         SHARED_PREFERENCES.edit()
                 .putString(LOGGED_IN_USER_KEY, username)
                 .putBoolean(LOGGED_IN_KEY, true)
