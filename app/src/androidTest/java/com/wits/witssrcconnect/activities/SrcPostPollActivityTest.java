@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 public class SrcPostPollActivityTest {
 
     @Rule
-    ActivityTestRule<SrcPostPollActivity> activityTestRule = new ActivityTestRule<>(SrcPostPollActivity.class);
+    public ActivityTestRule<SrcPostPollActivity> activityTestRule = new ActivityTestRule<>(SrcPostPollActivity.class);
     private static Context c = InstrumentationRegistry.getTargetContext();
 
     @BeforeClass
