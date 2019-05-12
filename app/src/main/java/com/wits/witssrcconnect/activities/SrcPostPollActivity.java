@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -31,6 +32,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
     public AppCompatEditText choiceInput;
     public Button add;
+    public AppCompatImageButton deleteItem;
+    public ArrayList<String> optionsArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +48,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
         AppCompatRadioButton multiSelect = findViewById(R.id.src_multi_select);
 
         LinearLayout optionsHolder = findViewById(R.id.options_holder);
-        ArrayList<String> optionsArrayList = new ArrayList<>();
+
 
         findViewById(R.id.src_add_poll_option).setOnClickListener(v ->
                 addVotingOption(optionsArrayList, optionsHolder));
@@ -157,7 +160,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
                     ((AppCompatTextView) itemOption.findViewById(R.id.choice_view)).setText(sChoice);
 
                     String finalSChoice = sChoice;
-                    itemOption.findViewById(R.id.delete_choice).setOnClickListener(v1 -> {
+                    deleteItem = findViewById(R.id.delete_choice);
+                    deleteItem.setOnClickListener(v1 -> {
                         optionsArrayList.remove(finalSChoice);
                         optionsHolder.removeView(itemOption);
                     });

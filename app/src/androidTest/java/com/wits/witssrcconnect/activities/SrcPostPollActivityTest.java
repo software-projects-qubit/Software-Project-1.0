@@ -76,6 +76,20 @@ public class SrcPostPollActivityTest {
                 choiceInput.requestFocus();
                 choiceInput.setText("abc~");
                 activityTestRule.getActivity().add.performClick();
+                activityTestRule.getActivity().deleteItem.performClick();
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void pressPostPoll(){
+        try {
+            runOnUiThread(()->{
+                activityTestRule.getActivity().optionsArrayList.add("opt1");
+                activityTestRule.getActivity().optionsArrayList.add("opt2");
+                activityTestRule.getActivity().findViewById(R.id.src_add_poll_option).performClick();
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();
