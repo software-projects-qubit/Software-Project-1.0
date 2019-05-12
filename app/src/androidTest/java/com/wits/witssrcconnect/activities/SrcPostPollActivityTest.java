@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatRadioButton;
 
 import com.wits.witssrcconnect.R;
@@ -70,6 +71,11 @@ public class SrcPostPollActivityTest {
         try {
             runOnUiThread(()->{
                 activityTestRule.getActivity().findViewById(R.id.src_add_poll_option).performClick();
+                AppCompatEditText choiceInput = activityTestRule.getActivity().choiceInput;
+                activityTestRule.getActivity().add.performClick();
+                choiceInput.requestFocus();
+                choiceInput.setText("abc~");
+                activityTestRule.getActivity().add.performClick();
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();

@@ -29,6 +29,9 @@ import java.util.Objects;
 
 public class SrcPostPollActivity extends AppCompatActivity {
 
+    public AppCompatEditText choiceInput;
+    public Button add;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +112,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
     }
 
     private void addVotingOption(ArrayList<String> optionsArrayList, LinearLayout optionsHolder) {
-        AppCompatEditText choiceInput = new AppCompatEditText(this);
+        choiceInput = new AppCompatEditText(this);
         choiceInput.setHint("Enter option");
 
         choiceInput.addTextChangedListener(new TextWatcher() {
@@ -138,11 +141,10 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 .setTitle("Add Option")
                 .setView(choiceInput)
                 .setPositiveButton("Add", null)
-                .setNegativeButton("Cancel", (dialog12, which) -> dialog12.dismiss())
                 .create();
 
         dialog.setOnShowListener(dialog1 -> {
-            Button add = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            add = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
             add.setOnClickListener(v -> {
                 String sChoice = Objects.requireNonNull(choiceInput.getText()).toString().trim();
                 if (TextUtils.isEmpty(sChoice)) {
