@@ -44,10 +44,11 @@ public class SrcPostActivityActivity extends AppCompatActivity {
         }
 
         //posts src member activity to the server, as long as the activity is not empty
-        int finalActivityId = activityId;
+
         postUpdateActivity.setOnClickListener(v -> {
             String sTitle = Objects.requireNonNull(title.getText()).toString().trim();
             String sActivity = Objects.requireNonNull(activity.getText()).toString().trim();
+            int finalActivityId = activityId;
 
             if (TextUtils.isEmpty(sTitle)) {
                 title.setError("Title required");

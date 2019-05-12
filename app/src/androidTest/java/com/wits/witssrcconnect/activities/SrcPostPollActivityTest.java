@@ -16,7 +16,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
-import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class SrcPostPollActivityTest {
@@ -67,7 +66,13 @@ public class SrcPostPollActivityTest {
     }
 
     @Test
-    public void addVotingOption(){
-
+    public void pressVotingOptionButton(){
+        try {
+            runOnUiThread(()->{
+                activityTestRule.getActivity().findViewById(R.id.src_add_poll_option).performClick();
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 }
