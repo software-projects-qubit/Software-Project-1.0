@@ -49,8 +49,9 @@ public class LifeTest {
 
     @Test
     public void startLoginActivitySrcMember(){
-        int user = UserUtils.SRC_MEMBER;
         UserManager.initUserManager(c);
+        UserManager.userLoggedOut(c);
+        int user = UserUtils.SRC_MEMBER;
         UserManager.setUserLoggedIn(user, "srcpresident");
         getInstrumentation().runOnMainSync(() ->{
             Intent i = new Intent(c, LogInActivity.class);

@@ -8,6 +8,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.managers.UserManager;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -111,5 +112,7 @@ public class LogInActivityTest {
             throwable.printStackTrace();
         }
     }
+
+
 
 }
