@@ -101,7 +101,9 @@ public class UserManager {
                                     setUserNameSurname(userInfo.getString(ServerUtils.NAME),
                                             userInfo.getString(ServerUtils.SURNAME));
                                     UserManager.setUserLoggedIn(user, cv.getAsString(ServerUtils.USERNAME));
-                                    context.startActivity(new Intent(context, StudentActivity.class));
+                                    Intent i = new Intent(context, StudentActivity.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    context.startActivity(i);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -112,8 +114,10 @@ public class UserManager {
                         case UserUtils.SRC_MEMBER:
                             if (output.equals(ServerUtils.SUCCESS)) {
                                 UserManager.setUserLoggedIn(user, cv.getAsString(ServerUtils.SRC_USERNAME));
-                                context.startActivity(new Intent(context, SrcMemberActivity.class));
-                                ((Activity) context).finish();
+                                Intent i = new Intent(context, SrcMemberActivity.class);
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(i);
+                                //((Activity) context).finish();
                             } else showLogInFailedToast(context);
 
                             break;

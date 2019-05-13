@@ -4,36 +4,30 @@ import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.view.GravityCompat;
 import android.view.MenuItem;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.managers.UiManager;
 import com.wits.witssrcconnect.managers.UserManager;
 import com.wits.witssrcconnect.utils.UserUtils;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.anyString;
 
-@RunWith(AndroidJUnit4.class)
-public class SrcMemberActivityTest {
+public class StudentActivityTest {
 
     private static Context c = InstrumentationRegistry.getTargetContext();
 
     @Rule
-    public ActivityTestRule<SrcMemberActivity> activityTestRule = new ActivityTestRule<>(SrcMemberActivity.class);
+    public ActivityTestRule<StudentActivity> activityTestRule = new ActivityTestRule<>(StudentActivity.class);
 
     @BeforeClass
     public static void onSetUp(){
         UserManager.initUserManager(c);
-        UserManager.setUserLoggedIn(UserUtils.SRC_MEMBER, "srcpresident");
+        UserManager.setUserLoggedIn(UserUtils.STUDENT, "1627982");
     }
 
     @Test
@@ -108,5 +102,4 @@ public class SrcMemberActivityTest {
             throwable.printStackTrace();
         }
     }
-
 }

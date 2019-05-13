@@ -30,12 +30,24 @@ public class LogInActivityTest {
 
     @Test
     public void studentPressed(){
-        onView(withId(R.id.appCompatImageView2)).perform(click());
+        try {
+            runOnUiThread(()->{
+                activityTestRule.getActivity().findViewById(R.id.appCompatImageView2).performClick();
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     @Test
     public void srcMemberPressed(){
-        onView(withId(R.id.member_icon_holder)).perform(click());
+        try {
+            runOnUiThread(()->{
+                activityTestRule.getActivity().findViewById(R.id.member_icon_holder).performClick();
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     @Test

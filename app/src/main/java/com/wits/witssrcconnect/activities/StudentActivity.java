@@ -21,7 +21,7 @@ import com.wits.witssrcconnect.managers.UiManager;
 public class StudentActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
 
-    private DrawerLayout drawerLayout;
+    public DrawerLayout drawerLayout;
     private Toolbar toolbar;
 
     @Override
