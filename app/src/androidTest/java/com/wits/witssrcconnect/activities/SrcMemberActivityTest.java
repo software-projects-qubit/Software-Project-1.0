@@ -50,7 +50,7 @@ public class SrcMemberActivityTest {
     public void openNav(){
         try {
             runOnUiThread(()->{
-                activityTestRule.getActivity().drawerLayout.openDrawer(GravityCompat.START);
+                activityTestRule.getActivity().drawerLayout.openDrawer(activityTestRule.getActivity().drawerLayout);
                 activityTestRule.getActivity().onBackPressed();
             });
         } catch (Throwable throwable) {

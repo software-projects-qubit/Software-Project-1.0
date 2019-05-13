@@ -16,6 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 
 @RunWith(AndroidJUnit4.class)
@@ -67,13 +69,25 @@ public class SrcPostPollActivityTest {
     }
 
     @Test
+    public void pressVotingOptionWithNoChoiceOfInput(){
+        try {
+            runOnUiThread(()->{
+                activityTestRule.getActivity().findViewById(R.id.src_add_poll_option).performClick();
+                activityTestRule.getActivity().add.performClick();
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+    @Test
     public void pressVotingOptionButton(){
         try {
             runOnUiThread(()->{
                 activityTestRule.getActivity().findViewById(R.id.src_add_poll_option).performClick();
                 AppCompatEditText choiceInput = activityTestRule.getActivity().choiceInput;
-                activityTestRule.getActivity().add.performClick();
                 choiceInput.requestFocus();
+                choiceInput.setText("a");
+                choiceInput.setText("ab");
                 choiceInput.setText("abc~");
                 activityTestRule.getActivity().add.performClick();
                 activityTestRule.getActivity().deleteItem.performClick();
@@ -87,6 +101,10 @@ public class SrcPostPollActivityTest {
     public void pressPostPoll(){
         try {
             runOnUiThread(()->{
+                AppCompatRadioButton multi = activityTestRule.getActivity().findViewById(R.id.src_multi_select);
+                multi.setChecked(true);
+                activityTestRule.getActivity().title.setText("test");
+                activityTestRule.getActivity().pollDesc.setText("desc");
                 activityTestRule.getActivity().optionsArrayList.add("opt1");
                 activityTestRule.getActivity().optionsArrayList.add("opt2");
                 activityTestRule.getActivity().findViewById(R.id.src_add_poll_option).performClick();

@@ -34,6 +34,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
     public Button add;
     public AppCompatImageButton deleteItem;
     public ArrayList<String> optionsArrayList = new ArrayList<>();
+    public TextInputEditText title, pollDesc;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,8 +42,8 @@ public class SrcPostPollActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_post_poll);
 
-        TextInputEditText title = findViewById(R.id.src_poll_title);
-        TextInputEditText pollDesc = findViewById(R.id.src_poll_desc);
+        title = findViewById(R.id.src_poll_title);
+        pollDesc = findViewById(R.id.src_poll_desc);
 
         AppCompatRadioButton singleSelect = findViewById(R.id.src_single_select);
         AppCompatRadioButton multiSelect = findViewById(R.id.src_multi_select);
