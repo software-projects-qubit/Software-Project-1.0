@@ -42,7 +42,7 @@ public abstract class JSONDownloader extends AsyncTask<String, String, JSONObjec
             e.printStackTrace();
         }
 
-        return null;
+        return new JSONObject();
     }
 
     @Override

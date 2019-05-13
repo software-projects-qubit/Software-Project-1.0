@@ -107,7 +107,7 @@ public class SrcPostPollActivityTest {
                 activityTestRule.getActivity().pollDesc.setText("desc");
                 activityTestRule.getActivity().optionsArrayList.add("opt1");
                 activityTestRule.getActivity().optionsArrayList.add("opt2");
-                activityTestRule.getActivity().findViewById(R.id.src_add_poll_option).performClick();
+                activityTestRule.getActivity().findViewById(R.id.src_post_poll).performClick();
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();

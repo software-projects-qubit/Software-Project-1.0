@@ -32,23 +32,22 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_home, container, false);
         refresh = v.findViewById(R.id.home_refresh_layout);
-        refresh.setOnRefreshListener(() -> populateHomePage(v.findViewById(R.id.home_page_items_holder)));
+        refresh.setOnRefreshListener(() -> populateHomePage(v.findViewById(R.id.home_page_items_holder), refresh));
         return v;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        populateHomePage(v.findViewById(R.id.home_page_items_holder));
+        populateHomePage(v.findViewById(R.id.home_page_items_holder), refresh);
     }
 
     //connect to server and retrieve data from Homepage.json
-    private static void populateHomePage(LinearLayout holder) {
+    public static void populateHomePage(LinearLayout holder, SwipeRefreshLayout refresh) {
         new JSONDownloader() {
             @Override
             protected void onPostExecute(JSONObject jsonObject) {
                 if (refresh != null) refresh.setRefreshing(false);
-                if (jsonObject == null) return;
 
                 Context context = holder.getContext();
                 holder.removeAllViews();

@@ -36,11 +36,11 @@ public class SrcPostActivityActivity extends AppCompatActivity {
             String sTitle = b.getString(ServerUtils.ACTIVITY_TITLE);
             String sDesc = b.getString(ServerUtils.ACTIVITY_DESC);
 
-            if (activityId != -1) {
-                title.setText(sTitle);
-                activity.setText(sDesc);
-                postUpdateActivity.setText(getString(R.string.update_activity));
-            }
+
+            title.setText(sTitle);
+            activity.setText(sDesc);
+            postUpdateActivity.setText(getString(R.string.update_activity));
+
         }
 
         //posts src member activity to the server, as long as the activity is not empty

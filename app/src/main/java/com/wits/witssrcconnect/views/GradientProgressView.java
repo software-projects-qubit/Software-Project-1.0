@@ -32,6 +32,7 @@ public class GradientProgressView extends View {
 
     private void startAnimation() {
         AnimationDrawable animationDrawable = (AnimationDrawable) getBackground();
+        if (animationDrawable == null) return;
         animationDrawable.setEnterFadeDuration(1000);
         animationDrawable.setExitFadeDuration(10000);
         animationDrawable.start();
