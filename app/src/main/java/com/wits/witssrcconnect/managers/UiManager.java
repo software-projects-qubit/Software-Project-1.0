@@ -4,12 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
@@ -135,6 +137,29 @@ public class UiManager {
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_activity))
                         .setText(desc);
 
+                AppCompatImageView likeIcon = activityItemView.findViewById(R.id.appCompatImageView7);
+                AppCompatImageView disLikeIcon = activityItemView.findViewById(R.id.appCompatImageView8);
+
+                //TODO: should get int from json which says user liked or dislike, 0 like, 1 dislike, else nothing
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////some magic here
+                /*switch (activity.getInt("LIKE_STATUS")){
+                    case 0:
+                        likeIcon.setImageResource(R.drawable.icon_like_pressed);
+                        break;
+
+                    case 1:
+                        disLikeIcon.setImageResource(R.drawable.icon_dis_like_pressed);
+                        break;
+                }*/
+
+                ConstraintLayout likeButton = activityItemView.findViewById(R.id.like_button);
+                ConstraintLayout dislikeButton = activityItemView.findViewById(R.id.dislike_button);
+
+                likeButton.setOnClickListener(v -> {
+                    String userId = UserManager.getCurrentlyLoggedInUsername();
+                    handleLikeOrDislike(likeIcon, disLikeIcon, activityId, userId, ServerUtils.LIKE_ACTION);
+                });
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //create a reference to the anonymous comment switch
                 SwitchCompat anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
 
@@ -227,6 +252,31 @@ public class UiManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void handleLikeOrDislike(AppCompatImageView likeIcon, AppCompatImageView disLikeIcon, int activityId, String userId, int action) {
+        ContentValues cv = new ContentValues();
+        //TODO: add params
+        new ServerCommunicator(cv) {
+            @Override
+            protected void onPreExecute() {
+
+            }
+
+            @Override
+            protected void onPostExecute(String output) {
+                if (output != null && output.equals(ServerUtils.SUCCESS)){
+                   likeIcon.setImageResource(R.drawable.icon_like_unpressed);
+                   disLikeIcon.setImageResource(R.drawable.icon_dis_like_unpressed);
+                   if (action == ServerUtils.LIKE_ACTION){
+                       likeIcon.setImageResource(R.drawable.icon_like_pressed);
+                   }
+                   else{
+                       disLikeIcon.setImageResource(R.drawable.icon_dis_like_unpressed);
+                   }
+                }
+            }
+        }.execute(); //TODO: add link
     }
 
     //this function deletes item from database and removes from linear layout

@@ -71,4 +71,7 @@ public interface ServerUtils {
 
     int POLL_TYPE_SINGLE_SELECT = 1;
     int POLL_TYPE_MULTI_SELECT = 0;
+
+    int LIKE_ACTION = 0;
+    int DISLIKE_ACTION = 1;
 }

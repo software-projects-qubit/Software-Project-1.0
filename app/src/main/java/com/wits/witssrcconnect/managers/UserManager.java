@@ -84,12 +84,13 @@ public class UserManager {
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
-                ServerCommunicator.showLoadingDialog(context);
+                //ServerCommunicator.showLoadingDialog(context);
+                Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             protected void onPostExecute(String output) {
-                ServerCommunicator.closeLoadingDialog();
+                //ServerCommunicator.closeLoadingDialog();
                 if (output == null) showLogInFailedToast(context);
                 else {
                     switch (user) {
@@ -102,7 +103,7 @@ public class UserManager {
                                             userInfo.getString(ServerUtils.SURNAME));
                                     UserManager.setUserLoggedIn(user, cv.getAsString(ServerUtils.USERNAME));
                                     Intent i = new Intent(context, StudentActivity.class);
-                                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                     context.startActivity(i);
                                 }
                             } catch (JSONException e) {
@@ -115,7 +116,7 @@ public class UserManager {
                             if (output.equals(ServerUtils.SUCCESS)) {
                                 UserManager.setUserLoggedIn(user, cv.getAsString(ServerUtils.SRC_USERNAME));
                                 Intent i = new Intent(context, SrcMemberActivity.class);
-                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                                 context.startActivity(i);
                                 //((Activity) context).finish();
                             } else showLogInFailedToast(context);
