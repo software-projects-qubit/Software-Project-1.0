@@ -26,9 +26,9 @@ public class LifeTest {
 
     @Test
     public void startLoginActivityFirstTime(){
-        UserManager.initUserManager(c);
-        UserManager.userLoggedOut(c);
         getInstrumentation().runOnMainSync(() ->{
+            UserManager.initUserManager(c);
+            UserManager.userLoggedOut(c);
             Intent i = new Intent(c, LogInActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);
@@ -37,10 +37,10 @@ public class LifeTest {
 
     @Test
     public void startLoginActivity(){
-        int user = UserUtils.STUDENT;
-        UserManager.initUserManager(c);
-        UserManager.setUserLoggedIn(user, "1627982");
         getInstrumentation().runOnMainSync(() ->{
+            int user = UserUtils.STUDENT;
+            UserManager.initUserManager(c);
+            UserManager.setUserLoggedIn(user, "1627982");
             Intent i = new Intent(c, LogInActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);
@@ -49,11 +49,11 @@ public class LifeTest {
 
     @Test
     public void startLoginActivitySrcMember(){
-        UserManager.initUserManager(c);
-        UserManager.userLoggedOut(c);
-        int user = UserUtils.SRC_MEMBER;
-        UserManager.setUserLoggedIn(user, "srcpresident");
         getInstrumentation().runOnMainSync(() ->{
+            UserManager.initUserManager(c);
+            UserManager.userLoggedOut(c);
+            int user = UserUtils.SRC_MEMBER;
+            UserManager.setUserLoggedIn(user, "srcpresident");
             Intent i = new Intent(c, LogInActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);
@@ -62,11 +62,10 @@ public class LifeTest {
 
     @Test
     public void startSrcMemberActivity(){
-        int user = UserUtils.SRC_MEMBER;
-        UserManager.initUserManager(c);
-        UserManager.setUserLoggedIn(user, "srcpresident");
-
         getInstrumentation().runOnMainSync(() ->{
+            int user = UserUtils.SRC_MEMBER;
+            UserManager.initUserManager(c);
+            UserManager.setUserLoggedIn(user, "srcpresident");
             Intent i = new Intent(c, SrcMemberActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);
@@ -75,11 +74,10 @@ public class LifeTest {
 
     @Test
     public void startStudentActivity(){
-        int user = UserUtils.STUDENT;
-        UserManager.initUserManager(c);
-        UserManager.setUserLoggedIn(user, "1627982");
-
         getInstrumentation().runOnMainSync(() ->{
+            int user = UserUtils.STUDENT;
+            UserManager.initUserManager(c);
+            UserManager.setUserLoggedIn(user, "1627982");
             Intent i = new Intent(c, StudentActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);
