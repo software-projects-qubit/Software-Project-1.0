@@ -1,6 +1,7 @@
 package com.wits.witssrcconnect.activities;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -73,7 +74,7 @@ public class SrcPostPollActivityTest {
         try {
             runOnUiThread(()->{
                 activityTestRule.getActivity().findViewById(R.id.src_add_poll_option).performClick();
-                activityTestRule.getActivity().add.performClick();
+                activityTestRule.getActivity().dialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();
@@ -89,7 +90,7 @@ public class SrcPostPollActivityTest {
                 choiceInput.setText("a");
                 choiceInput.setText("ab");
                 choiceInput.setText("abc~");
-                activityTestRule.getActivity().add.performClick();
+                activityTestRule.getActivity().dialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
                 activityTestRule.getActivity().deleteItem.performClick();
             });
         } catch (Throwable throwable) {

@@ -31,7 +31,7 @@ import java.util.Objects;
 public class SrcPostPollActivity extends AppCompatActivity {
 
     public AppCompatEditText choiceInput;
-    public Button add;
+    public AlertDialog dialog;
     public AppCompatImageButton deleteItem;
     public ArrayList<String> optionsArrayList = new ArrayList<>();
     public TextInputEditText title, pollDesc;
@@ -141,15 +141,14 @@ public class SrcPostPollActivity extends AppCompatActivity {
             }
         });
 
-        AlertDialog dialog = new AlertDialog.Builder(this)
+        dialog = new AlertDialog.Builder(this)
                 .setTitle("Add Option")
                 .setView(choiceInput)
                 .setPositiveButton("Add", null)
                 .create();
 
         dialog.setOnShowListener(dialog1 -> {
-            add = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-            add.setOnClickListener(v -> {
+            dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
                 String sChoice = Objects.requireNonNull(choiceInput.getText()).toString().trim();
                 if (TextUtils.isEmpty(sChoice)) {
                     choiceInput.setError("Enter option");

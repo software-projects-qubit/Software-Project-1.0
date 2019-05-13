@@ -137,12 +137,23 @@ public class UiManager {
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_activity))
                         .setText(desc);
 
-                AppCompatImageView likeIcon = activityItemView.findViewById(R.id.appCompatImageView7);
+                //TODO: work here
+                /*AppCompatImageView likeIcon = activityItemView.findViewById(R.id.appCompatImageView7);
                 AppCompatImageView disLikeIcon = activityItemView.findViewById(R.id.appCompatImageView8);
 
+                AppCompatTextView numLikes = activityItemView.findViewById(R.id.src_activity_card_num_likes);
+                AppCompatTextView numDisLikes = activityItemView.findViewById(R.id.src_activity_card_num_dislike);
+                AppCompatTextView numComments = activityItemView.findViewById(R.id.src_activity_card_num_comments);
                 //TODO: should get int from json which says user liked or dislike, 0 like, 1 dislike, else nothing
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////some magic here
-                /*switch (activity.getInt("LIKE_STATUS")){
+                String likes = activity.getString("NUM_LIKES");
+                String disLikes = activity.getString("NUM_DISLIKES");
+                String comments = activity.getString("NUM_COMMENTS");
+
+                numLikes.setText(likes);
+                numDisLikes.setText(disLikes);
+                numComments.setText(comments);
+                switch (activity.getInt("LIKE_STATUS")){
                     case 0:
                         likeIcon.setImageResource(R.drawable.icon_like_pressed);
                         break;
@@ -150,7 +161,7 @@ public class UiManager {
                     case 1:
                         disLikeIcon.setImageResource(R.drawable.icon_dis_like_pressed);
                         break;
-                }*/
+                }
 
                 ConstraintLayout likeButton = activityItemView.findViewById(R.id.like_button);
                 ConstraintLayout dislikeButton = activityItemView.findViewById(R.id.dislike_button);
@@ -159,6 +170,11 @@ public class UiManager {
                     String userId = UserManager.getCurrentlyLoggedInUsername();
                     handleLikeOrDislike(likeIcon, disLikeIcon, activityId, userId, ServerUtils.LIKE_ACTION);
                 });
+
+                dislikeButton.setOnClickListener(v -> {
+                    String userId = UserManager.getCurrentlyLoggedInUsername();
+                    handleLikeOrDislike(likeIcon, disLikeIcon, activityId, userId, ServerUtils.DISLIKE_ACTION);
+                });*/
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //create a reference to the anonymous comment switch
                 SwitchCompat anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
@@ -254,7 +270,7 @@ public class UiManager {
         }
     }
 
-    private static void handleLikeOrDislike(AppCompatImageView likeIcon, AppCompatImageView disLikeIcon, int activityId, String userId, int action) {
+    /*private static void handleLikeOrDislike(AppCompatImageView likeIcon, AppCompatImageView disLikeIcon, int activityId, String userId, int action) {
         ContentValues cv = new ContentValues();
         //TODO: add params
         new ServerCommunicator(cv) {
@@ -272,13 +288,15 @@ public class UiManager {
                        likeIcon.setImageResource(R.drawable.icon_like_pressed);
                    }
                    else{
-                       disLikeIcon.setImageResource(R.drawable.icon_dis_like_unpressed);
+                       disLikeIcon.setImageResource(R.drawable.icon_dis_like_pressed);
                    }
+                }
+                else{
+                    Toast.makeText(likeIcon.getContext(), "Action Failed", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute(); //TODO: add link
-    }
-
+    }*/
     //this function deletes item from database and removes from linear layout
     private static void deleteItem(ContentValues cv, LinearLayout holder, View view, String link) {
         new AlertDialog.Builder(holder.getContext())
