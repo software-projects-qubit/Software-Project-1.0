@@ -10,6 +10,7 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -42,6 +43,12 @@ import java.util.Objects;
 
 public class UiManager {
 
+    public static SwitchCompat anonymitySwitch;
+    public static AppCompatImageButton sendButton;
+    public static TextInputEditText comment;
+    public static AppCompatButton viewComments;
+    public static AppCompatImageButton menu;
+    public static PopupMenu popupMenu;
     //This function creates a layout Params for LinearLayout
     //it takes in a margin and return a layout Param, together with the margins applied
     //margins applied left, right, up, down
@@ -178,7 +185,7 @@ public class UiManager {
                 });*/
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //create a reference to the anonymous comment switch
-                SwitchCompat anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
+                anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
 
                 //declare a variable to save the anonymity switch
                 final int[] anonymityTracker = {ServerUtils.ANONYMOUS_COMMENT_OFF};
@@ -194,11 +201,12 @@ public class UiManager {
                 });
 
                 //create a reference to the TextInputEditText used to input comments
-                TextInputEditText comment = activityItemView.findViewById(R.id.input_comment);
+                comment = activityItemView.findViewById(R.id.input_comment);
 
                 //set an onClickListener to send comment button, when pressed it will send the comment
                 //to the database
-                activityItemView.findViewById(R.id.send_comment).setOnClickListener(v -> {
+                sendButton = activityItemView.findViewById(R.id.send_comment);
+                sendButton.setOnClickListener(v -> {
                     //retrieves what the user entered
                     String sComment = Objects.requireNonNull(comment.getText()).toString().trim();
                     //check if the user actually entered something
@@ -226,7 +234,8 @@ public class UiManager {
                 });
 
                 //set on click listener to view comments to show a bottom sheet which contains comments
-                activityItemView.findViewById(R.id.view_comments).setOnClickListener(v -> {
+                viewComments = activityItemView.findViewById(R.id.view_comments);
+                viewComments.setOnClickListener(v -> {
                     ViewCommentsBottomSheet viewCommentsBottomSheet = new ViewCommentsBottomSheet();
                     //passes the activity id, title, desc to the bottom sheet
                     //the bottom sheet will then display
@@ -237,17 +246,14 @@ public class UiManager {
                 });
 
                 //create reference to the menu button
-                AppCompatImageButton menu = activityItemView.findViewById(R.id.src_activity_menu);
+                menu = activityItemView.findViewById(R.id.src_activity_menu);
                 if (mine) {
-                    PopupMenu popupMenu = new PopupMenu(menu.getContext(), menu);
+                    popupMenu = new PopupMenu(menu.getContext(), menu);
                     popupMenu.inflate(R.menu.src_activity_menu);
                     popupMenu.setOnMenuItemClickListener(item -> {
                         switch (item.getItemId()) {
                             case R.id.src_activity_menu_update:
-                                menu.getContext().startActivity(new Intent(menu.getContext(), SrcPostActivityActivity.class)
-                                        .putExtra(ServerUtils.ACTIVITY_ID, activityId)
-                                        .putExtra(ServerUtils.ACTIVITY_TITLE, title)
-                                        .putExtra(ServerUtils.ACTIVITY_DESC, desc));
+                                updateActivity(menu.getContext(), activityId, title, desc);
                                 break;
 
                             case R.id.src_activity_menu_delete:
@@ -269,6 +275,13 @@ public class UiManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    static void updateActivity(Context context, int activityId, String title, String desc) {
+        context.startActivity(new Intent(menu.getContext(), SrcPostActivityActivity.class)
+                .putExtra(ServerUtils.ACTIVITY_ID, activityId)
+                .putExtra(ServerUtils.ACTIVITY_TITLE, title)
+                .putExtra(ServerUtils.ACTIVITY_DESC, desc));
     }
 
     /*private static void handleLikeOrDislike(AppCompatImageView likeIcon, AppCompatImageView disLikeIcon, int activityId, String userId, int action) {
@@ -323,8 +336,6 @@ public class UiManager {
                 })
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                 .create().show();
-
-
     }
 
     // this function populates any given linear layout with src polls

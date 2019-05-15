@@ -147,7 +147,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
                 .setView(choiceInput)
                 .setPositiveButton("Add", null)
                 .create();
-        dialog.show();
+
 
         dialog.setOnShowListener(dialog1 -> {
             dialogInterface = dialog1;
@@ -156,6 +156,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
             });
         });
 
+        dialog.show();
     }
 
     public void handleOption(LinearLayout optionsHolder, ArrayList<String> _optionsArrayList, DialogInterface dialog1){

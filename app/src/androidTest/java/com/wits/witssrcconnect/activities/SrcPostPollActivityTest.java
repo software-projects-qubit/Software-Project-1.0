@@ -75,6 +75,7 @@ public class SrcPostPollActivityTest {
         try {
             runOnUiThread(()->{
                 activityTestRule.getActivity().findViewById(R.id.src_add_poll_option).performClick();
+                activityTestRule.getActivity().dialog.show();
                 activityTestRule.getActivity().dialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
                 LinearLayout optionsHolder = activityTestRule.getActivity().findViewById(R.id.options_holder);
                 activityTestRule.getActivity().handleOption(optionsHolder,
