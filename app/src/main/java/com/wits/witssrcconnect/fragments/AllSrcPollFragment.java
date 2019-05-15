@@ -32,6 +32,6 @@ public class AllSrcPollFragment extends Fragment {
     }
 
     public static void init(JSONArray polls) {
-        UiManager.populateWithPolls(v.findViewById(R.id.src_activities_holder), polls, fragmentManager);
+        if (v != null) UiManager.populateWithPolls(v.findViewById(R.id.src_activities_holder), polls, fragmentManager);
     }
 }
