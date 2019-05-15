@@ -32,8 +32,6 @@ public class ViewCommentsBottomSheet extends BottomSheetDialogFragment {
     public void setupDialog(Dialog dialog, int style) {
         super.setupDialog(dialog, style);
 
-        //UiManager.forceBottomSheetToFullyExpand(dialog);
-
         dialog.setOnShowListener(UiManager::forceBottomSheetToFullyExpand);
         View commentsView = View.inflate(getContext(), R.layout.bottom_sheet_view_comments, null);
         dialog.setContentView(commentsView);

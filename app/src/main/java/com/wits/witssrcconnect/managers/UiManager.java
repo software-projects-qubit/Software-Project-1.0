@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.LogInActivity;
 import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
+import com.wits.witssrcconnect.bottom_sheets.PollVoteBottomSheet;
 import com.wits.witssrcconnect.bottom_sheets.ViewCommentsBottomSheet;
 import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
@@ -359,7 +360,17 @@ public class UiManager {
                 //saved for future use
                 int pollType = poll.getInt(ServerUtils.POLL_TYPE);
                 pollItem.findViewById(R.id.poll_vote).setOnClickListener(v -> {
-
+                    PollVoteBottomSheet pollVoteBottomSheet = new PollVoteBottomSheet();
+                    //TODO: PASS POLL_ID
+                    try {
+                        pollVoteBottomSheet.setTitle(poll.getString(ServerUtils.POLL_TITLE));
+                        pollVoteBottomSheet.setDesc(poll.getString(ServerUtils.POLL_DESC).replace("\\n", "\n"));
+                        pollVoteBottomSheet.setPollType(pollType);
+                        pollVoteBottomSheet.setPollChoices(pollChoices);
+                        pollVoteBottomSheet.show(fragmentManager, pollVoteBottomSheet.getTag());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 });
 
                 holder.addView(pollItem, UiManager.getLayoutParams(15));

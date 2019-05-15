@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
+import android.view.Gravity;
 import android.view.MenuItem;
 
 import com.wits.witssrcconnect.R;
@@ -43,7 +44,7 @@ public class StudentActivityTest {
     public void openNav(){
         try {
             runOnUiThread(()->{
-                activityTestRule.getActivity().drawerLayout.openDrawer(activityTestRule.getActivity().drawerLayout);
+                activityTestRule.getActivity().drawerLayout.openDrawer(Gravity.LEFT);
                 activityTestRule.getActivity().onBackPressed();
             });
         } catch (Throwable throwable) {

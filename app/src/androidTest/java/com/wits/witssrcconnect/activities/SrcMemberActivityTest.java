@@ -6,6 +6,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.view.GravityCompat;
+import android.view.Gravity;
 import android.view.MenuItem;
 
 import com.wits.witssrcconnect.R;
@@ -49,13 +50,15 @@ public class SrcMemberActivityTest {
     public void openNav(){
         try {
             runOnUiThread(()->{
-                activityTestRule.getActivity().drawerLayout.openDrawer(activityTestRule.getActivity().drawerLayout);
+                activityTestRule.getActivity().drawerLayout.openDrawer(Gravity.LEFT);
                 activityTestRule.getActivity().onBackPressed();
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
     }
+
+
 
     @Test
     public void pressHome(){
