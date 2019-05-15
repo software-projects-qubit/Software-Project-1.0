@@ -35,6 +35,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
     public AppCompatImageButton deleteItem;
     public ArrayList<String> optionsArrayList = new ArrayList<>();
     public TextInputEditText title, pollDesc;
+    public DialogInterface dialogInterface;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -149,29 +150,34 @@ public class SrcPostPollActivity extends AppCompatActivity {
         dialog.show();
 
         dialog.setOnShowListener(dialog1 -> {
+            dialogInterface = dialog1;
             dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> {
-                String sChoice = Objects.requireNonNull(choiceInput.getText()).toString().trim();
-                if (TextUtils.isEmpty(sChoice)) {
-                    choiceInput.setError("Enter option");
-                } else {
-                    sChoice = sChoice.replace("\n", "\\n");
-                    optionsArrayList.add(sChoice);
-                    View itemOption = View.inflate(this, R.layout.item_option_holder, null);
-
-                    ((AppCompatTextView) itemOption.findViewById(R.id.choice_view)).setText(sChoice);
-
-                    String finalSChoice = sChoice;
-                    deleteItem = findViewById(R.id.delete_choice);
-                    deleteItem.setOnClickListener(v1 -> {
-                        optionsArrayList.remove(finalSChoice);
-                        optionsHolder.removeView(itemOption);
-                    });
-
-                    optionsHolder.addView(itemOption, UiManager.getLayoutParams(15));
-                    dialog1.dismiss();
-                }
+                handleOption(optionsHolder, optionsArrayList, dialog1);
             });
         });
 
+    }
+
+    public void handleOption(LinearLayout optionsHolder, ArrayList<String> _optionsArrayList, DialogInterface dialog1){
+        String sChoice = Objects.requireNonNull(choiceInput.getText()).toString().trim();
+        if (TextUtils.isEmpty(sChoice)) {
+            choiceInput.setError("Enter option");
+        } else {
+            sChoice = sChoice.replace("\n", "\\n");
+            _optionsArrayList.add(sChoice);
+            View itemOption = View.inflate(this, R.layout.item_option_holder, null);
+
+            ((AppCompatTextView) itemOption.findViewById(R.id.choice_view)).setText(sChoice);
+
+            String finalSChoice = sChoice;
+            deleteItem = findViewById(R.id.delete_choice);
+            deleteItem.setOnClickListener(v1 -> {
+                _optionsArrayList.remove(finalSChoice);
+                optionsHolder.removeView(itemOption);
+            });
+
+            optionsHolder.addView(itemOption, UiManager.getLayoutParams(15));
+            dialog1.dismiss();
+        }
     }
 }

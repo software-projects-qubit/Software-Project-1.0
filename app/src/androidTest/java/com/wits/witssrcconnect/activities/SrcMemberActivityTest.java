@@ -50,7 +50,7 @@ public class SrcMemberActivityTest {
     public void openNav(){
         try {
             runOnUiThread(()->{
-                activityTestRule.getActivity().drawerLayout.openDrawer(Gravity.LEFT);
+                activityTestRule.getActivity().drawerLayout.openDrawer(Gravity.LEFT|Gravity.START);
                 activityTestRule.getActivity().onBackPressed();
             });
         } catch (Throwable throwable) {
@@ -58,7 +58,17 @@ public class SrcMemberActivityTest {
         }
     }
 
-
+    @Test
+    public void pressItem(){
+        try {
+            runOnUiThread(()->{
+                NavigationView nv = activityTestRule.getActivity().findViewById(R.id.nav_view);
+                activityTestRule.getActivity().onNavigationItemSelected(nv.getMenu().getItem(1));
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
 
     @Test
     public void pressHome(){
@@ -80,6 +90,7 @@ public class SrcMemberActivityTest {
                 NavigationView nv = activityTestRule.getActivity().findViewById(R.id.nav_view);
                 MenuItem mi = nv.getMenu().findItem(R.id.nav_activity_timeline);
                 activityTestRule.getActivity().onNavigationItemSelected(mi);
+                
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();
