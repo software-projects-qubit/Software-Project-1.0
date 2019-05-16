@@ -74,7 +74,7 @@
             android:layout_height="15dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="17dp"
-            android:src="@drawable/icon_like_unpressed"
+            android:src="@drawable/icon_like_pressed"
             app:layout_constraintStart_toStartOf="@+id/src_activity_card_activity"
             app:layout_constraintTop_toBottomOf="@+id/src_activity_card_activity" />
 
@@ -84,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="0  "
+            android:textColor="@android:color/holo_green_dark"
             android:textSize="12sp"
             android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView4"
@@ -96,7 +97,7 @@
             android:layout_height="15dp"
             android:layout_marginStart="48dp"
             android:layout_marginTop="17dp"
-            android:src="@drawable/icon_dis_like_unpressed"
+            android:src="@drawable/icon_dis_like_pressed"
             app:layout_constraintStart_toEndOf="@+id/src_activity_card_num_likes"
             app:layout_constraintTop_toBottomOf="@+id/src_activity_card_activity" />
 
@@ -108,6 +109,7 @@
             android:text="0  "
             android:textSize="12sp"
             android:textStyle="italic"
+            android:textColor="@android:color/holo_red_dark"
             app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView5"
             app:layout_constraintStart_toEndOf="@+id/appCompatImageView5"
             app:layout_constraintTop_toTopOf="@+id/appCompatImageView5"

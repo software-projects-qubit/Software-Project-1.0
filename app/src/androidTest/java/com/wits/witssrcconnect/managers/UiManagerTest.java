@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
+import com.wits.witssrcconnect.utils.UserUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -207,6 +208,28 @@ public class UiManagerTest {
 
     @Test
     public void openPollVoteBottomSheet(){
+        try {
+            runOnUiThread(()->{
+                try {
+                    JSONObject testJsonObject = new JSONObject();
+                    testJsonObject.put(ServerUtils.POLL_ID, 2);
+                    testJsonObject.put(ServerUtils.POLL_TITLE, anyString());
+                    testJsonObject.put(ServerUtils.SRC_USERNAME, anyString());
+                    testJsonObject.put(ServerUtils.POLL_DATE, anyString());
+                    testJsonObject.put(ServerUtils.POLL_TIME, anyString());
+                    testJsonObject.put(ServerUtils.POLL_DESC, anyString());
+                    String[] options = {"opt1","opt2","opt3"};
+                    testJsonObject.put(ServerUtils.POLL_TYPE, ServerUtils.POLL_TYPE_MULTI_SELECT);
+                    UiManager.openPollVoteBottomSheet(testJsonObject, options, Mockito.mock(FragmentManager.class));
+                    testJsonObject.put(ServerUtils.POLL_TYPE, ServerUtils.POLL_TYPE_SINGLE_SELECT);
+                    UiManager.openPollVoteBottomSheet(testJsonObject, options, Mockito.mock(FragmentManager.class));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
 
     }
 }

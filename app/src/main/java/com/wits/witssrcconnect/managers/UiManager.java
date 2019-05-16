@@ -16,6 +16,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -402,6 +403,7 @@ public class UiManager {
         PollVoteBottomSheet pollVoteBottomSheet = new PollVoteBottomSheet();
         //TODO: PASS POLL_ID
         try {
+            pollVoteBottomSheet.setPollId(poll.getInt(ServerUtils.POLL_ID));
             pollVoteBottomSheet.setTitle(poll.getString(ServerUtils.POLL_TITLE));
             pollVoteBottomSheet.setDesc(poll.getString(ServerUtils.POLL_DESC).replace("\\n", "\n"));
             pollVoteBottomSheet.setPollType(poll.getInt(ServerUtils.POLL_TYPE));
