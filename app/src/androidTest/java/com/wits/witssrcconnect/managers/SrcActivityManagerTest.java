@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @RunWith(AndroidJUnit4.class)

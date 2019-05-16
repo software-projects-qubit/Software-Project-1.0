@@ -17,7 +17,7 @@ import static android.support.test.internal.runner.junit4.statement.UiThreadStat
 import static org.mockito.ArgumentMatchers.anyString;
 
 @RunWith(AndroidJUnit4.class)
-public class UserManager2 {
+public class UserManager2Test {
     private Context c = InstrumentationRegistry.getTargetContext();
 
 
@@ -25,6 +25,7 @@ public class UserManager2 {
     public void userLoggedOut(){
         try {
             runOnUiThread(()->{
+                UserManager.SHARED_PREFERENCES = null;
                 UserManager.userLoggedOut(c);
             });
         } catch (Throwable throwable) {
@@ -101,7 +102,7 @@ public class UserManager2 {
                 try {
                     testJson.put(ServerUtils.NAME, anyString());
                     testJson.put(ServerUtils.SURNAME, anyString());
-                    UserManager.handleLogin(UserUtils.SRC_MEMBER, testJson.toString(), c, cv);
+                    UserManager.handleLogin(UserUtils.STUDENT, testJson.toString(), c, cv);
                     UserManager.userLoggedOut(c);
                 } catch (JSONException e) {
                     e.printStackTrace();
