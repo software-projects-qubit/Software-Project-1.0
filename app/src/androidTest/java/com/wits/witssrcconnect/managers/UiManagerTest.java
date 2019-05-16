@@ -5,74 +5,74 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.TextInputEditText;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.FragmentManager;
+import android.view.View;
 import android.widget.LinearLayout;
 
+import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
 import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 
 @RunWith(AndroidJUnit4.class)
 public class UiManagerTest {
 
     private Context c = InstrumentationRegistry.getTargetContext();
+
     @Test
     public void forceBottomSheetToFullyExpand() {
         try {
-            runOnUiThread(()->{
+            runOnUiThread(() -> {
                 BottomSheetDialog dialog = new BottomSheetDialog(c);
                 dialog.setOnShowListener(UiManager::forceBottomSheetToFullyExpand);
+                dialog.show();
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////MODIFY AGAIN HERE
     @Test
-    public void populateWithSrcActivities() {
+    public void populateWithSrcActivities(){
         try {
             runOnUiThread(()->{
-                ContentValues cv = new ContentValues();
-                cv.put(ServerUtils.ACTION, ServerUtils.READ_ALL_ACTIVITIES);
-                new ServerCommunicator(cv) {
-                    @Override
-                    protected void onPreExecute() {
+                try {
+                    LinearLayout holder = new LinearLayout(c);
+                    holder.setOrientation(LinearLayout.VERTICAL);
 
-                    }
+                    FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
 
-                    @Override
-                    protected void onPostExecute(String output) {
-                        try {
-                            JSONArray jsonArray = new JSONArray(output);
-                            LinearLayout holder = new LinearLayout(c);
-                            holder.setOrientation(LinearLayout.VERTICAL);
-                            FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
-                            UiManager.populateWithSrcActivities(holder, jsonArray, fragmentManager, false);
-                            UiManager.populateWithSrcActivities(holder, jsonArray, fragmentManager, true);
-                            UiManager.anonymitySwitch.performClick();
-                            UiManager.anonymitySwitch.performClick();
-                            UiManager.sendButton.performClick();
-                            UiManager.comment.setText("Sample text");
-                            UiManager.sendButton.performClick();
-                            UiManager.viewComments.performClick();
-                            UiManager.menu.performClick();
-                            UiManager.updateActivity(c, 1, anyString(), anyString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }.execute(ServerUtils.SRC_MEMBER_LINK);
+                    JSONArray testJsonArray = new JSONArray();
+                    JSONObject testJsonObject = new JSONObject();
+                    testJsonObject.put(ServerUtils.ACTIVITY_ID, anyInt());
+                    testJsonObject.put(ServerUtils.ACTIVITY_TITLE, anyString());
+                    testJsonObject.put(ServerUtils.ACTIVITY_DESC, anyString());
+                    testJsonObject.put(ServerUtils.SRC_USERNAME, anyString());
+                    testJsonObject.put(ServerUtils.ACTIVITY_DATE, anyString());
+                    testJsonObject.put(ServerUtils.ACTIVITY_TIME, anyString());
+
+                    testJsonArray.put(testJsonObject);
+                    testJsonArray.put(testJsonObject);
+
+                    UiManager.populateWithSrcActivities(holder, testJsonArray, fragmentManager, true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();
@@ -80,6 +80,86 @@ public class UiManagerTest {
     }
 
     @Test
-    public void populateWithPolls() {
+    public void sendComment(){
+        TextInputEditText comment = new TextInputEditText(c);
+        int[] a = new int[1];
+        a[0] = ServerUtils.ANONYMOUS_COMMENT_ON;
+
+        UiManager.sendComment(comment, a, anyInt());
+        comment.setText("test text");
+        UiManager.sendComment(comment, a, anyInt());
+    }
+
+    @Test
+    public void openComments(){
+        FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
+        UiManager.openComments(anyInt(), anyString(), anyString(), fragmentManager);
+    }
+
+    @Test
+    public void deleteActivity(){
+        LinearLayout holder = new LinearLayout(c);
+        holder.setOrientation(LinearLayout.VERTICAL);
+        View activityItemView = View.inflate(holder.getContext(), R.layout.item_src_activity_card, null);
+        holder.addView(activityItemView);
+        UiManager.deleteActivity(anyInt(), activityItemView, holder);
+    }
+
+    @Test
+    public void handleAnonymity(){
+        int[] a = new int[1];
+        UiManager.handleAnonymity(true, a, c);
+        UiManager.handleAnonymity(false, a, c);
+    }
+
+    @Test
+    public void deleteItem(){
+        UiManager.deleteItem(new ContentValues(), new LinearLayout(c), new View(c), anyString());
+    }
+
+    @Test
+    public void handleDeleteItemFeedback(){
+        LinearLayout l = new LinearLayout(c);
+        l.setOrientation(LinearLayout.VERTICAL);
+
+        View v = new View(c);
+        l.addView(v);
+
+        UiManager.handleDeleteItemFeedback(ServerUtils.FAILED, l, v);
+        UiManager.handleDeleteItemFeedback(ServerUtils.SUCCESS, l, v);
+
+    }
+
+    @Test
+    public void populateWithPolls(){
+        JSONArray testJsonArray = new JSONArray();
+        JSONObject testJsonObject = new JSONObject();
+        try {
+            testJsonObject.put(ServerUtils.POLL_TITLE, anyString());
+            testJsonObject.put(ServerUtils.SRC_USERNAME, anyString());
+            testJsonObject.put(ServerUtils.POLL_DATE, anyString());
+            testJsonObject.put(ServerUtils.POLL_TIME, anyString());
+            testJsonObject.put(ServerUtils.POLL_DESC, anyString());
+            String options = "opt1~opt2~opt3";
+            testJsonObject.put(ServerUtils.POLL_CHOICE, options);
+            testJsonObject.put(ServerUtils.POLL_TYPE, anyInt());
+
+            testJsonArray.put(testJsonObject);
+            testJsonArray.put(testJsonObject);
+            testJsonArray.put(testJsonObject);
+
+            LinearLayout holder = new LinearLayout(c);
+            holder.setOrientation(LinearLayout.VERTICAL);
+            FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
+            UiManager.populateWithPolls(holder, testJsonArray, fragmentManager);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void openPollVoteBottomSheet(){
+
     }
 }

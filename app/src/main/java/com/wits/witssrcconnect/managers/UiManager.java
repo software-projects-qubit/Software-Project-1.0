@@ -192,13 +192,8 @@ public class UiManager {
 
                 //this allows the app to listen for anonymous comment states (on and off) and displays
                 //a notification at the change of each state
-                anonymitySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    anonymityTracker[0] = isChecked ? ServerUtils.ANONYMOUS_COMMENT_ON : ServerUtils.ANONYMOUS_COMMENT_OFF;
-                    String message;
-                    if (isChecked) message = "Anonymous comment on";
-                    else message = "Anonymous comment off";
-                    Toast.makeText(holder.getContext(), message, Toast.LENGTH_SHORT).show();
-                });
+                anonymitySwitch.setOnCheckedChangeListener((buttonView, isChecked) ->
+                        handleAnonymity(isChecked, anonymityTracker, holder.getContext()));
 
                 //create a reference to the TextInputEditText used to input comments
                 comment = activityItemView.findViewById(R.id.input_comment);
@@ -206,44 +201,11 @@ public class UiManager {
                 //set an onClickListener to send comment button, when pressed it will send the comment
                 //to the database
                 sendButton = activityItemView.findViewById(R.id.send_comment);
-                sendButton.setOnClickListener(v -> {
-                    //retrieves what the user entered
-                    String sComment = Objects.requireNonNull(comment.getText()).toString().trim();
-                    //check if the user actually entered something
-                    //if he or she didn't enter anything, show error, else post the comment to the database
-                    if (TextUtils.isEmpty(sComment)) {
-                        comment.setError("Comment required");
-                    } else {
-
-
-                        sComment = sComment.replace("\n", "\\n");
-                        ContentValues cv = new ContentValues();
-
-                        String[] dateTime = getDateTime();
-
-                        cv.put(ServerUtils.ACTION, ServerUtils.POST_COMMENT);
-                        cv.put(ServerUtils.ACTIVITY_ID, String.valueOf(activityId));
-                        cv.put(ServerUtils.STUDENT_USERNAME, UserManager.getCurrentlyLoggedInUsername());
-                        cv.put(ServerUtils.STUDENT_COMMENT, sComment);
-                        cv.put(ServerUtils.STUDENT_ANONYMITY, String.valueOf(anonymityTracker[0]));
-                        cv.put(ServerUtils.STUDENT_DATE, dateTime[0]);
-                        cv.put(ServerUtils.STUDENT_TIME, dateTime[1]);
-
-                        SrcActivityManager.postComment(cv, comment);
-                    }
-                });
+                sendButton.setOnClickListener(v -> sendComment(comment, anonymityTracker, activityId));
 
                 //set on click listener to view comments to show a bottom sheet which contains comments
                 viewComments = activityItemView.findViewById(R.id.view_comments);
-                viewComments.setOnClickListener(v -> {
-                    ViewCommentsBottomSheet viewCommentsBottomSheet = new ViewCommentsBottomSheet();
-                    //passes the activity id, title, desc to the bottom sheet
-                    //the bottom sheet will then display
-                    viewCommentsBottomSheet.setActivityId(activityId);
-                    viewCommentsBottomSheet.setActivityTitle(title);
-                    viewCommentsBottomSheet.setActivityDesc(desc);
-                    viewCommentsBottomSheet.show(fragmentManager, "");
-                });
+                viewComments.setOnClickListener(v -> openComments(activityId, title, desc, fragmentManager));
 
                 //create reference to the menu button
                 menu = activityItemView.findViewById(R.id.src_activity_menu);
@@ -257,10 +219,7 @@ public class UiManager {
                                 break;
 
                             case R.id.src_activity_menu_delete:
-                                ContentValues cv = new ContentValues();
-                                cv.put(ServerUtils.ACTION, ServerUtils.DELETE_ACTIVITY);
-                                cv.put(ServerUtils.ACTIVITY_ID, activityId);
-                                deleteItem(cv, holder, activityItemView, ServerUtils.SRC_MEMBER_LINK);
+                                deleteActivity(activityId, activityItemView, holder);
                                 break;
                         }
                         return false;
@@ -275,6 +234,58 @@ public class UiManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void deleteActivity(int activityId, View activityItemView, LinearLayout holder) {
+        ContentValues cv = new ContentValues();
+        cv.put(ServerUtils.ACTION, ServerUtils.DELETE_ACTIVITY);
+        cv.put(ServerUtils.ACTIVITY_ID, activityId);
+        deleteItem(cv, holder, activityItemView, ServerUtils.SRC_MEMBER_LINK);
+    }
+
+    public static void openComments(int activityId, String title, String desc, FragmentManager fragmentManager) {
+        ViewCommentsBottomSheet viewCommentsBottomSheet = new ViewCommentsBottomSheet();
+        //passes the activity id, title, desc to the bottom sheet
+        //the bottom sheet will then display
+        viewCommentsBottomSheet.setActivityId(activityId);
+        viewCommentsBottomSheet.setActivityTitle(title);
+        viewCommentsBottomSheet.setActivityDesc(desc);
+        viewCommentsBottomSheet.show(fragmentManager, "");
+    }
+
+    public static void sendComment(TextInputEditText comment, int[] anonymityTracker, int activityId) {
+        //retrieves what the user entered
+        String sComment = Objects.requireNonNull(comment.getText()).toString().trim();
+        //check if the user actually entered something
+        //if he or she didn't enter anything, show error, else post the comment to the database
+        if (TextUtils.isEmpty(sComment)) {
+            comment.setError("Comment required");
+        } else {
+
+
+            sComment = sComment.replace("\n", "\\n");
+            ContentValues cv = new ContentValues();
+
+            String[] dateTime = getDateTime();
+
+            cv.put(ServerUtils.ACTION, ServerUtils.POST_COMMENT);
+            cv.put(ServerUtils.ACTIVITY_ID, String.valueOf(activityId));
+            cv.put(ServerUtils.STUDENT_USERNAME, UserManager.getCurrentlyLoggedInUsername());
+            cv.put(ServerUtils.STUDENT_COMMENT, sComment);
+            cv.put(ServerUtils.STUDENT_ANONYMITY, String.valueOf(anonymityTracker[0]));
+            cv.put(ServerUtils.STUDENT_DATE, dateTime[0]);
+            cv.put(ServerUtils.STUDENT_TIME, dateTime[1]);
+
+            SrcActivityManager.postComment(cv, comment);
+        }
+    }
+
+    public static void handleAnonymity(boolean isChecked, int[] anonymityTracker, Context c) {
+        anonymityTracker[0] = isChecked ? ServerUtils.ANONYMOUS_COMMENT_ON : ServerUtils.ANONYMOUS_COMMENT_OFF;
+        String message;
+        if (isChecked) message = "Anonymous comment on";
+        else message = "Anonymous comment off";
+        Toast.makeText(c, message, Toast.LENGTH_SHORT).show();
     }
 
     static void updateActivity(Context context, int activityId, String title, String desc) {
@@ -312,7 +323,7 @@ public class UiManager {
         }.execute(); //TODO: add link
     }*/
     //this function deletes item from database and removes from linear layout
-    private static void deleteItem(ContentValues cv, LinearLayout holder, View view, String link) {
+    public static void deleteItem(ContentValues cv, LinearLayout holder, View view, String link) {
         new AlertDialog.Builder(holder.getContext())
                 .setTitle("Delete")
                 .setMessage("Are you sure you want to delete this item?")
@@ -325,17 +336,21 @@ public class UiManager {
 
                         @Override
                         protected void onPostExecute(String output) {
-                            if (output != null && output.equals(ServerUtils.SUCCESS)) {
-                                holder.removeView(view);
-                                Toast.makeText(view.getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(view.getContext(), "Failed to delete item", Toast.LENGTH_SHORT).show();
-                            }
+                            handleDeleteItemFeedback(output, holder, view);
                         }
                     }.execute(link);
                 })
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                 .create().show();
+    }
+
+    public static void handleDeleteItemFeedback(String output, LinearLayout holder, View view) {
+        if (output != null && output.equals(ServerUtils.SUCCESS)) {
+            holder.removeView(view);
+            Toast.makeText(view.getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(view.getContext(), "Failed to delete item", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // this function populates any given linear layout with src polls
@@ -368,20 +383,11 @@ public class UiManager {
 
                 ((AppCompatTextView) pollItem.findViewById(R.id.poll_choice_stats))
                         .setText(builder.toString());
-                //saved for future use
-                int pollType = poll.getInt(ServerUtils.POLL_TYPE);
+
                 pollItem.findViewById(R.id.poll_vote).setOnClickListener(v -> {
-                    PollVoteBottomSheet pollVoteBottomSheet = new PollVoteBottomSheet();
-                    //TODO: PASS POLL_ID
-                    try {
-                        pollVoteBottomSheet.setTitle(poll.getString(ServerUtils.POLL_TITLE));
-                        pollVoteBottomSheet.setDesc(poll.getString(ServerUtils.POLL_DESC).replace("\\n", "\n"));
-                        pollVoteBottomSheet.setPollType(pollType);
-                        pollVoteBottomSheet.setPollChoices(pollChoices);
-                        pollVoteBottomSheet.show(fragmentManager, pollVoteBottomSheet.getTag());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    openPollVoteBottomSheet(poll, pollChoices, fragmentManager);
+
+
                 });
 
                 holder.addView(pollItem, UiManager.getLayoutParams(15));
@@ -390,5 +396,19 @@ public class UiManager {
             e.printStackTrace();
         }
 
+    }
+
+    public static void openPollVoteBottomSheet(JSONObject poll, String[] pollChoices, FragmentManager fragmentManager) {
+        PollVoteBottomSheet pollVoteBottomSheet = new PollVoteBottomSheet();
+        //TODO: PASS POLL_ID
+        try {
+            pollVoteBottomSheet.setTitle(poll.getString(ServerUtils.POLL_TITLE));
+            pollVoteBottomSheet.setDesc(poll.getString(ServerUtils.POLL_DESC).replace("\\n", "\n"));
+            pollVoteBottomSheet.setPollType(poll.getInt(ServerUtils.POLL_TYPE));
+            pollVoteBottomSheet.setPollChoices(pollChoices);
+            pollVoteBottomSheet.show(fragmentManager, pollVoteBottomSheet.getTag());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

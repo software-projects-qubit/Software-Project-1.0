@@ -84,48 +84,48 @@ public class UserManager {
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
-                //ServerCommunicator.showLoadingDialog(context);
                 Toast.makeText(context, "Please wait", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             protected void onPostExecute(String output) {
-                //ServerCommunicator.closeLoadingDialog();
                 if (output == null) showLogInFailedToast(context);
-                else {
-                    switch (user) {
-                        case UserUtils.STUDENT:
-                            try {
-                                JSONObject userInfo = new JSONObject(output);
-                                if (userInfo.length() == 0) showLogInFailedToast(context);
-                                else {
-                                    setUserNameSurname(userInfo.getString(ServerUtils.NAME),
-                                            userInfo.getString(ServerUtils.SURNAME));
-                                    UserManager.setUserLoggedIn(user, cv.getAsString(ServerUtils.USERNAME));
-                                    Intent i = new Intent(context, StudentActivity.class);
-                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    context.startActivity(i);
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                showLogInFailedToast(context);
-                            }
-                            break;
-
-                        case UserUtils.SRC_MEMBER:
-                            if (output.equals(ServerUtils.SUCCESS)) {
-                                UserManager.setUserLoggedIn(user, cv.getAsString(ServerUtils.SRC_USERNAME));
-                                Intent i = new Intent(context, SrcMemberActivity.class);
-                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(i);
-                                //((Activity) context).finish();
-                            } else showLogInFailedToast(context);
-
-                            break;
-                    }
-                }
+                else handleLogin(user, output, context, cv);
             }
         }.execute(link);
+    }
+
+    public static void handleLogin(int user, String output, Context context, ContentValues cv) {
+        switch (user) {
+            case UserUtils.STUDENT:
+                try {
+                    JSONObject userInfo = new JSONObject(output);
+                    if (userInfo.length() == 0) showLogInFailedToast(context);
+                    else {
+                        setUserNameSurname(userInfo.getString(ServerUtils.NAME),
+                                userInfo.getString(ServerUtils.SURNAME));
+                        UserManager.setUserLoggedIn(user, cv.getAsString(ServerUtils.USERNAME));
+                        Intent i = new Intent(context, StudentActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(i);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    showLogInFailedToast(context);
+                }
+                break;
+
+            case UserUtils.SRC_MEMBER:
+
+                if (output.equals(ServerUtils.SUCCESS)) {
+                    UserManager.setUserLoggedIn(user, cv.getAsString(ServerUtils.SRC_USERNAME));
+                    Intent i = new Intent(context, SrcMemberActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(i);
+                } else showLogInFailedToast(context);
+
+                break;
+        }
     }
 
     private static void showLogInFailedToast(Context context) {

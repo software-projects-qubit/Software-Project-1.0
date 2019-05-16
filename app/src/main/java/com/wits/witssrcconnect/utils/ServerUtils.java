@@ -62,6 +62,7 @@ public interface ServerUtils {
     String POLL_LINK = "http://1627982.ms.wits.ac.za/~student/polls.php";
     String READ_ALL_POLLS = "readAllPolls";
     String POST_POLL = "postPoll";
+    String POLL_ID = "poll_id";
     String POLL_TITLE = "poll_title";
     String POLL_DESC = "poll_desc";
     String POLL_CHOICE = "poll_choices";
