@@ -51,6 +51,8 @@ public class SrcPollManager {
 
             @Override
             protected void onPostExecute(String output) {
+
+                Log.d("ACTIVITY_BACK", output);
                 if (pullToRefresh != null) pullToRefresh.setRefreshing(false);
                 if (output == null || output.equals("")) {
                     Toast.makeText(context, "Failed to get polls", Toast.LENGTH_SHORT).show();

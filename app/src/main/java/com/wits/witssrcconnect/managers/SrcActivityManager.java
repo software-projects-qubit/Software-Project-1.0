@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -68,7 +69,6 @@ public class SrcActivityManager {
 
             @Override
             protected void onPostExecute(String output) {
-
                 if (pullToRefresh != null) pullToRefresh.setRefreshing(false);
 
                 if (output.equals("")) {

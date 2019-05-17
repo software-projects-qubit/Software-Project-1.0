@@ -175,14 +175,13 @@ public class UiManager {
 
                 ConstraintLayout likeButton = activityItemView.findViewById(R.id.like_button);
                 ConstraintLayout dislikeButton = activityItemView.findViewById(R.id.dislike_button);
+                String userId = UserManager.getCurrentlyLoggedInUsername();
 
                 likeButton.setOnClickListener(v -> {
-                    String userId = UserManager.getCurrentlyLoggedInUsername();
                     handleLikeOrDislike(likeIcon, disLikeIcon, activityId, userId, ServerUtils.LIKE_ACTION);
                 });
 
                 dislikeButton.setOnClickListener(v -> {
-                    String userId = UserManager.getCurrentlyLoggedInUsername();
                     handleLikeOrDislike(likeIcon, disLikeIcon, activityId, userId, ServerUtils.DISLIKE_ACTION);
                 });*/
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -308,7 +307,7 @@ public class UiManager {
 
             @Override
             protected void onPostExecute(String output) {
-                if (output != null && output.equals(ServerUtils.SUCCESS)){
+                if ( output.equals(ServerUtils.SUCCESS)){
                    likeIcon.setImageResource(R.drawable.icon_like_unpressed);
                    disLikeIcon.setImageResource(R.drawable.icon_dis_like_unpressed);
                    if (action == ServerUtils.LIKE_ACTION){

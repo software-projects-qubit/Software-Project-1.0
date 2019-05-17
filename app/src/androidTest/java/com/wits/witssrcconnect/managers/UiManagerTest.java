@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
@@ -55,22 +56,17 @@ public class UiManagerTest {
                 try {
                     LinearLayout holder = new LinearLayout(c);
                     holder.setOrientation(LinearLayout.VERTICAL);
-
                     FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
-
-                    JSONArray testJsonArray = new JSONArray();
-                    JSONObject testJsonObject = new JSONObject();
-                    testJsonObject.put(ServerUtils.ACTIVITY_ID, anyInt());
-                    testJsonObject.put(ServerUtils.ACTIVITY_TITLE, anyString());
-                    testJsonObject.put(ServerUtils.ACTIVITY_DESC, anyString());
-                    testJsonObject.put(ServerUtils.SRC_USERNAME, anyString());
-                    testJsonObject.put(ServerUtils.ACTIVITY_DATE, anyString());
-                    testJsonObject.put(ServerUtils.ACTIVITY_TIME, anyString());
-
-                    testJsonArray.put(testJsonObject);
-                    testJsonArray.put(testJsonObject);
-
-                    UiManager.populateWithSrcActivities(holder, testJsonArray, fragmentManager, true);
+                    String output = "[" +
+                            "{\"activity_id\":4,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"11\\/05\\/2019\",\"activity_time\":\"23:04\"}," +
+                            "{\"activity_id\":5,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"11\\/05\\/2019\",\"activity_time\":\"23:04\"}," +
+                            "{\"activity_id\":9,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"13\\/05\\/2019\",\"activity_time\":\"08:09\"}," +
+                            "{\"activity_id\":8,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"13\\/05\\/2019\",\"activity_time\":\"08:06\"}," +
+                            "{\"activity_id\":7,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"13\\/05\\/2019\",\"activity_time\":\"08:01\"}," +
+                            "{\"activity_id\":6,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"13\\/05\\/2019\",\"activity_time\":\"07:54\"}]";
+                    JSONArray jsonArray = new JSONArray(output);
+                    UiManager.populateWithSrcActivities(holder, jsonArray, fragmentManager, false);
+                    UiManager.populateWithSrcActivities(holder, jsonArray, fragmentManager, true);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -188,28 +184,17 @@ public class UiManagerTest {
 
         try {
             runOnUiThread(()->{
-
+                String output = "[" +
+                        "{\"poll_id\":12,\"member_username\":\"1627982\",\"poll_title\":\"test\",\"poll_desc\":\"desc\",\"poll_choices\":\"opt1~opt2\",\"poll_type\":0,\"poll_date\":\"15\\/05\\/2019\",\"poll_time\":\"09:35\"}," +
+                        "{\"poll_id\":11,\"member_username\":\"1627982\",\"poll_title\":\"Test\",\"poll_desc\":\"test desc\",\"poll_choices\":\"opt1~opt2\",\"poll_type\":1,\"poll_date\":\"12\\/05\\/2019\",\"poll_time\":\"16:00\"}]";
+                LinearLayout holder = new LinearLayout(c);
+                holder.setOrientation(LinearLayout.VERTICAL);
+                FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
                 try {
-                    JSONArray testJsonArray = new JSONArray();
-                    JSONObject testJsonObject = new JSONObject();
-
-                    testJsonObject.put(ServerUtils.POLL_TITLE, anyString());
-                    testJsonObject.put(ServerUtils.SRC_USERNAME, anyString());
-                    testJsonObject.put(ServerUtils.POLL_DATE, anyString());
-                    testJsonObject.put(ServerUtils.POLL_TIME, anyString());
-                    testJsonObject.put(ServerUtils.POLL_DESC, anyString());
-                    String options = "opt1~opt2~opt3";
-                    testJsonObject.put(ServerUtils.POLL_CHOICE, options);
-                    testJsonObject.put(ServerUtils.POLL_TYPE, anyInt());
-
-                    testJsonArray.put(testJsonObject);
-                    testJsonArray.put(testJsonObject);
-                    testJsonArray.put(testJsonObject);
-
-                    LinearLayout holder = new LinearLayout(c);
-                    holder.setOrientation(LinearLayout.VERTICAL);
-                    FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
-                    UiManager.populateWithPolls(holder, testJsonArray, fragmentManager);
+                    JSONArray polls = new JSONArray(output);
+                    JSONObject jsonObject = polls.getJSONObject(0);
+                    UiManager.openPollVoteBottomSheet(jsonObject, new String[]{"opt1", "opt2"}, fragmentManager);
+                    UiManager.populateWithPolls(holder, polls, fragmentManager);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
