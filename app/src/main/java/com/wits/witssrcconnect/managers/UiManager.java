@@ -406,14 +406,13 @@ public class UiManager {
 
     public static void openPollVoteBottomSheet(JSONObject poll, String[] pollChoices, FragmentManager fragmentManager) {
         PollVoteBottomSheet pollVoteBottomSheet = new PollVoteBottomSheet();
-        //TODO: PASS POLL_ID
         try {
             pollVoteBottomSheet.setPollId(poll.getInt(ServerUtils.POLL_ID));
             pollVoteBottomSheet.setTitle(poll.getString(ServerUtils.POLL_TITLE));
             pollVoteBottomSheet.setDesc(poll.getString(ServerUtils.POLL_DESC).replace("\\n", "\n"));
             pollVoteBottomSheet.setPollType(poll.getInt(ServerUtils.POLL_TYPE));
             pollVoteBottomSheet.setPollChoices(pollChoices);
-            pollVoteBottomSheet.show(fragmentManager, pollVoteBottomSheet.getTag());
+            pollVoteBottomSheet.show(fragmentManager, "");
         } catch (JSONException e) {
             e.printStackTrace();
         }

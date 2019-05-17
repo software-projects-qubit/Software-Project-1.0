@@ -27,17 +27,20 @@ public class SrcPollManager {
 
             @Override
             protected void onPostExecute(String output) {
-                if (output != null && output.equals(ServerUtils.SUCCESS)) {
-                    Toast.makeText(context, "Poll posted", Toast.LENGTH_SHORT).show();
-                    if (context instanceof Activity) {
-                        ((Activity) context).finish();
-                    }
-                } else {
-                    Log.d("FEED_BACK", output);
-                    Toast.makeText(context, "Failed to post poll", Toast.LENGTH_SHORT).show();
-                }
+                handlePostPollFeedBack(output, context);
             }
         }.execute(ServerUtils.POLL_LINK);
+    }
+
+    public static void handlePostPollFeedBack(String output, Context context) {
+        if (output.equals(ServerUtils.SUCCESS)) {
+            Toast.makeText(context, "Poll posted", Toast.LENGTH_SHORT).show();
+            if (context instanceof Activity) {
+                ((Activity) context).finish();
+            }
+        } else {
+            Toast.makeText(context, "Failed to post poll", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static void fetchAllPolls(Context context, SwipeRefreshLayout pullToRefresh) {
@@ -51,36 +54,38 @@ public class SrcPollManager {
 
             @Override
             protected void onPostExecute(String output) {
-
-                Log.d("ACTIVITY_BACK", output);
-                if (pullToRefresh != null) pullToRefresh.setRefreshing(false);
-                if (output == null || output.equals("")) {
-                    Toast.makeText(context, "Failed to get polls", Toast.LENGTH_SHORT).show();
-                } else {
-                    try {
-                        JSONArray polls = new JSONArray(output);
-                        if (polls.length() == 0) {
-                            Toast.makeText(context, "There are no polls available", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        String currentUser = UserManager.getCurrentlyLoggedInUsername();
-                        JSONArray myPolls = new JSONArray();
-
-                        for (int i = 0; i < polls.length(); i++) {
-                            JSONObject poll = (JSONObject) polls.get(i);
-                            if (currentUser.equals(poll.getString(ServerUtils.SRC_USERNAME))) {
-                                myPolls.put(poll);
-                            }
-                        }
-
-                        AllSrcPollFragment.init(polls);
-                        MySrcPollFragment.init(myPolls);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+                handleFetchAllPollsFeedBack(output, context, pullToRefresh);
             }
         }.execute(ServerUtils.POLL_LINK);
+    }
+
+    public static void handleFetchAllPollsFeedBack(String output, Context context, SwipeRefreshLayout pullToRefresh) {
+        if (pullToRefresh != null) pullToRefresh.setRefreshing(false);
+        if (output.equals("")) {
+            Toast.makeText(context, "Failed to get polls", Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                JSONArray polls = new JSONArray(output);
+                if (polls.length() == 0) {
+                    Toast.makeText(context, "There are no polls available", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String currentUser = UserManager.getCurrentlyLoggedInUsername();
+                JSONArray myPolls = new JSONArray();
+
+                for (int i = 0; i < polls.length(); i++) {
+                    JSONObject poll = (JSONObject) polls.get(i);
+                    if (currentUser.equals(poll.getString(ServerUtils.SRC_USERNAME))) {
+                        myPolls.put(poll);
+                    }
+                }
+
+                AllSrcPollFragment.init(polls);
+                MySrcPollFragment.init(myPolls);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
