@@ -8,6 +8,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
@@ -44,12 +45,12 @@ import java.util.Objects;
 
 public class UiManager {
 
-    public static SwitchCompat anonymitySwitch;
+    /*public static SwitchCompat anonymitySwitch;
     public static AppCompatImageButton sendButton;
     public static TextInputEditText comment;
     public static AppCompatButton viewComments;
     public static AppCompatImageButton menu;
-    public static PopupMenu popupMenu;
+    public static PopupMenu popupMenu;*/
     //This function creates a layout Params for LinearLayout
     //it takes in a margin and return a layout Param, together with the margins applied
     //margins applied left, right, up, down
@@ -186,7 +187,7 @@ public class UiManager {
                 });*/
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //create a reference to the anonymous comment switch
-                anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
+                SwitchCompat anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
 
                 //declare a variable to save the anonymity switch
                 final int[] anonymityTracker = {ServerUtils.ANONYMOUS_COMMENT_OFF};
@@ -197,21 +198,21 @@ public class UiManager {
                         handleAnonymity(isChecked, anonymityTracker, holder.getContext()));
 
                 //create a reference to the TextInputEditText used to input comments
-                comment = activityItemView.findViewById(R.id.input_comment);
+                TextInputEditText comment = activityItemView.findViewById(R.id.input_comment);
 
                 //set an onClickListener to send comment button, when pressed it will send the comment
                 //to the database
-                sendButton = activityItemView.findViewById(R.id.send_comment);
+                AppCompatImageButton sendButton = activityItemView.findViewById(R.id.send_comment);
                 sendButton.setOnClickListener(v -> sendComment(comment, anonymityTracker, activityId));
 
                 //set on click listener to view comments to show a bottom sheet which contains comments
-                viewComments = activityItemView.findViewById(R.id.view_comments);
+                AppCompatButton viewComments = activityItemView.findViewById(R.id.view_comments);
                 viewComments.setOnClickListener(v -> openComments(activityId, title, desc, fragmentManager));
 
                 //create reference to the menu button
-                menu = activityItemView.findViewById(R.id.src_activity_menu);
+                AppCompatImageButton menu = activityItemView.findViewById(R.id.src_activity_menu);
                 if (mine) {
-                    popupMenu = new PopupMenu(menu.getContext(), menu);
+                    PopupMenu popupMenu = new PopupMenu(menu.getContext(), menu);
                     popupMenu.inflate(R.menu.src_activity_menu);
                     popupMenu.setOnMenuItemClickListener(item -> {
                         switch (item.getItemId()) {
@@ -290,7 +291,7 @@ public class UiManager {
     }
 
     static void updateActivity(Context context, int activityId, String title, String desc) {
-        context.startActivity(new Intent(menu.getContext(), SrcPostActivityActivity.class)
+        context.startActivity(new Intent(context, SrcPostActivityActivity.class)
                 .putExtra(ServerUtils.ACTIVITY_ID, activityId)
                 .putExtra(ServerUtils.ACTIVITY_TITLE, title)
                 .putExtra(ServerUtils.ACTIVITY_DESC, desc));
@@ -329,24 +330,29 @@ public class UiManager {
                 .setTitle("Delete")
                 .setMessage("Are you sure you want to delete this item?")
                 .setPositiveButton("Yes", (dialog, which) -> {
-                    new ServerCommunicator(cv) {
-                        @Override
-                        protected void onPreExecute() {
-                            Toast.makeText(view.getContext(), "Deleting item...", Toast.LENGTH_SHORT).show();
-                        }
+                    performDeleteAction(cv, holder, view, link);
 
-                        @Override
-                        protected void onPostExecute(String output) {
-                            handleDeleteItemFeedback(output, holder, view);
-                        }
-                    }.execute(link);
                 })
                 .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                 .create().show();
     }
 
+    public static void performDeleteAction(ContentValues cv, LinearLayout holder, View view, String link) {
+        new ServerCommunicator(cv) {
+            @Override
+            protected void onPreExecute() {
+                Toast.makeText(view.getContext(), "Deleting item...", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            protected void onPostExecute(String output) {
+                handleDeleteItemFeedback(output, holder, view);
+            }
+        }.execute(link);
+    }
+
     public static void handleDeleteItemFeedback(String output, LinearLayout holder, View view) {
-        if (output != null && output.equals(ServerUtils.SUCCESS)) {
+        if (output.equals(ServerUtils.SUCCESS)) {
             holder.removeView(view);
             Toast.makeText(view.getContext(), "Item deleted", Toast.LENGTH_SHORT).show();
         } else {

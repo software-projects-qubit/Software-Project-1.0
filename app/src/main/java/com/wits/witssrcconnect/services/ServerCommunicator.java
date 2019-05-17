@@ -119,7 +119,7 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
 
     public static void closeLoadingDialog() {
         patienceHandler.removeCallbacks(patienceRunnable);
-        if (progressDialog != null && progressDialog.isShowing()) {
+        if (progressDialog.isShowing()) {
             positionHolder = 0;
             progressDialog.dismiss();
             handler.removeCallbacks(runnable);

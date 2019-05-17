@@ -46,7 +46,7 @@ public class SrcActivityManager {
             @Override
             protected void onPostExecute(String output) {
                 ServerCommunicator.closeLoadingDialog();
-                if (output != null && output.equals(ServerUtils.SUCCESS)) {
+                if (output.equals(ServerUtils.SUCCESS)) {
                     Toast.makeText(context, "Activity posted", Toast.LENGTH_SHORT).show();
                     if (context instanceof Activity) {
                         ((Activity) context).finish();
@@ -71,7 +71,7 @@ public class SrcActivityManager {
 
                 if (pullToRefresh != null) pullToRefresh.setRefreshing(false);
 
-                if (output == null || output.equals("")) {
+                if (output.equals("")) {
                     Toast.makeText(context, "Failed to get activities", Toast.LENGTH_SHORT).show();
                 } else {
                     try {

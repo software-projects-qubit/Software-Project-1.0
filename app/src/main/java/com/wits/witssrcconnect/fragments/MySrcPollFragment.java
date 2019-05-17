@@ -19,7 +19,7 @@ public class MySrcPollFragment extends Fragment {
 
 
     @SuppressLint("StaticFieldLeak")
-    private static View v = null;
+    public static View v = null;
     private static FragmentManager fragmentManager = null;
 
     @Nullable

@@ -89,8 +89,7 @@ public class UserManager {
 
             @Override
             protected void onPostExecute(String output) {
-                if (output == null) showLogInFailedToast(context);
-                else handleLogin(user, output, context, cv);
+                handleLogin(user, output, context, cv);
             }
         }.execute(link);
     }

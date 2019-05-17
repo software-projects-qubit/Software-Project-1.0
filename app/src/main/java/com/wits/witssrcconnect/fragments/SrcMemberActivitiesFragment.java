@@ -19,7 +19,7 @@ import com.wits.witssrcconnect.managers.SrcActivityManager;
 
 public class SrcMemberActivitiesFragment extends Fragment {
 
-    private View v;
+    public static View v;
 
     @Nullable
     @Override

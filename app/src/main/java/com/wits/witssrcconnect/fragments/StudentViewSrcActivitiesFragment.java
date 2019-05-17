@@ -19,7 +19,7 @@ import org.json.JSONArray;
 
 public class StudentViewSrcActivitiesFragment extends Fragment {
 
-    private static View v;
+    public static View v;
     private static FragmentManager fragmentManager = null;
 
     @Nullable
@@ -32,7 +32,6 @@ public class StudentViewSrcActivitiesFragment extends Fragment {
     }
 
     private void init() {
-        if (v == null) return;
         SrcActivityManager.fetchAllActivities(getContext(), null);
         SwipeRefreshLayout pullToRefresh = v.findViewById(R.id.pullToRefreshSrcActivitiesStudent);
         pullToRefresh.setOnRefreshListener(() -> SrcActivityManager.fetchAllActivities(getContext(), pullToRefresh));

@@ -19,7 +19,7 @@ import com.wits.witssrcconnect.managers.SrcPollManager;
 
 public class SrcPollFragment extends Fragment {
 
-    private View v;
+    public static View v;
 
     @Nullable
     @Override

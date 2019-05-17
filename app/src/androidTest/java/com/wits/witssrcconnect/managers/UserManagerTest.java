@@ -10,12 +10,15 @@ import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
 
@@ -124,5 +127,94 @@ public class UserManagerTest {
     public void userLoggedOut() {
         UserManager.userLoggedOut(c);
         assertEquals("", UserManager.getUserNameSurname());
+    }
+
+    @Test
+    public void userLoggedOutNullTest(){
+        try {
+            runOnUiThread(()->{
+                UserManager.SHARED_PREFERENCES = null;
+                UserManager.userLoggedOut(c);
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void logInAsSrcMemberSuccess(){
+        try {
+            runOnUiThread(()->{
+                ContentValues cv = new ContentValues();
+                cv.put(ServerUtils.SRC_USERNAME, anyString());
+                UserManager.handleLogin(UserUtils.SRC_MEMBER, ServerUtils.SUCCESS, c, cv);
+                UserManager.userLoggedOut(c);
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void logInAsSrcMemberFailed(){
+        try {
+            runOnUiThread(()->{
+                ContentValues cv = new ContentValues();
+                UserManager.handleLogin(UserUtils.SRC_MEMBER, ServerUtils.FAILED, c, cv);
+                UserManager.userLoggedOut(c);
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void logInAsStudentFailed0(){
+        try {
+            runOnUiThread(()->{
+                ContentValues cv = new ContentValues();
+                UserManager.handleLogin(UserUtils.STUDENT, "{}", c, cv);
+                UserManager.userLoggedOut(c);
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void logInAsStudentFailed1(){
+        try {
+            runOnUiThread(()->{
+                ContentValues cv = new ContentValues();
+                UserManager.handleLogin(UserUtils.STUDENT, ServerUtils.FAILED, c, cv);
+                UserManager.userLoggedOut(c);
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void logInAsStudentSuccess(){
+        try {
+            runOnUiThread(()->{
+                ContentValues cv = new ContentValues();
+                cv.put(ServerUtils.USERNAME, anyString());
+                JSONObject testJson = new JSONObject();
+                try {
+                    testJson.put(ServerUtils.NAME, anyString());
+                    testJson.put(ServerUtils.SURNAME, anyString());
+                    UserManager.handleLogin(UserUtils.STUDENT, testJson.toString(), c, cv);
+                    UserManager.userLoggedOut(c);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 }

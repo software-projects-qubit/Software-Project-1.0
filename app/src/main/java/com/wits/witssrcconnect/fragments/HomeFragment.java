@@ -47,35 +47,39 @@ public class HomeFragment extends Fragment {
         new JSONDownloader() {
             @Override
             protected void onPostExecute(JSONObject jsonObject) {
-                if (refresh != null) refresh.setRefreshing(false);
-
-                Context context = holder.getContext();
-                holder.removeAllViews();
-
-                //the server is gonna return a json object which contains mission, vision, contact details
-                try {
-                    //the data will be displayed in cardViews, each data on its own cardView
-                    View card1 = View.inflate(context, R.layout.item_title_desc_card, null);
-                    View card2 = View.inflate(context, R.layout.item_title_desc_card, null);
-                    View card3 = View.inflate(context, R.layout.item_title_desc_card, null);
-                    LinearLayout.LayoutParams params = UiManager.getLayoutParams(15);
-
-                    //populate the cardViews with the data
-                    ((AppCompatTextView) card1.findViewById(R.id.td_card_item_title)).setText(ServerUtils.MISSION);
-                    ((AppCompatTextView) card1.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString(ServerUtils.MISSION));
-                    ((AppCompatTextView) card2.findViewById(R.id.td_card_item_title)).setText(ServerUtils.VISION);
-                    ((AppCompatTextView) card2.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString(ServerUtils.VISION));
-                    ((AppCompatTextView) card3.findViewById(R.id.td_card_item_title)).setText(ServerUtils.CONTACT_US);
-                    ((AppCompatTextView) card3.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString(ServerUtils.CONTACT_US));
-
-                    //add cardViews to linear layout
-                    holder.addView(card1, params);
-                    holder.addView(card2, params);
-                    holder.addView(card3, params);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                addViewsToLayout(jsonObject, holder, refresh);
             }
         }.execute(ServerUtils.HOME_PAGE_JSON_LINK);
+    }
+
+    public static void addViewsToLayout(JSONObject jsonObject, LinearLayout holder, SwipeRefreshLayout sRefresh) {
+        if (sRefresh != null) sRefresh.setRefreshing(false);
+
+        Context context = holder.getContext();
+        holder.removeAllViews();
+
+        //the server is gonna return a json object which contains mission, vision, contact details
+        try {
+            //the data will be displayed in cardViews, each data on its own cardView
+            View card1 = View.inflate(context, R.layout.item_title_desc_card, null);
+            View card2 = View.inflate(context, R.layout.item_title_desc_card, null);
+            View card3 = View.inflate(context, R.layout.item_title_desc_card, null);
+            LinearLayout.LayoutParams params = UiManager.getLayoutParams(15);
+
+            //populate the cardViews with the data
+            ((AppCompatTextView) card1.findViewById(R.id.td_card_item_title)).setText(ServerUtils.MISSION);
+            ((AppCompatTextView) card1.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString(ServerUtils.MISSION));
+            ((AppCompatTextView) card2.findViewById(R.id.td_card_item_title)).setText(ServerUtils.VISION);
+            ((AppCompatTextView) card2.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString(ServerUtils.VISION));
+            ((AppCompatTextView) card3.findViewById(R.id.td_card_item_title)).setText(ServerUtils.CONTACT_US);
+            ((AppCompatTextView) card3.findViewById(R.id.td_card_item_desc)).setText(jsonObject.getString(ServerUtils.CONTACT_US));
+
+            //add cardViews to linear layout
+            holder.addView(card1, params);
+            holder.addView(card2, params);
+            holder.addView(card3, params);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

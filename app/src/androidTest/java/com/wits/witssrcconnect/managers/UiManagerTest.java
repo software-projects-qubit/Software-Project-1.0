@@ -127,6 +127,17 @@ public class UiManagerTest {
     }
 
     @Test
+    public void updateActivity(){
+        try {
+            runOnUiThread(()->{
+                UiManager.updateActivity(c, anyInt(), anyString(), anyString());
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
     public void handleAnonymity(){
         try {
             runOnUiThread(()->{
@@ -177,9 +188,11 @@ public class UiManagerTest {
 
         try {
             runOnUiThread(()->{
-                JSONArray testJsonArray = new JSONArray();
-                JSONObject testJsonObject = new JSONObject();
+
                 try {
+                    JSONArray testJsonArray = new JSONArray();
+                    JSONObject testJsonObject = new JSONObject();
+
                     testJsonObject.put(ServerUtils.POLL_TITLE, anyString());
                     testJsonObject.put(ServerUtils.SRC_USERNAME, anyString());
                     testJsonObject.put(ServerUtils.POLL_DATE, anyString());
@@ -207,7 +220,7 @@ public class UiManagerTest {
     }
 
     @Test
-    public void openPollVoteBottomSheet(){
+    public void openPollVoteBottomSheetSuccess(){
         try {
             runOnUiThread(()->{
                 try {
@@ -230,6 +243,30 @@ public class UiManagerTest {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-
     }
+
+    @Test
+    public void openPollVoteBottomFailed(){
+        try {
+            runOnUiThread(()->{
+                JSONObject testJsonObject = new JSONObject();
+                String[] options = {"opt1","opt2","opt3"};
+                UiManager.openPollVoteBottomSheet(testJsonObject, options, Mockito.mock(FragmentManager.class));
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void performDeleteAction(){
+        try {
+            runOnUiThread(()->{
+                UiManager.performDeleteAction(new ContentValues(), new LinearLayout(c), new View(c), anyString());
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
 }
