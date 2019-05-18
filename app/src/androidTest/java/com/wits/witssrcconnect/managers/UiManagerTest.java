@@ -91,8 +91,7 @@ public class UiManagerTest {
     public void openComments(){
         try {
             runOnUiThread(()->{
-                FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
-                UiManager.openComments(anyInt(), anyString(), anyString(), v.getContext());
+                UiManager.openComments(anyInt(), anyString(), anyString(), c);
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();
