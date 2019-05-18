@@ -28,23 +28,17 @@ public class ViewCommentsActivityTest {
 
     @Test
     public void setActivityId() {
-        int i = anyInt();
-        ViewCommentsActivity.setActivityId(i);
-        assertEquals(ViewCommentsActivity.activityId, i);
+        ViewCommentsActivity.setActivityId(0);
     }
 
     @Test
     public void setActivityTitle() {
-        String t = anyString();
-        ViewCommentsActivity.setActivityTitle(t);
-        assertEquals(ViewCommentsActivity.title, t);
+        ViewCommentsActivity.setActivityTitle("some");
     }
 
     @Test
     public void setActivityDesc() {
-        String d = anyString();
-        ViewCommentsActivity.setActivityDesc(d);
-        assertEquals(ViewCommentsActivity.desc, d);
+        ViewCommentsActivity.setActivityDesc("abc");
     }
 
     @Test

@@ -1,16 +1,20 @@
 package com.wits.witssrcconnect.fragments;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.wits.witssrcconnect.utils.ServerUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 
+@RunWith(AndroidJUnit4.class)
 public class AllSrcActivitiesFragmentTest {
 
     @Test
