@@ -23,6 +23,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 @RunWith(AndroidJUnit4.class)
 public class ViewCommentsActivityTest {
 
+    ActivityTestRule<ViewCommentsActivity> activityTestRule = new ActivityTestRule<>(ViewCommentsActivity.class);
     private Context c = InstrumentationRegistry.getTargetContext();
 
     @Test
@@ -52,6 +53,8 @@ public class ViewCommentsActivityTest {
     @Test
     public void updateComments() {
         getInstrumentation().runOnMainSync(()->{
+            ViewCommentsActivity.commentsHolder = null;
+            ViewCommentsActivity.updateComments();
             ViewCommentsActivity.commentsHolder = new LinearLayout(c);
             ViewCommentsActivity.updateComments();
         });

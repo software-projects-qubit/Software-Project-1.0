@@ -17,11 +17,9 @@ public class GradientProgressViewTest {
 
     @Test
     public void testConstructor(){
-        getInstrumentation().runOnMainSync(()->{
-            new GradientProgressView(c);
-            new GradientProgressView(c, null);
-            new GradientProgressView(c, null, anyInt());
-            new GradientProgressView(c, null, anyInt(), anyInt());
-        });
+        new GradientProgressView(c);
+        new GradientProgressView(c, null);
+        new GradientProgressView(c, null, anyInt());
+        new GradientProgressView(c, null, anyInt(), anyInt());
     }
 }
