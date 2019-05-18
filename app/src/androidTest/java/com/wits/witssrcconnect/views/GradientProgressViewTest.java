@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 @RunWith(AndroidJUnit4.class)

@@ -71,30 +71,32 @@ public class ViewCommentsActivity extends AppCompatActivity {
 
         //does the same basic functions of commenting
         TextInputEditText comment = findViewById(R.id.input_comment_vc);
-        findViewById(R.id.send_comment_vc).setOnClickListener(v -> {
-            String sComment = Objects.requireNonNull(comment.getText()).toString().trim();
-            if (TextUtils.isEmpty(sComment)) {
-                comment.setError("Comment required");
-            } else {
-                sComment = sComment.replace("\n", "\\n");
-                ContentValues cv = new ContentValues();
-
-                String[] dateTime = getDateTime();
-
-                cv.put(ServerUtils.ACTION, ServerUtils.POST_COMMENT);
-                cv.put(ServerUtils.ACTIVITY_ID, String.valueOf(activityId));
-                cv.put(ServerUtils.STUDENT_USERNAME, UserManager.getCurrentlyLoggedInUsername());
-                cv.put(ServerUtils.STUDENT_COMMENT, sComment);
-                cv.put(ServerUtils.STUDENT_ANONYMITY, String.valueOf(anonymityTracker[0]));
-                cv.put(ServerUtils.STUDENT_DATE, dateTime[0]);
-                cv.put(ServerUtils.STUDENT_TIME, dateTime[1]);
-
-                SrcActivityManager.postComment(cv, comment);
-            }
-        });
+        findViewById(R.id.send_comment_vc).setOnClickListener(v -> handleSendComment(comment, anonymityTracker));
     }
 
-    public void handleSwitch(int[] anonymityTracker, boolean isChecked, Context c){
+    public static void handleSendComment(TextInputEditText comment, int[] anonymityTracker){
+        String sComment = Objects.requireNonNull(comment.getText()).toString().trim();
+        if (TextUtils.isEmpty(sComment)) {
+            comment.setError("Comment required");
+        } else {
+            sComment = sComment.replace("\n", "\\n");
+            ContentValues cv = new ContentValues();
+
+            String[] dateTime = getDateTime();
+
+            cv.put(ServerUtils.ACTION, ServerUtils.POST_COMMENT);
+            cv.put(ServerUtils.ACTIVITY_ID, String.valueOf(activityId));
+            cv.put(ServerUtils.STUDENT_USERNAME, UserManager.getCurrentlyLoggedInUsername());
+            cv.put(ServerUtils.STUDENT_COMMENT, sComment);
+            cv.put(ServerUtils.STUDENT_ANONYMITY, String.valueOf(anonymityTracker[0]));
+            cv.put(ServerUtils.STUDENT_DATE, dateTime[0]);
+            cv.put(ServerUtils.STUDENT_TIME, dateTime[1]);
+
+            SrcActivityManager.postComment(cv, comment);
+        }
+    }
+
+    public static void handleSwitch(int[] anonymityTracker, boolean isChecked, Context c){
         anonymityTracker[0] = isChecked ? ServerUtils.ANONYMOUS_COMMENT_ON : ServerUtils.ANONYMOUS_COMMENT_OFF;
         String message;
         if (isChecked) message = "Anonymous comment on";

@@ -8,6 +8,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.widget.LinearLayout;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.utils.ServerUtils;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,7 +23,8 @@ import static org.mockito.ArgumentMatchers.anyString;
 public class ViewCommentsActivityTest {
 
     @Rule
-    public ActivityTestRule<ViewCommentsActivity> activityTestRule = new ActivityTestRule<>(ViewCommentsActivity.class);
+    public ActivityTestRule<ViewCommentsActivity> activityTestRule =
+            new ActivityTestRule<>(ViewCommentsActivity.class);
 
     private Context c = InstrumentationRegistry.getTargetContext();
 
@@ -46,8 +48,8 @@ public class ViewCommentsActivityTest {
         try {
             runOnUiThread(()->{
                 int[] a = new int[1];
-                activityTestRule.getActivity().handleSwitch(a, true, c);
-                activityTestRule.getActivity().handleSwitch(a, false, c);
+                ViewCommentsActivity.handleSwitch(a, true, c);
+                ViewCommentsActivity.handleSwitch(a, false, c);
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();
@@ -70,10 +72,11 @@ public class ViewCommentsActivityTest {
     public void sendComment(){
         try {
             runOnUiThread(()->{
-                activityTestRule.getActivity().findViewById(R.id.send_comment_vc).performClick();
-                ((TextInputEditText)activityTestRule.getActivity().findViewById(R.id.input_comment_vc))
-                        .setText("some text");
-                activityTestRule.getActivity().findViewById(R.id.send_comment_vc).performClick();
+                TextInputEditText comment = new TextInputEditText(c);
+                int[] a = new int[]{ServerUtils.ANONYMOUS_COMMENT_OFF};
+                ViewCommentsActivity.handleSendComment(comment, a);
+                comment.setText("some error");
+                ViewCommentsActivity.handleSendComment(comment, a);
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();
