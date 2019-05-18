@@ -33,7 +33,7 @@ public class MySrcPollFragment extends Fragment {
 
     public static void init(JSONArray myPolls) {
         if (v == null) return;
-        UiManager.populateWithPolls(v.findViewById(R.id.src_activities_holder), myPolls, fragmentManager);
+        UiManager.populateWithPolls(v.findViewById(R.id.src_activities_holder), myPolls);
     }
 
 }

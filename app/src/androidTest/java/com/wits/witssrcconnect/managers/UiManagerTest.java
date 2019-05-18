@@ -182,12 +182,11 @@ public class UiManagerTest {
                         "{\"poll_id\":11,\"member_username\":\"1627982\",\"poll_title\":\"Test\",\"poll_desc\":\"test desc\",\"poll_choices\":\"opt1~opt2\",\"poll_type\":1,\"poll_date\":\"12\\/05\\/2019\",\"poll_time\":\"16:00\"}]";
                 LinearLayout holder = new LinearLayout(c);
                 holder.setOrientation(LinearLayout.VERTICAL);
-                FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
                 try {
                     JSONArray polls = new JSONArray(output);
                     JSONObject jsonObject = polls.getJSONObject(0);
-                    UiManager.openPollVoteBottomSheet(jsonObject, new String[]{"opt1", "opt2"}, fragmentManager);
-                    UiManager.populateWithPolls(holder, polls, fragmentManager);
+                    UiManager.openPollVoteBottomSheet(jsonObject, new String[]{"opt1", "opt2"}, c);
+                    UiManager.populateWithPolls(holder, polls);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -211,9 +210,9 @@ public class UiManagerTest {
                     testJsonObject.put(ServerUtils.POLL_DESC, anyString());
                     String[] options = {"opt1","opt2","opt3"};
                     testJsonObject.put(ServerUtils.POLL_TYPE, ServerUtils.POLL_TYPE_MULTI_SELECT);
-                    UiManager.openPollVoteBottomSheet(testJsonObject, options, Mockito.mock(FragmentManager.class));
+                    UiManager.openPollVoteBottomSheet(testJsonObject, options, c);
                     testJsonObject.put(ServerUtils.POLL_TYPE, ServerUtils.POLL_TYPE_SINGLE_SELECT);
-                    UiManager.openPollVoteBottomSheet(testJsonObject, options, Mockito.mock(FragmentManager.class));
+                    UiManager.openPollVoteBottomSheet(testJsonObject, options, c);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -229,7 +228,7 @@ public class UiManagerTest {
             runOnUiThread(()->{
                 JSONObject testJsonObject = new JSONObject();
                 String[] options = {"opt1","opt2","opt3"};
-                UiManager.openPollVoteBottomSheet(testJsonObject, options, Mockito.mock(FragmentManager.class));
+                UiManager.openPollVoteBottomSheet(testJsonObject, options, c);
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
@@ -23,9 +22,9 @@ import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.LogInActivity;
+import com.wits.witssrcconnect.activities.PollVoteActivity;
 import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
 import com.wits.witssrcconnect.activities.ViewCommentsActivity;
-import com.wits.witssrcconnect.bottom_sheets.PollVoteBottomSheet;
 import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
@@ -357,7 +356,7 @@ public class UiManager {
     }
 
     // this function populates any given linear layout with src polls
-    public static void populateWithPolls(LinearLayout holder, JSONArray polls, FragmentManager fragmentManager) {
+    public static void populateWithPolls(LinearLayout holder, JSONArray polls) {
         try {
             for (int i = 0; i < polls.length(); i++) {
                 JSONObject poll = (JSONObject) polls.get(i);
@@ -388,7 +387,7 @@ public class UiManager {
                         .setText(builder.toString());
 
                 pollItem.findViewById(R.id.poll_vote).setOnClickListener(v -> {
-                    openPollVoteBottomSheet(poll, pollChoices, fragmentManager);
+                    openPollVoteBottomSheet(poll, pollChoices, v.getContext());
 
 
                 });
@@ -401,15 +400,14 @@ public class UiManager {
 
     }
 
-    public static void openPollVoteBottomSheet(JSONObject poll, String[] pollChoices, FragmentManager fragmentManager) {
-        PollVoteBottomSheet pollVoteBottomSheet = new PollVoteBottomSheet();
+    public static void openPollVoteBottomSheet(JSONObject poll, String[] pollChoices, Context c) {
         try {
-            pollVoteBottomSheet.setPollId(poll.getInt(ServerUtils.POLL_ID));
-            pollVoteBottomSheet.setTitle(poll.getString(ServerUtils.POLL_TITLE));
-            pollVoteBottomSheet.setDesc(poll.getString(ServerUtils.POLL_DESC).replace("\\n", "\n"));
-            pollVoteBottomSheet.setPollType(poll.getInt(ServerUtils.POLL_TYPE));
-            pollVoteBottomSheet.setPollChoices(pollChoices);
-            pollVoteBottomSheet.show(fragmentManager, "");
+            PollVoteActivity.setPollId(poll.getInt(ServerUtils.POLL_ID));
+            PollVoteActivity.setTitle(poll.getString(ServerUtils.POLL_TITLE));
+            PollVoteActivity.setDesc(poll.getString(ServerUtils.POLL_DESC).replace("\\n", "\n"));
+            PollVoteActivity.setPollType(poll.getInt(ServerUtils.POLL_TYPE));
+            PollVoteActivity.setPollChoices(pollChoices);
+            c.startActivity(new Intent(c, PollVoteActivity.class));
         } catch (JSONException e) {
             e.printStackTrace();
         }

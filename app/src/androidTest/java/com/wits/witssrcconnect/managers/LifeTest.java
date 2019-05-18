@@ -6,6 +6,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.wits.witssrcconnect.activities.LogInActivity;
+import com.wits.witssrcconnect.activities.PollVoteActivity;
 import com.wits.witssrcconnect.activities.SrcMemberActivity;
 import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
 import com.wits.witssrcconnect.activities.SrcPostPollActivity;
@@ -119,6 +120,15 @@ public class LifeTest {
     public void startViewCommentsActivity(){
         getInstrumentation().runOnMainSync(()->{
             Intent i = new Intent(c, ViewCommentsActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(i);
+        });
+    }
+
+    @Test
+    public void startPollVoteActivity(){
+        getInstrumentation().runOnMainSync(()->{
+            Intent i = new Intent(c, PollVoteActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);
         });
