@@ -22,10 +22,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 @RunWith(AndroidJUnit4.class)
 public class ViewCommentsActivityTest {
 
-    @Rule
-    public ActivityTestRule<ViewCommentsActivity> activityTestRule =
-            new ActivityTestRule<>(ViewCommentsActivity.class);
-
     private Context c = InstrumentationRegistry.getTargetContext();
 
     @Test
