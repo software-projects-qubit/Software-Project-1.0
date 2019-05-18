@@ -82,17 +82,6 @@ public class UiManager {
         UserManager.userLoggedOut(context);
     }
 
-    //When used, forces any bottom sheet to fully expand
-    public static void forceBottomSheetToFullyExpand(DialogInterface dialog1) {
-        BottomSheetDialog d = (BottomSheetDialog) dialog1;
-        FrameLayout bottomSheet = d.findViewById(android.support.design.R.id.design_bottom_sheet);
-        try {
-            BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
-        } catch (Exception ignored) {
-
-        }
-    }
-
     //this function gets the current date and time and provides a string array which has date and time
     public static String[] getDateTime() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy-HH:mm", Locale.getDefault());

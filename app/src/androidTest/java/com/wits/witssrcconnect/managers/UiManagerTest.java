@@ -29,19 +29,6 @@ public class UiManagerTest {
 
     private Context c = InstrumentationRegistry.getTargetContext();
 
-    @Test
-    public void forceBottomSheetToFullyExpand() {
-        try {
-            runOnUiThread(() -> {
-                BottomSheetDialog dialog = new BottomSheetDialog(c);
-                dialog.setOnShowListener(UiManager::forceBottomSheetToFullyExpand);
-                dialog.show();
-            });
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-    }
-
     ////////////////////////////////////////////////////////////////////////MODIFY AGAIN HERE
     @Test
     public void populateWithSrcActivities(){
