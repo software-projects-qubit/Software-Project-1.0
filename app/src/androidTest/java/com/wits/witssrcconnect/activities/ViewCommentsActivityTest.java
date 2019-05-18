@@ -14,6 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -41,41 +42,29 @@ public class ViewCommentsActivityTest {
 
     @Test
     public void handleSwitch() {
-        try {
-            runOnUiThread(()->{
-                int[] a = new int[1];
-                ViewCommentsActivity.handleSwitch(a, true, c);
-                ViewCommentsActivity.handleSwitch(a, false, c);
-            });
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
+        getInstrumentation().runOnMainSync(()->{
+            int[] a = new int[1];
+            ViewCommentsActivity.handleSwitch(a, true, c);
+            ViewCommentsActivity.handleSwitch(a, false, c);
+        });
     }
 
     @Test
     public void updateComments() {
-        try {
-            runOnUiThread(()->{
-                ViewCommentsActivity.commentsHolder = new LinearLayout(c);
-                ViewCommentsActivity.updateComments();
-            });
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
+        getInstrumentation().runOnMainSync(()->{
+            ViewCommentsActivity.commentsHolder = new LinearLayout(c);
+            ViewCommentsActivity.updateComments();
+        });
     }
 
     @Test
     public void sendComment(){
-        try {
-            runOnUiThread(()->{
-                TextInputEditText comment = new TextInputEditText(c);
-                int[] a = new int[]{ServerUtils.ANONYMOUS_COMMENT_OFF};
-                ViewCommentsActivity.handleSendComment(comment, a);
-                comment.setText("some error");
-                ViewCommentsActivity.handleSendComment(comment, a);
-            });
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
+        getInstrumentation().runOnMainSync(()->{
+            TextInputEditText comment = new TextInputEditText(c);
+            int[] a = new int[]{ServerUtils.ANONYMOUS_COMMENT_OFF};
+            ViewCommentsActivity.handleSendComment(comment, a);
+            comment.setText("some error");
+            ViewCommentsActivity.handleSendComment(comment, a);
+        });
     }
 }
