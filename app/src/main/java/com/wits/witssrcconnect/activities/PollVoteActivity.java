@@ -1,15 +1,10 @@
 package com.wits.witssrcconnect.activities;
 
-
-import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.managers.UiManager;
 
 public class PollVoteActivity extends AppCompatActivity {
 
@@ -23,8 +18,6 @@ public class PollVoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_poll_votes);
     }
-
-
 
     public static void setPollId(int pollId){
         PollVoteActivity.pollId = pollId;
