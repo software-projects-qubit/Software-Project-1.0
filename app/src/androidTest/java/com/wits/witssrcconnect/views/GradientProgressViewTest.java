@@ -7,7 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 @RunWith(AndroidJUnit4.class)
@@ -17,15 +17,11 @@ public class GradientProgressViewTest {
 
     @Test
     public void testConstructor(){
-        try {
-            runOnUiThread(()->{
-                new GradientProgressView(c);
-                new GradientProgressView(c, null);
-                new GradientProgressView(c, null, anyInt());
-                new GradientProgressView(c, null, anyInt(), anyInt());
-            });
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
+        getInstrumentation().runOnMainSync(()->{
+            new GradientProgressView(c);
+            new GradientProgressView(c, null);
+            new GradientProgressView(c, null, anyInt());
+            new GradientProgressView(c, null, anyInt(), anyInt());
+        });
     }
 }
