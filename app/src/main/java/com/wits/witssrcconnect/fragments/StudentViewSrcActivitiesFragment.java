@@ -39,6 +39,6 @@ public class StudentViewSrcActivitiesFragment extends Fragment {
 
     public static void init(JSONArray activities) {
         if (v == null) return;
-        UiManager.populateWithSrcActivities(v.findViewById(R.id.student_src_activities_view), activities, fragmentManager, false);
+        UiManager.populateWithSrcActivities(v.findViewById(R.id.student_src_activities_view), activities, false);
     }
 }

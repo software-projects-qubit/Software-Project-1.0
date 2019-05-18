@@ -10,6 +10,7 @@ import com.wits.witssrcconnect.activities.SrcMemberActivity;
 import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
 import com.wits.witssrcconnect.activities.SrcPostPollActivity;
 import com.wits.witssrcconnect.activities.StudentActivity;
+import com.wits.witssrcconnect.activities.ViewCommentsActivity;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
 
@@ -109,6 +110,15 @@ public class LifeTest {
     public void startPostPollActivity(){
         getInstrumentation().runOnMainSync(() ->{
             Intent i = new Intent(c, SrcPostPollActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(i);
+        });
+    }
+
+    @Test
+    public void startViewCommentsActivity(){
+        getInstrumentation().runOnMainSync(()->{
+            Intent i = new Intent(c, ViewCommentsActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);
         });

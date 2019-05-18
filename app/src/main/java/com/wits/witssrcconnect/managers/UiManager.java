@@ -4,20 +4,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -28,8 +24,8 @@ import android.widget.Toast;
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.activities.LogInActivity;
 import com.wits.witssrcconnect.activities.SrcPostActivityActivity;
+import com.wits.witssrcconnect.activities.ViewCommentsActivity;
 import com.wits.witssrcconnect.bottom_sheets.PollVoteBottomSheet;
-import com.wits.witssrcconnect.bottom_sheets.ViewCommentsBottomSheet;
 import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
 import com.wits.witssrcconnect.utils.UserUtils;
@@ -110,7 +106,7 @@ public class UiManager {
 
     //this function populates any given linear layout with src activities
     public static void populateWithSrcActivities(LinearLayout holder, JSONArray activities,
-                                                 FragmentManager fragmentManager, boolean mine) {
+                                                 boolean mine) {
         holder.removeAllViews();
 
         try {
@@ -206,7 +202,7 @@ public class UiManager {
 
                 //set on click listener to view comments to show a bottom sheet which contains comments
                 AppCompatButton viewComments = activityItemView.findViewById(R.id.view_comments);
-                viewComments.setOnClickListener(v -> openComments(activityId, title, desc, fragmentManager));
+                viewComments.setOnClickListener(v -> openComments(activityId, title, desc, v.getContext()));
 
                 //create reference to the menu button
                 AppCompatImageButton menu = activityItemView.findViewById(R.id.src_activity_menu);
@@ -244,14 +240,15 @@ public class UiManager {
         deleteItem(cv, holder, activityItemView, ServerUtils.SRC_MEMBER_LINK);
     }
 
-    public static void openComments(int activityId, String title, String desc, FragmentManager fragmentManager) {
-        ViewCommentsBottomSheet viewCommentsBottomSheet = new ViewCommentsBottomSheet();
+    public static void openComments(int activityId, String title, String desc, Context context) {
+        //ViewCommentsBottomSheet viewCommentsBottomSheet = new ViewCommentsBottomSheet();
         //passes the activity id, title, desc to the bottom sheet
         //the bottom sheet will then display
-        viewCommentsBottomSheet.setActivityId(activityId);
-        viewCommentsBottomSheet.setActivityTitle(title);
-        viewCommentsBottomSheet.setActivityDesc(desc);
-        viewCommentsBottomSheet.show(fragmentManager, "");
+        ViewCommentsActivity.setActivityId(activityId);
+        ViewCommentsActivity.setActivityTitle(title);
+        ViewCommentsActivity.setActivityDesc(desc);
+        context.startActivity(new Intent(context, ViewCommentsActivity.class));
+        //viewCommentsBottomSheet.show(fragmentManager, "");
     }
 
     public static void sendComment(TextInputEditText comment, int[] anonymityTracker, int activityId) {

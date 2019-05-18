@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
+import com.wits.witssrcconnect.activities.ViewCommentsActivity;
 import com.wits.witssrcconnect.fragments.AllSrcActivitiesFragment;
 import com.wits.witssrcconnect.fragments.MySrcActivitiesFragment;
 import com.wits.witssrcconnect.fragments.StudentViewSrcActivitiesFragment;
@@ -136,6 +137,7 @@ public class SrcActivityManager {
             Toast.makeText(comment.getContext(), "Comment posted", Toast.LENGTH_SHORT).show();
             comment.setText("");
             comment.clearFocus();
+            ViewCommentsActivity.updateComments();
         } else {
             Toast.makeText(comment.getContext(), "Failed to post comment", Toast.LENGTH_SHORT).show();
         }
@@ -166,6 +168,7 @@ public class SrcActivityManager {
         else {
             try {
                 JSONArray comments = new JSONArray(output);
+                commentsHolder.removeAllViews();
                 int length = comments.length();
                 if (length == 0)
                     Toast.makeText(c, "There are no comments", Toast.LENGTH_SHORT).show();

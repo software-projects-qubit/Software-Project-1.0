@@ -20,12 +20,17 @@ public class SrcPollManagerTest {
     private Context c = InstrumentationRegistry.getTargetContext();
 
     @Test
-    public void handlePostPollFeedBack() {
+    public void handlePostPollFeedBackSuccess(){
         try {
-            runOnUiThread(()->{
-                SrcPollManager.handlePostPollFeedBack(ServerUtils.SUCCESS, c);
-                SrcPollManager.handlePostPollFeedBack(ServerUtils.FAILED, c);
-            });
+            runOnUiThread(()-> SrcPollManager.handlePostPollFeedBack(ServerUtils.SUCCESS, c));
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+    @Test
+    public void handlePostPollFeedBackFailed() {
+        try {
+            runOnUiThread(()-> SrcPollManager.handlePostPollFeedBack(ServerUtils.FAILED, c));
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
@@ -36,23 +41,10 @@ public class SrcPollManagerTest {
         try {
             runOnUiThread(()->{
                 UserManager.initUserManager(c);
-                UserManager.setUserLoggedIn(anyInt(), "srcpresident");
-                try {
-                    JSONArray polls = new JSONArray();
-                    JSONObject poll0 = new JSONObject();
-                    JSONObject poll1 = new JSONObject();
-                    poll0.put(ServerUtils.SRC_USERNAME, "srcpresident");
-                    poll1.put(ServerUtils.SRC_USERNAME, "some user");
-                    polls.put(poll0);
-                    polls.put(poll1);
-                    SwipeRefreshLayout swipeRefreshLayout = new SwipeRefreshLayout(c);
-                    SrcPollManager.handleFetchAllPollsFeedBack("", c, swipeRefreshLayout);
-                    SrcPollManager.handleFetchAllPollsFeedBack("[]", c, swipeRefreshLayout);
-                    SrcPollManager.handleFetchAllPollsFeedBack("json error", c, swipeRefreshLayout);
-                    SrcPollManager.handleFetchAllPollsFeedBack(polls.toString(), c, swipeRefreshLayout);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                SwipeRefreshLayout sr = new SwipeRefreshLayout(c);
+                SrcPollManager.handleFetchAllPollsFeedBack("", c, sr);
+                SrcPollManager.handleFetchAllPollsFeedBack("[]", c, sr);
+                ////////////////////////////////////////////////////////////////////////////////////
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();

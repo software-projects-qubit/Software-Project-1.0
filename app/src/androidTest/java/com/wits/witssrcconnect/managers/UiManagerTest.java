@@ -1,9 +1,7 @@
 package com.wits.witssrcconnect.managers;
 
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.test.InstrumentationRegistry;
@@ -13,20 +11,16 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.wits.witssrcconnect.R;
-import com.wits.witssrcconnect.services.ServerCommunicator;
 import com.wits.witssrcconnect.utils.ServerUtils;
-import com.wits.witssrcconnect.utils.UserUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 
@@ -65,8 +59,8 @@ public class UiManagerTest {
                             "{\"activity_id\":7,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"13\\/05\\/2019\",\"activity_time\":\"08:01\"}," +
                             "{\"activity_id\":6,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"13\\/05\\/2019\",\"activity_time\":\"07:54\"}]";
                     JSONArray jsonArray = new JSONArray(output);
-                    UiManager.populateWithSrcActivities(holder, jsonArray, fragmentManager, false);
-                    UiManager.populateWithSrcActivities(holder, jsonArray, fragmentManager, true);
+                    UiManager.populateWithSrcActivities(holder, jsonArray, false);
+                    UiManager.populateWithSrcActivities(holder, jsonArray, true);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -98,7 +92,7 @@ public class UiManagerTest {
         try {
             runOnUiThread(()->{
                 FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
-                UiManager.openComments(anyInt(), anyString(), anyString(), fragmentManager);
+                UiManager.openComments(anyInt(), anyString(), anyString(), v.getContext());
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();

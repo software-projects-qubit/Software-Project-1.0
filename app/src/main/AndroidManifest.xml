@@ -35,6 +35,10 @@
 
         <activity android:name=".activities.SrcPostPollActivity"
             android:label="@string/poll_activity"/>
+
+        <activity android:name=".activities.ViewCommentsActivity"
+            android:label="@string/view_comments"/>
+
     </application>
 
 </manifest>
