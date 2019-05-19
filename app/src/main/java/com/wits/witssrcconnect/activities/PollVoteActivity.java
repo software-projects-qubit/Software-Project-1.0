@@ -5,10 +5,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.TextUtils;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.wits.witssrcconnect.R;
 import com.wits.witssrcconnect.managers.SrcPollManager;
@@ -21,6 +23,8 @@ public class PollVoteActivity extends AppCompatActivity {
     public static String title = "", desc = "";
     public static int pollType = -1;
     public static String[] pollChoices = new String[]{};
+    public AppCompatButton vote;
+    final String[] option = {""};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,11 +36,10 @@ public class PollVoteActivity extends AppCompatActivity {
         ((AppCompatTextView) findViewById(R.id.vote_view_title)).setText(title);
         ((AppCompatTextView) findViewById(R.id.vote_view_desc)).setText(desc);
         LinearLayout optionsHolder = findViewById(R.id.vote_options_holder);
-        AppCompatButton vote = findViewById(R.id.appCompatButton);
+        vote = findViewById(R.id.appCompatButton);
 
         if (pollType == ServerUtils.POLL_TYPE_SINGLE_SELECT){
             RadioGroup radioGroup = new RadioGroup(this);
-            final String[] option = {""};
             for (String s : pollChoices){
                 RadioButton rb = new RadioButton(this);
                 rb.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -47,6 +50,10 @@ public class PollVoteActivity extends AppCompatActivity {
             }
             optionsHolder.addView(radioGroup);
             vote.setOnClickListener(v ->{
+                if (TextUtils.isEmpty(option[0])){
+                    Toast.makeText(PollVoteActivity.this, "Select an option", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 SrcPollManager.votePoll(PollVoteActivity.this, option[0], PollVoteActivity.pollId, UserManager.getCurrentlyLoggedInUsername());
             });
         }
@@ -64,17 +71,20 @@ public class PollVoteActivity extends AppCompatActivity {
 
     public void castVote(LinearLayout optionsHolder) {
         StringBuilder s = new StringBuilder();
-        CheckBox cb = (CheckBox) optionsHolder.getChildAt(0);
-        s.append(cb.getText().toString());
-        for (int i = 1; i < optionsHolder.getChildCount(); i++){
-            cb = (CheckBox) optionsHolder.getChildAt(i);
-            s.append("~");
+        for (int i = 0; i < optionsHolder.getChildCount(); i++){
+            CheckBox cb = (CheckBox) optionsHolder.getChildAt(i);
+            if (!cb.isChecked()) continue;
             s.append(cb.getText().toString());
+            s.append("~");
+        }
+        if (TextUtils.isEmpty(s.toString())) {
+            Toast.makeText(optionsHolder.getContext(), "Select option", Toast.LENGTH_SHORT).show();
+            return;
         }
         SrcPollManager.votePoll(PollVoteActivity.this, s.toString(), PollVoteActivity.pollId, UserManager.getCurrentlyLoggedInUsername());
     }
 
-    private String handleOptionSelection(RadioButton rb, boolean isChecked) {
+    public String handleOptionSelection(RadioButton rb, boolean isChecked) {
         if (isChecked) return rb.getText().toString();
         return "";
     }

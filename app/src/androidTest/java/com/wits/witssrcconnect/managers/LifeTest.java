@@ -128,9 +128,25 @@ public class LifeTest {
     @Test
     public void startPollVoteActivity(){
         getInstrumentation().runOnMainSync(()->{
+            String[] options = new String[]{"opt1", "opt2"};
+            PollVoteActivity.setPollChoices(options);
+            PollVoteActivity.setPollType(ServerUtils.POLL_TYPE_SINGLE_SELECT);
             Intent i = new Intent(c, PollVoteActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             c.startActivity(i);
         });
     }
+
+    @Test
+    public void startPollVoteActivity1(){
+        getInstrumentation().runOnMainSync(()->{
+            String[] options = new String[]{"opt1", "opt2"};
+            PollVoteActivity.setPollChoices(options);
+            PollVoteActivity.setPollType(ServerUtils.POLL_TYPE_MULTI_SELECT);
+            Intent i = new Intent(c, PollVoteActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            c.startActivity(i);
+        });
+    }
+
 }
