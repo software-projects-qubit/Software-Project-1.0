@@ -33,6 +33,11 @@ public class UserManagerTest {
     }
 
     @Test
+    public void createUserManagerClass(){
+        new UserManager();
+    }
+
+    @Test
     public void initUserManager() {
         UserManager.initUserManager(c);
         assertNotNull(UserManager.SHARED_PREFERENCES);

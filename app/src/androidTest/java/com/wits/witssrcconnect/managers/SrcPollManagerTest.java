@@ -39,6 +39,7 @@ public class SrcPollManagerTest {
             SwipeRefreshLayout sr = new SwipeRefreshLayout(c);
             SrcPollManager.handleFetchAllPollsFeedBack("", c, sr);
             SrcPollManager.handleFetchAllPollsFeedBack("[]", c, sr);
+            SrcPollManager.handleFetchAllPollsFeedBack("something", c, sr);
             UserManager.setUserLoggedIn(anyInt(), "srcpresident");
             JSONArray polls = new JSONArray();
             JSONObject obj1 = new JSONObject();

@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -20,6 +21,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -37,7 +39,6 @@ public class UiManagerTest {
                 try {
                     LinearLayout holder = new LinearLayout(c);
                     holder.setOrientation(LinearLayout.VERTICAL);
-                    FragmentManager fragmentManager = Mockito.mock(FragmentManager.class);
                     String output = "[" +
                             "{\"activity_id\":4,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"11\\/05\\/2019\",\"activity_time\":\"23:04\"}," +
                             "{\"activity_id\":5,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"11\\/05\\/2019\",\"activity_time\":\"23:04\"}," +
@@ -46,6 +47,12 @@ public class UiManagerTest {
                             "{\"activity_id\":7,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"13\\/05\\/2019\",\"activity_time\":\"08:01\"}," +
                             "{\"activity_id\":6,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"13\\/05\\/2019\",\"activity_time\":\"07:54\"}]";
                     JSONArray jsonArray = new JSONArray(output);
+                    JSONArray failingJsonArray = new JSONArray(output);
+                    JSONObject object = new JSONObject();
+                    object.put("something", anyString());
+                    failingJsonArray.put(object);
+
+                    UiManager.populateWithSrcActivities(holder, failingJsonArray, true);
                     UiManager.populateWithSrcActivities(holder, jsonArray, false);
                     UiManager.populateWithSrcActivities(holder, jsonArray, true);
                 } catch (JSONException e) {
@@ -161,7 +168,6 @@ public class UiManagerTest {
 
     @Test
     public void populateWithPolls(){
-
         try {
             runOnUiThread(()->{
                 String output = "[" +
@@ -233,4 +239,15 @@ public class UiManagerTest {
         }
     }
 
+    @Test
+    public void buildPopUpMenu() {
+        try {
+            runOnUiThread(()->{
+                UiManager.buildPopUpMenu(new AppCompatImageButton(c), anyInt(), anyString(),
+                        anyString(), new View(c), new LinearLayout(c));
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
 }

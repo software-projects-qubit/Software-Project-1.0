@@ -194,31 +194,34 @@ public class UiManager {
 
                 //create reference to the menu button
                 AppCompatImageButton menu = activityItemView.findViewById(R.id.src_activity_menu);
-                if (mine) {
-                    PopupMenu popupMenu = new PopupMenu(menu.getContext(), menu);
-                    popupMenu.inflate(R.menu.src_activity_menu);
-                    popupMenu.setOnMenuItemClickListener(item -> {
-                        switch (item.getItemId()) {
-                            case R.id.src_activity_menu_update:
-                                updateActivity(menu.getContext(), activityId, title, desc);
-                                break;
+                if (mine) buildPopUpMenu(menu, activityId, title, desc, activityItemView, holder);
+                 else menu.setVisibility(View.GONE);
 
-                            case R.id.src_activity_menu_delete:
-                                deleteActivity(activityId, activityItemView, holder);
-                                break;
-                        }
-                        return false;
-                    });
-                    menu.setOnClickListener(v -> popupMenu.show());
-                } else {
-                    menu.setVisibility(View.GONE);
-                }
                 //add card to the linear layout that holds all of the activity cards
                 holder.addView(activityItemView, UiManager.getLayoutParams(15));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void buildPopUpMenu(AppCompatImageButton menu, int activityId, String title,
+                                       String desc, View activityItemView, LinearLayout holder) {
+        PopupMenu popupMenu = new PopupMenu(menu.getContext(), menu);
+        popupMenu.inflate(R.menu.src_activity_menu);
+        popupMenu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.src_activity_menu_update:
+                    updateActivity(menu.getContext(), activityId, title, desc);
+                    break;
+
+                case R.id.src_activity_menu_delete:
+                    deleteActivity(activityId, activityItemView, holder);
+                    break;
+            }
+            return false;
+        });
+        menu.setOnClickListener(v -> popupMenu.show());
     }
 
     public static void deleteActivity(int activityId, View activityItemView, LinearLayout holder) {
