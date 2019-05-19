@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.wits.witssrcconnect.activities.PollVoteActivity;
 import com.wits.witssrcconnect.fragments.AllSrcPollFragment;
 import com.wits.witssrcconnect.fragments.MySrcPollFragment;
 import com.wits.witssrcconnect.services.ServerCommunicator;
@@ -87,5 +88,9 @@ public class SrcPollManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void votePoll(PollVoteActivity pollVoteActivity, String choices, int pollId, String userId) {
+
     }
 }

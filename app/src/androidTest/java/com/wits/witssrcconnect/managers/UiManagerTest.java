@@ -31,7 +31,6 @@ public class UiManagerTest {
 
     private Context c = InstrumentationRegistry.getTargetContext();
 
-    ////////////////////////////////////////////////////////////////////////MODIFY AGAIN HERE
     @Test
     public void populateWithSrcActivities(){
         try {
@@ -39,7 +38,8 @@ public class UiManagerTest {
                 try {
                     LinearLayout holder = new LinearLayout(c);
                     holder.setOrientation(LinearLayout.VERTICAL);
-                    String output = "[{\"activity_id\":3,\"member_username\":\"srcpresident\"," +
+                    String output =
+                            "[{\"activity_id\":3,\"member_username\":\"srcpresident\"," +
                             "\"activity_title\":\"Test 6\",\"activity_desc\":\"xncmf\\\\nfjfkfk\\\\nfjfjf\\\\nckfkfm\\\\ncjfjf\"," +
                             "\"activity_date\":\"05\\/05\\/2019\",\"activity_time\":\"23:30\",\"num_likes\":0,\"num_dislikes\":1," +
                             "\"num_comments\":0,\"like_status\":-1},{\"activity_id\":4,\"member_username\":\"srcpresident\"," +
@@ -63,12 +63,16 @@ public class UiManagerTest {
                             "\"num_dislikes\":0,\"num_comments\":0,\"like_status\":-1},{\"activity_id\":16,\"member_username\":\"srcpresident\",\"activity_title\":\"title\"," +
                             "\"activity_desc\":\"activity\",\"activity_date\":\"18\\/05\\/2019\",\"activity_time\":\"20:03\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0," +
                             "\"like_status\":-1},{\"activity_id\":15,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\"" +
-                            ":\"18\\/05\\/2019\",\"activity_time\":\"19:58\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0,\"like_status\":-1}," +
+                            ":\"18\\/05\\/2019\",\"activity_time\":\"19:58\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0,\"like_status\":0}," +
                             "{\"activity_id\":14,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\"," +
                             "\"activity_date\":\"18\\/05\\/2019\",\"activity_time\":\"19:51\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0," +
                             "\"like_status\":-1},{\"activity_id\":13,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\"" +
                             ":\"activity\",\"activity_date\":\"18\\/05\\/2019\",\"activity_time\":\"19:50\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0," +
-                            "\"like_status\":-1},{\"activity_id\":12,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"18\\/05\\/2019\",\"activity_time\":\"19:48\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0,\"like_status\":-1},{\"activity_id\":11,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"18\\/05\\/2019\",\"activity_time\":\"19:46\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0,\"like_status\":-1},{\"activity_id\":10,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"18\\/05\\/2019\",\"activity_time\":\"19:40\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0,\"like_status\":-1},{\"activity_id\":1,\"member_username\":\"srcpresident\",\"activity_title\":\"TESTING DATA 3\",\"activity_desc\":\"This is a description of a test bla blah blah\",\"activity_date\":\"28\\/03\\/2018\",\"activity_time\":\"12:01\",\"num_likes\":1,\"num_dislikes\":3,\"num_comments\":6,\"like_status\":1},{\"activity_id\":2,\"member_username\":\"srcpresident\",\"activity_title\":\"TESTING DATA 2\",\"activity_desc\":\"This is a description of a test 2 bla blah blah\",\"activity_date\":\"28\\/03\\/2018\",\"activity_time\":\"10:12\",\"num_likes\":1,\"num_dislikes\":0,\"num_comments\":5,\"like_status\":-1}]";
+                            "\"like_status\":-1},{\"activity_id\":12,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":" +
+                            "\"activity\",\"activity_date\":\"18\\/05\\/2019\",\"activity_time\":\"19:48\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0," +
+                            "\"like_status\":-1},{\"activity_id\":11,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\"," +
+                            "\"activity_date\":\"18\\/05\\/2019\",\"activity_time\":\"19:46\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0,\"like_status\":1}," +
+                            "{\"activity_id\":10,\"member_username\":\"srcpresident\",\"activity_title\":\"title\",\"activity_desc\":\"activity\",\"activity_date\":\"18\\/05\\/2019\",\"activity_time\":\"19:40\",\"num_likes\":0,\"num_dislikes\":0,\"num_comments\":0,\"like_status\":-1},{\"activity_id\":1,\"member_username\":\"srcpresident\",\"activity_title\":\"TESTING DATA 3\",\"activity_desc\":\"This is a description of a test bla blah blah\",\"activity_date\":\"28\\/03\\/2018\",\"activity_time\":\"12:01\",\"num_likes\":1,\"num_dislikes\":3,\"num_comments\":6,\"like_status\":1},{\"activity_id\":2,\"member_username\":\"srcpresident\",\"activity_title\":\"TESTING DATA 2\",\"activity_desc\":\"This is a description of a test 2 bla blah blah\",\"activity_date\":\"28\\/03\\/2018\",\"activity_time\":\"10:12\",\"num_likes\":1,\"num_dislikes\":0,\"num_comments\":5,\"like_status\":-1}]";
                     JSONArray jsonArray = new JSONArray(output);
                     JSONArray failingJsonArray = new JSONArray(output);
                     JSONObject object = new JSONObject();
