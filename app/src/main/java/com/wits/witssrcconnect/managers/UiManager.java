@@ -4,15 +4,18 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -131,8 +134,7 @@ public class UiManager {
                 ((AppCompatTextView) activityItemView.findViewById(R.id.src_activity_card_activity))
                         .setText(desc);
 
-                //TODO: work here
-                /*AppCompatImageView likeIcon = activityItemView.findViewById(R.id.appCompatImageView7);
+                AppCompatImageView likeIcon = activityItemView.findViewById(R.id.appCompatImageView7);
                 AppCompatImageView disLikeIcon = activityItemView.findViewById(R.id.appCompatImageView8);
 
                 AppCompatTextView numLikes = activityItemView.findViewById(R.id.src_activity_card_num_likes);
@@ -140,14 +142,14 @@ public class UiManager {
                 AppCompatTextView numComments = activityItemView.findViewById(R.id.src_activity_card_num_comments);
                 //TODO: should get int from json which says user liked or dislike, 0 like, 1 dislike, else nothing
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////some magic here
-                String likes = activity.getString("NUM_LIKES");
-                String disLikes = activity.getString("NUM_DISLIKES");
-                String comments = activity.getString("NUM_COMMENTS");
+                String likes = activity.getString("num_likes");
+                String disLikes = activity.getString("num_dislikes");
+                String comments = activity.getString("num_comments");
 
                 numLikes.setText(likes);
                 numDisLikes.setText(disLikes);
                 numComments.setText(comments);
-                switch (activity.getInt("LIKE_STATUS")){
+                switch (activity.getInt("like_status")){
                     case 0:
                         likeIcon.setImageResource(R.drawable.icon_like_pressed);
                         break;
@@ -167,7 +169,7 @@ public class UiManager {
 
                 dislikeButton.setOnClickListener(v -> {
                     handleLikeOrDislike(likeIcon, disLikeIcon, activityId, userId, ServerUtils.DISLIKE_ACTION);
-                });*/
+                });
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 //create a reference to the anonymous comment switch
                 SwitchCompat anonymitySwitch = activityItemView.findViewById(R.id.anonymity_switch);
@@ -284,7 +286,7 @@ public class UiManager {
                 .putExtra(ServerUtils.ACTIVITY_DESC, desc));
     }
 
-    /*private static void handleLikeOrDislike(AppCompatImageView likeIcon, AppCompatImageView disLikeIcon, int activityId, String userId, int action) {
+    private static void handleLikeOrDislike(AppCompatImageView likeIcon, AppCompatImageView disLikeIcon, int activityId, String userId, int action) {
         ContentValues cv = new ContentValues();
         //TODO: add params
         new ServerCommunicator(cv) {
@@ -310,7 +312,8 @@ public class UiManager {
                 }
             }
         }.execute(); //TODO: add link
-    }*/
+    }
+
     //this function deletes item from database and removes from linear layout
     public static void deleteItem(ContentValues cv, LinearLayout holder, View view, String link) {
         new AlertDialog.Builder(holder.getContext())
