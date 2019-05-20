@@ -386,8 +386,7 @@ public class UiManager {
                 StringBuilder builder = new StringBuilder();
 
                 for (int k = 0; k < pollChoices.length; k++) {
-                    builder.append(String.format(Locale.getDefault(), "%s: %d", pollChoices[k], 0//for now
-                    ));
+                    builder.append(String.format(Locale.getDefault(), "%s", pollChoices[k]));
                     if (k + 1 != pollChoices.length) builder.append("\n\n");
                 }
 

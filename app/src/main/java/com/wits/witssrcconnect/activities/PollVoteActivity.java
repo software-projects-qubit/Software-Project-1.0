@@ -43,8 +43,9 @@ public class PollVoteActivity extends AppCompatActivity {
             for (String s : pollChoices){
                 RadioButton rb = new RadioButton(this);
                 rb.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    option[0] = handleOptionSelection(rb, isChecked);
-                });
+                            if (isChecked) option[0] = rb.getText().toString();
+                        }
+                );
                 rb.setText(s);
                 radioGroup.addView(rb);
             }
@@ -54,7 +55,8 @@ public class PollVoteActivity extends AppCompatActivity {
                     Toast.makeText(PollVoteActivity.this, "Select an option", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                SrcPollManager.votePoll(PollVoteActivity.this, option[0], PollVoteActivity.pollId, UserManager.getCurrentlyLoggedInUsername());
+                SrcPollManager.votePoll(PollVoteActivity.this, option[0], PollVoteActivity.pollId,
+                        UserManager.getCurrentlyLoggedInUsername());
             });
         }
         else{
@@ -79,12 +81,8 @@ public class PollVoteActivity extends AppCompatActivity {
             Toast.makeText(optionsHolder.getContext(), "Select option", Toast.LENGTH_SHORT).show();
             return;
         }
-        SrcPollManager.votePoll(PollVoteActivity.this, s.toString(), PollVoteActivity.pollId, UserManager.getCurrentlyLoggedInUsername());
-    }
-
-    public String handleOptionSelection(RadioButton rb, boolean isChecked) {
-        if (isChecked) return rb.getText().toString();
-        return "";
+        SrcPollManager.votePoll(PollVoteActivity.this, s.toString(), PollVoteActivity.pollId,
+                UserManager.getCurrentlyLoggedInUsername());
     }
 
     public static void setPollId(int pollId){

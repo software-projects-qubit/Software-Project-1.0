@@ -37,18 +37,4 @@ public class PollVoteActivityTest {
             throwable.printStackTrace();
         }
     }
-
-    @Test
-    public void checkTest(){
-        try {
-            runOnUiThread(()->{
-                activityTestRule.getActivity().handleOptionSelection(null, false);
-                AppCompatRadioButton r = new AppCompatRadioButton(c);
-                r.setText(anyString());
-                activityTestRule.getActivity().handleOptionSelection(r, true);
-            });
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-    }
 }
