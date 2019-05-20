@@ -63,9 +63,7 @@ public class PollVoteActivity extends AppCompatActivity {
                 b.setText(s);
                 optionsHolder.addView(b);
             }
-            vote.setOnClickListener(v->{
-                castVote(optionsHolder);
-            });
+            vote.setOnClickListener(v-> castVote(optionsHolder));
         }
     }
 
@@ -108,4 +106,5 @@ public class PollVoteActivity extends AppCompatActivity {
     public static void setPollChoices(String[] pollChoices){
         PollVoteActivity.pollChoices = pollChoices;
     }
+
 }

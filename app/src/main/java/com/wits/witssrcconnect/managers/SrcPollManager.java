@@ -90,7 +90,34 @@ public class SrcPollManager {
         }
     }
 
-    public static void votePoll(PollVoteActivity pollVoteActivity, String choices, int pollId, String userId) {
+    public static void votePoll(Context c, String choices, int pollId, String userId) {
+        ContentValues cv = new ContentValues();
+        cv.put(ServerUtils.ACTION, ServerUtils.POST_POLL_VOTE);
+        cv.put(ServerUtils.POLL_ID, pollId);
+        cv.put(ServerUtils.STUDENT_ID, userId);
+        cv.put(ServerUtils.POLL_SET_CHOICE, choices);
+        new ServerCommunicator(cv) {
+            @Override
+            protected void onPreExecute() {
 
+            }
+
+            @Override
+            protected void onPostExecute(String output) {
+                handleVotePollFeedback(c, output);
+            }
+        }.execute(ServerUtils.POLL_LINK);
+    }
+
+    public static void handleVotePollFeedback(Context c, String output) {
+        if (output.equals("2")){
+            Toast.makeText(c, "You have already voted for this poll", Toast.LENGTH_SHORT).show();
+        }
+        else if (output.equals(ServerUtils.SUCCESS)){
+            Toast.makeText(c, "Vote sent", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(c, "Voting failed", Toast.LENGTH_SHORT).show();
+        }
     }
 }

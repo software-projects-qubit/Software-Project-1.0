@@ -76,4 +76,7 @@ public interface ServerUtils {
 
     int LIKE_ACTION = 0;
     int DISLIKE_ACTION = 1;
+    String POST_POLL_VOTE = "postPollVote";
+    String STUDENT_ID = "student_id";
+    String POLL_SET_CHOICE = "stud_selected_choice";
 }

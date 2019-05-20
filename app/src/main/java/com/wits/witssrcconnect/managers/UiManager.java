@@ -364,6 +364,7 @@ public class UiManager {
 
     // this function populates any given linear layout with src polls
     public static void populateWithPolls(LinearLayout holder, JSONArray polls) {
+        holder.removeAllViews();
         try {
             for (int i = 0; i < polls.length(); i++) {
                 JSONObject poll = (JSONObject) polls.get(i);
