@@ -37,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -149,12 +150,14 @@ public class UiManager {
                 numLikes.setText(likes);
                 numDisLikes.setText(disLikes);
                 numComments.setText(comments);
-                switch (activity.getInt("like_status")){
-                    case 0:
+                Log.d("LIKE_STATUS", activity.toString());
+                Log.d("Like_STATUS", activity.getString("like_status"));
+                switch (activity.getString("like_status")){
+                    case "0":
                         likeIcon.setImageResource(R.drawable.icon_like_pressed);
                         break;
 
-                    case 1:
+                    case "1":
                         disLikeIcon.setImageResource(R.drawable.icon_dis_like_pressed);
                         break;
                 }
@@ -288,7 +291,14 @@ public class UiManager {
 
     private static void handleLikeOrDislike(AppCompatImageView likeIcon, AppCompatImageView disLikeIcon, int activityId, String userId, int action) {
         ContentValues cv = new ContentValues();
+        cv.put(ServerUtils.ACTION, "postLikeDislike");
+        cv.put(ServerUtils.ACTIVITY_ID, activityId);
+        cv.put(ServerUtils.STUDENT_USERNAME, userId);
+        cv.put(ServerUtils.STUDENT_LIKE_DISLIKE, action);
         //TODO: add params
+        Log.d("OUT", String.valueOf(activityId));
+        Log.d("OUT", userId);
+        Log.d("OUT", String.valueOf(action));
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
@@ -302,16 +312,18 @@ public class UiManager {
                    disLikeIcon.setImageResource(R.drawable.icon_dis_like_unpressed);
                    if (action == ServerUtils.LIKE_ACTION){
                        likeIcon.setImageResource(R.drawable.icon_like_pressed);
+                       Toast.makeText(likeIcon.getContext(), "Activity liked", Toast.LENGTH_SHORT).show();
                    }
                    else{
                        disLikeIcon.setImageResource(R.drawable.icon_dis_like_pressed);
+                       Toast.makeText(likeIcon.getContext(), "Activity disliked", Toast.LENGTH_SHORT).show();
                    }
                 }
                 else{
                     Toast.makeText(likeIcon.getContext(), "Action Failed", Toast.LENGTH_SHORT).show();
                 }
             }
-        }.execute(); //TODO: add link
+        }.execute(ServerUtils.COMMENT_LINK); //TODO: add link
     }
 
     //this function deletes item from database and removes from linear layout

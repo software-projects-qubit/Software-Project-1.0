@@ -57,6 +57,7 @@ public interface ServerUtils {
     String STUDENT_ANONYMITY = "stud_anonymity";
     String STUDENT_DATE = "stud_date";
     String STUDENT_TIME = "stud_time";
+    String STUDENT_LIKE_DISLIKE = "stud_like_dislike";
 
     //src poll
     String POLL_LINK = "http://1627982.ms.wits.ac.za/~student/polls.php";

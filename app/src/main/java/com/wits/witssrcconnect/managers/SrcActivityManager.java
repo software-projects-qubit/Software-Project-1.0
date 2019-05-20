@@ -65,8 +65,10 @@ public class SrcActivityManager {
     }
 
     public static void fetchAllActivities(Context context, SwipeRefreshLayout pullToRefresh) {
+        UserManager.initUserManager(context);
         ContentValues cv = new ContentValues();
         cv.put(ServerUtils.ACTION, ServerUtils.READ_ALL_ACTIVITIES);
+        cv.put(ServerUtils.USERNAME, UserManager.getCurrentlyLoggedInUsername());
         new ServerCommunicator(cv) {
             @Override
             protected void onPreExecute() {
