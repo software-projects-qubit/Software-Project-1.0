@@ -20,20 +20,18 @@ public class MySrcPollFragment extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     public static View v = null;
-    private static FragmentManager fragmentManager = null;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        fragmentManager = getChildFragmentManager();
         v = inflater.inflate(R.layout.fragment_src_activity_view, container, false);
         return v;
     }
 
     public static void init(JSONArray myPolls) {
         if (v == null) return;
-        UiManager.populateWithPolls(v.findViewById(R.id.src_activities_holder), myPolls);
+        UiManager.populateWithPolls(v.findViewById(R.id.src_activities_holder), myPolls, true);
     }
 
 }

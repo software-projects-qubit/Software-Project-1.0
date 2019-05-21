@@ -12,6 +12,7 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatRadioButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
@@ -119,6 +120,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
     private void addVotingOption(ArrayList<String> optionsArrayList, LinearLayout optionsHolder) {
         choiceInput = new AppCompatEditText(this);
         choiceInput.setHint("Enter option");
+        choiceInput.setInputType(InputType.TYPE_CLASS_TEXT);
 
         choiceInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -134,8 +136,14 @@ public class SrcPostPollActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String input = s.toString();
+
                 if (input.contains("~")) {
                     input = input.replace("~", "");
+                    choiceInput.setText(input);
+                    choiceInput.setSelection(input.length());
+                }
+                if (input.contains(" ")) {
+                    input = input.replace(" ", "");
                     choiceInput.setText(input);
                     choiceInput.setSelection(input.length());
                 }
@@ -171,7 +179,7 @@ public class SrcPostPollActivity extends AppCompatActivity {
             ((AppCompatTextView) itemOption.findViewById(R.id.choice_view)).setText(sChoice);
 
             String finalSChoice = sChoice;
-            deleteItem = findViewById(R.id.delete_choice);
+            deleteItem = itemOption.findViewById(R.id.delete_choice);
             deleteItem.setOnClickListener(v1 -> {
                 _optionsArrayList.remove(finalSChoice);
                 optionsHolder.removeView(itemOption);

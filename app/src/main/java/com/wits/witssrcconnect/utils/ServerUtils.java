@@ -18,12 +18,6 @@ public interface ServerUtils {
     String NAME = "name";
     String SURNAME = "surname";
 
-    //student
-    String STUDENT_LINK = "http://1627982.ms.wits.ac.za/~student/student.php";
-    String STUDENT_FIRSTNAME = "student_firstName";
-    String STUDENT_LASTNAME = "student_lastName";
-    String STUDENT_PASSWORD = "student_Password";
-
     //src member
     String SRC_MEMBER_LINK = "http://1627982.ms.wits.ac.za/~student/src_member.php";
     String SRC_USERNAME = "member_username";
@@ -79,4 +73,5 @@ public interface ServerUtils {
     String POST_POLL_VOTE = "postPollVote";
     String STUDENT_ID = "student_id";
     String POLL_SET_CHOICE = "stud_selected_choice";
+    String DELETE_POLL = "deletePoll";
 }

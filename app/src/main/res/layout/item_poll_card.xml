@@ -73,6 +73,18 @@
             android:background="@android:color/transparent"
             app:layout_constraintTop_toBottomOf="@+id/poll_choice_stats"
             tools:layout_editor_absoluteX="0dp" />
+
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/poll_menu"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/icon_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

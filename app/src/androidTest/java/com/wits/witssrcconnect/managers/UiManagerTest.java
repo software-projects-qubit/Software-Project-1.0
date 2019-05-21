@@ -164,9 +164,8 @@ public class UiManagerTest {
     @Test
     public void deleteItem(){
         try {
-            runOnUiThread(()->{
-                UiManager.deleteItem(new ContentValues(), new LinearLayout(c), new View(c), anyString());
-            });
+            runOnUiThread(()-> UiManager.deleteItem(new ContentValues(), new LinearLayout(c),
+                    new View(c), anyString()));
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
@@ -206,7 +205,8 @@ public class UiManagerTest {
                     JSONArray polls = new JSONArray(output);
                     JSONObject jsonObject = polls.getJSONObject(0);
                     UiManager.openPollVoteBottomSheet(jsonObject, new String[]{"opt1", "opt2"}, c);
-                    UiManager.populateWithPolls(holder, polls);
+                    UiManager.populateWithPolls(holder, polls, true);
+                    UiManager.populateWithPolls(holder, polls, false);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

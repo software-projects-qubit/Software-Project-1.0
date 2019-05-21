@@ -17,6 +17,9 @@ import com.wits.witssrcconnect.managers.SrcActivityManager;
 import com.wits.witssrcconnect.managers.UserManager;
 import com.wits.witssrcconnect.utils.ServerUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import static com.wits.witssrcconnect.managers.UiManager.getDateTime;
@@ -83,6 +86,7 @@ public class ViewCommentsActivity extends AppCompatActivity {
             ContentValues cv = new ContentValues();
 
             String[] dateTime = getDateTime();
+            SimpleDateFormat smf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
 
             cv.put(ServerUtils.ACTION, ServerUtils.POST_COMMENT);
             cv.put(ServerUtils.ACTIVITY_ID, String.valueOf(activityId));
@@ -90,7 +94,7 @@ public class ViewCommentsActivity extends AppCompatActivity {
             cv.put(ServerUtils.STUDENT_COMMENT, sComment);
             cv.put(ServerUtils.STUDENT_ANONYMITY, String.valueOf(anonymityTracker[0]));
             cv.put(ServerUtils.STUDENT_DATE, dateTime[0]);
-            cv.put(ServerUtils.STUDENT_TIME, dateTime[1]);
+            cv.put(ServerUtils.STUDENT_TIME, smf.format(new Date()));
 
             SrcActivityManager.postComment(cv, comment);
         }

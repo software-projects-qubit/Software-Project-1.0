@@ -2,11 +2,8 @@ package com.wits.witssrcconnect.managers;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
@@ -16,9 +13,9 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -37,7 +34,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -262,13 +258,16 @@ public class UiManager {
 
             String[] dateTime = getDateTime();
 
+            SimpleDateFormat smf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+
             cv.put(ServerUtils.ACTION, ServerUtils.POST_COMMENT);
             cv.put(ServerUtils.ACTIVITY_ID, String.valueOf(activityId));
             cv.put(ServerUtils.STUDENT_USERNAME, UserManager.getCurrentlyLoggedInUsername());
             cv.put(ServerUtils.STUDENT_COMMENT, sComment);
             cv.put(ServerUtils.STUDENT_ANONYMITY, String.valueOf(anonymityTracker[0]));
             cv.put(ServerUtils.STUDENT_DATE, dateTime[0]);
-            cv.put(ServerUtils.STUDENT_TIME, dateTime[1]);
+            cv.put(ServerUtils.STUDENT_TIME, smf.format(new Date())//dateTime[1]
+            );
 
             SrcActivityManager.postComment(cv, comment);
         }
@@ -363,12 +362,25 @@ public class UiManager {
     }
 
     // this function populates any given linear layout with src polls
-    public static void populateWithPolls(LinearLayout holder, JSONArray polls) {
+    public static void populateWithPolls(LinearLayout holder, JSONArray polls, boolean mine) {
         holder.removeAllViews();
         try {
             for (int i = 0; i < polls.length(); i++) {
                 JSONObject poll = (JSONObject) polls.get(i);
                 View pollItem = View.inflate(holder.getContext(), R.layout.item_poll_card, null);
+                int pollId = poll.getInt(ServerUtils.POLL_ID);
+
+                if (mine){
+                    AppCompatImageButton menu = pollItem.findViewById(R.id.poll_menu);
+                    menu.setVisibility(View.VISIBLE);
+                    PopupMenu popupMenu = new PopupMenu(menu.getContext(), menu);
+                    popupMenu.inflate(R.menu.poll_menu);
+                    popupMenu.setOnMenuItemClickListener(item -> {
+                        deletePollItem(pollId, holder, pollItem);
+                        return false;
+                    });
+                    menu.setOnClickListener(v -> popupMenu.show());
+                }
 
                 ((AppCompatTextView) pollItem.findViewById(R.id.poll_title))
                         .setText(poll.getString(ServerUtils.POLL_TITLE));
@@ -380,7 +392,8 @@ public class UiManager {
                                 poll.getString(ServerUtils.POLL_DATE),
                                 poll.getString(ServerUtils.POLL_TIME)));
                 ((AppCompatTextView) pollItem.findViewById(R.id.poll_desc))
-                        .setText(poll.getString(ServerUtils.POLL_DESC).replace("\\n", "\n"));
+                        .setText(poll.getString(ServerUtils.POLL_DESC)
+                                .replace("\\n", "\n").replace("="," "));
 
                 String[] pollChoices = poll.getString(ServerUtils.POLL_CHOICE).split("~");
                 StringBuilder builder = new StringBuilder();
@@ -393,11 +406,8 @@ public class UiManager {
                 ((AppCompatTextView) pollItem.findViewById(R.id.poll_choice_stats))
                         .setText(builder.toString());
 
-                pollItem.findViewById(R.id.poll_vote).setOnClickListener(v -> {
-                    openPollVoteBottomSheet(poll, pollChoices, v.getContext());
-
-
-                });
+                pollItem.findViewById(R.id.poll_vote).setOnClickListener(v ->
+                        openPollVoteBottomSheet(poll, pollChoices, v.getContext()));
 
                 holder.addView(pollItem, UiManager.getLayoutParams(15));
             }
@@ -405,6 +415,33 @@ public class UiManager {
             e.printStackTrace();
         }
 
+    }
+
+    private static void deletePollItem(int pollId, LinearLayout holder, View pollItem) {
+        ContentValues cv = new ContentValues();
+        cv.put(ServerUtils.ACTION, ServerUtils.DELETE_POLL);
+        cv.put(ServerUtils.POLL_ID, pollId);
+        new ServerCommunicator(cv) {
+            @Override
+            protected void onPreExecute() {
+
+            }
+
+            @Override
+            protected void onPostExecute(String output) {
+                handlePollDeleteFeedback(output, holder, pollItem);
+            }
+        }.execute(ServerUtils.POLL_LINK);
+    }
+
+    public static void handlePollDeleteFeedback(String output, LinearLayout holder, View pollItem) {
+        if (output.equals(ServerUtils.SUCCESS)){
+            Toast.makeText(pollItem.getContext(), "Poll deleted", Toast.LENGTH_SHORT).show();
+            holder.removeView(pollItem);
+        }
+        else{
+            Toast.makeText(pollItem.getContext(), "Poll deletion failed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static void openPollVoteBottomSheet(JSONObject poll, String[] pollChoices, Context c) {
