@@ -37,6 +37,8 @@ public class SrcPollFragment extends Fragment {
     private void init() {
 
         //display the bottom sheet after user presses the floating action button
+        v.findViewById(R.id.FAB_src_poll_add).setOnClickListener(v1 ->
+                startActivity(new Intent(v.getContext(), SrcPostPollActivity.class)));
 
         ViewPager viewPager = v.findViewById(R.id.poll_viewpager);
         TabLayout tabLayout = v.findViewById(R.id.poll_tabs);
@@ -49,5 +51,11 @@ public class SrcPollFragment extends Fragment {
 
         SrcPollManager.fetchAllPolls(getContext(), null);
 
+        SwipeRefreshLayout pullToRefresh = v.findViewById(R.id.src_poll_swipe_refresh_layout);
+        pullToRefresh.setOnRefreshListener(() -> {
+            //to remove the spinning circle after success or failure
+            //pullToRefresh.setRefreshing(false);
+            SrcPollManager.fetchAllPolls(getContext(), pullToRefresh);
+        });
     }
 }

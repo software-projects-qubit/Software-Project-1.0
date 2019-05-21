@@ -16,8 +16,8 @@ public class ServerCommunicatorTest {
         try {
             runOnUiThread(()->{
                 ServerCommunicator.showLoadingDialog(c);
-                //ServerCommunicator.updateMessages(0);
-                //ServerCommunicator.updateMessages(4);
+                ServerCommunicator.updateMessages(0);
+                ServerCommunicator.updateMessages(4);
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();

@@ -113,6 +113,7 @@ public class SrcPollManager {
         }
         else if (output.equals(ServerUtils.SUCCESS)){
             Toast.makeText(c, "Vote sent", Toast.LENGTH_SHORT).show();
+            if (c instanceof Activity) ((Activity) c).finish();
         }
         else{
             Toast.makeText(c, "Voting failed", Toast.LENGTH_SHORT).show();

@@ -90,4 +90,13 @@ public class SrcMemberActivity extends AppCompatActivity implements NavigationVi
         toolbar.setTitle(title);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 }
