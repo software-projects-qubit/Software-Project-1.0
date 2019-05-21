@@ -5,6 +5,8 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.wits.witssrcconnect.utils.ServerUtils;
 
@@ -18,6 +20,7 @@ import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread;
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @RunWith(AndroidJUnit4.class)
 public class SrcPollManagerTest {
@@ -27,6 +30,7 @@ public class SrcPollManagerTest {
     @Test
     public void handlePostPollFeedBack(){
         getInstrumentation().runOnMainSync(()->{
+            new SrcPollManager();
             SrcPollManager.handlePostPollFeedBack(ServerUtils.SUCCESS, c);
             SrcPollManager.handlePostPollFeedBack(ServerUtils.FAILED, c);
         });
@@ -56,5 +60,46 @@ public class SrcPollManagerTest {
 
             ////////////////////////////////////////////////////////////////////////////////////
         });
+    }
+
+    @Test
+    public void votePoll() {
+        try {
+            runOnUiThread(()->{
+               SrcPollManager.votePoll(c, anyString(), anyInt(), anyString());
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void handleVotePollFeedback() {
+        try {
+            runOnUiThread(()->{
+                SrcPollManager.handleVotePollFeedback(c, "2");
+                SrcPollManager.handleVotePollFeedback(c, ServerUtils.SUCCESS);
+                SrcPollManager.handleVotePollFeedback(c, ServerUtils.FAILED);
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deletePollItem(){
+        try {
+            runOnUiThread(()->{
+                UiManager.deletePollItem(anyInt(), new LinearLayout(c), new View(c));
+                LinearLayout l = new LinearLayout(c);
+                l.setOrientation(LinearLayout.VERTICAL);
+                View v = new View(c);
+                l.addView(v);
+                UiManager.handlePollDeleteFeedback(ServerUtils.FAILED, l, v);
+                UiManager.handlePollDeleteFeedback(ServerUtils.SUCCESS, l, v);
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 }

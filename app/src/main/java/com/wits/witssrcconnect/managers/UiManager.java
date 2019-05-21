@@ -288,7 +288,7 @@ public class UiManager {
                 .putExtra(ServerUtils.ACTIVITY_DESC, desc));
     }
 
-    private static void handleLikeOrDislike(AppCompatImageView likeIcon, AppCompatImageView disLikeIcon, int activityId, String userId, int action) {
+    public static void handleLikeOrDislike(AppCompatImageView likeIcon, AppCompatImageView disLikeIcon, int activityId, String userId, int action) {
         ContentValues cv = new ContentValues();
         cv.put(ServerUtils.ACTION, "postLikeDislike");
         cv.put(ServerUtils.ACTIVITY_ID, activityId);
@@ -306,23 +306,28 @@ public class UiManager {
 
             @Override
             protected void onPostExecute(String output) {
-                if ( output.equals(ServerUtils.SUCCESS)){
-                   likeIcon.setImageResource(R.drawable.icon_like_unpressed);
-                   disLikeIcon.setImageResource(R.drawable.icon_dis_like_unpressed);
-                   if (action == ServerUtils.LIKE_ACTION){
-                       likeIcon.setImageResource(R.drawable.icon_like_pressed);
-                       Toast.makeText(likeIcon.getContext(), "Activity liked", Toast.LENGTH_SHORT).show();
-                   }
-                   else{
-                       disLikeIcon.setImageResource(R.drawable.icon_dis_like_pressed);
-                       Toast.makeText(likeIcon.getContext(), "Activity disliked", Toast.LENGTH_SHORT).show();
-                   }
-                }
-                else{
-                    Toast.makeText(likeIcon.getContext(), "Action Failed", Toast.LENGTH_SHORT).show();
-                }
+                handleLikeOrDislikeFeedback(output, likeIcon, disLikeIcon, action);
             }
-        }.execute(ServerUtils.COMMENT_LINK); //TODO: add link
+        }.execute(ServerUtils.COMMENT_LINK);
+    }
+
+    public static void handleLikeOrDislikeFeedback(String output, AppCompatImageView likeIcon,
+                                                   AppCompatImageView disLikeIcon, int action) {
+        if ( output.equals(ServerUtils.SUCCESS)){
+            likeIcon.setImageResource(R.drawable.icon_like_unpressed);
+            disLikeIcon.setImageResource(R.drawable.icon_dis_like_unpressed);
+            if (action == ServerUtils.LIKE_ACTION){
+                likeIcon.setImageResource(R.drawable.icon_like_pressed);
+                Toast.makeText(likeIcon.getContext(), "Activity liked", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                disLikeIcon.setImageResource(R.drawable.icon_dis_like_pressed);
+                Toast.makeText(likeIcon.getContext(), "Activity disliked", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Toast.makeText(likeIcon.getContext(), "Action Failed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     //this function deletes item from database and removes from linear layout
@@ -417,7 +422,7 @@ public class UiManager {
 
     }
 
-    private static void deletePollItem(int pollId, LinearLayout holder, View pollItem) {
+    public static void deletePollItem(int pollId, LinearLayout holder, View pollItem) {
         ContentValues cv = new ContentValues();
         cv.put(ServerUtils.ACTION, ServerUtils.DELETE_POLL);
         cv.put(ServerUtils.POLL_ID, pollId);

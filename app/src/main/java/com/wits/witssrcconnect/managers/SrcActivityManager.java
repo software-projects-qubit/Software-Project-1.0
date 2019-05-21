@@ -56,9 +56,6 @@ public class SrcActivityManager {
     public static void handlePostActivityFeedback(String output, Context context) {
         if (output.equals(ServerUtils.SUCCESS)) {
             Toast.makeText(context, "Activity posted", Toast.LENGTH_SHORT).show();
-            if (context instanceof Activity) {
-                ((Activity) context).finish();
-            }
         } else {
             Toast.makeText(context, "Activity post failed", Toast.LENGTH_SHORT).show();
         }
@@ -227,9 +224,6 @@ public class SrcActivityManager {
     public static void handleUpdateActivity(String output, Context context) {
         if (output.equals(ServerUtils.SUCCESS)) {
             Toast.makeText(context, "Activity updated", Toast.LENGTH_SHORT).show();
-            if (context instanceof Activity) {
-                ((Activity) context).finish();
-            }
         } else {
             Toast.makeText(context, "Activity update failed", Toast.LENGTH_SHORT).show();
         }

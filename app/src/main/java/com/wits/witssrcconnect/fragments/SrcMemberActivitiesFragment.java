@@ -37,8 +37,6 @@ public class SrcMemberActivitiesFragment extends Fragment {
     private void init() {
 
         //display the bottom sheet after user presses the floating action button
-        v.findViewById(R.id.FAB_src_activity_add).setOnClickListener(v1 ->
-                startActivity(new Intent(v.getContext(), SrcPostActivityActivity.class)));
 
         ViewPager viewPager = v.findViewById(R.id.viewpager);
         TabLayout tabLayout = v.findViewById(R.id.tabs);
@@ -51,12 +49,7 @@ public class SrcMemberActivitiesFragment extends Fragment {
 
         SrcActivityManager.fetchAllActivities(getContext(), null);
 
-        SwipeRefreshLayout pullToRefresh = v.findViewById(R.id.src_activities_swipe_refresh_layout);
-        pullToRefresh.setOnRefreshListener(() -> {
-            //to remove the spinning circle after success or failure
-            //pullToRefresh.setRefreshing(false);
-            SrcActivityManager.fetchAllActivities(getContext(), pullToRefresh);
-        });
+
 
 
     }

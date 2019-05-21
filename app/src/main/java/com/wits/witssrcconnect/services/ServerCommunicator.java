@@ -46,14 +46,14 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
         }
     };
 
-    private static final Runnable runnable = () -> updateMessages(positionHolder);
+    private static final Runnable runnable = () -> {};//updateMessages(positionHolder);
 
-    public static void updateMessages(int positionHolder){
+    /*public static void updateMessages(int positionHolder){
         if (positionHolder == 4) positionHolder = 0;
         message.setText(wordList[positionHolder++]);
         ServerCommunicator.positionHolder = positionHolder;
         handler.postDelayed(runnable, 500);
-    }
+    }*/
     //private final String address;
     private final ContentValues params;
 

@@ -93,13 +93,4 @@ public class StudentActivity extends AppCompatActivity implements
         getSupportFragmentManager().beginTransaction().replace(R.id.parentLayout_src, fragment).commit();
         toolbar.setTitle(title);
     }
-
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 }

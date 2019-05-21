@@ -95,6 +95,7 @@ public class SrcPostPollActivityTest {
                 choiceInput.requestFocus();
                 choiceInput.setText("a");
                 choiceInput.setText("ab");
+                choiceInput.setText("ab c");
                 choiceInput.setText("abc~");
                 activityTestRule.getActivity().dialog.getButton(DialogInterface.BUTTON_POSITIVE).performClick();
                 LinearLayout optionsHolder = activityTestRule.getActivity().findViewById(R.id.options_holder);

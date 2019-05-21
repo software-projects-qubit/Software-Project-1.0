@@ -8,6 +8,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -36,6 +37,7 @@ public class UiManagerTest {
         try {
             runOnUiThread(()->{
                 try {
+                    new UiManager();
                     LinearLayout holder = new LinearLayout(c);
                     holder.setOrientation(LinearLayout.VERTICAL);
                     String output =
@@ -272,6 +274,34 @@ public class UiManagerTest {
             runOnUiThread(()->{
                 UiManager.buildPopUpMenu(new AppCompatImageButton(c), anyInt(), anyString(),
                         anyString(), new View(c), new LinearLayout(c));
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void handleLikeOrDislike() {
+        try {
+            runOnUiThread(()->{
+                UiManager.handleLikeOrDislike(new AppCompatImageView(c), new AppCompatImageView(c),
+                        anyInt(), anyString(), anyInt());
+            });
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+    }
+
+    @Test
+    public void handleLikeOrDislikeFeedback() {
+        try {
+            runOnUiThread(() -> {
+                UiManager.handleLikeOrDislikeFeedback(ServerUtils.SUCCESS, new AppCompatImageView(c),
+                        new AppCompatImageView(c), ServerUtils.LIKE_ACTION);
+                UiManager.handleLikeOrDislikeFeedback(ServerUtils.SUCCESS, new AppCompatImageView(c),
+                        new AppCompatImageView(c), ServerUtils.DISLIKE_ACTION);
+                UiManager.handleLikeOrDislikeFeedback(ServerUtils.FAILED, new AppCompatImageView(c),
+                        new AppCompatImageView(c), ServerUtils.LIKE_ACTION);
             });
         } catch (Throwable throwable) {
             throwable.printStackTrace();

@@ -29,6 +29,7 @@ public class SrcActivityManagerTest {
     public void fetchAllActivitiesSrcMember(){
         try {
             runOnUiThread(()->{
+                new SrcActivityManager();
                 UserManager.initUserManager(c);
                 UserManager.setUserLoggedIn(UserUtils.SRC_MEMBER, anyString());
                 SwipeRefreshLayout swipeRefreshLayout = new SwipeRefreshLayout(c);
