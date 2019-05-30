@@ -90,6 +90,9 @@ public class SrcActivityManager {
                 JSONArray activities = new JSONArray(output);
 
                 if (activities.length() == 0) {
+                    StudentViewSrcActivitiesFragment.init(activities);
+                    AllSrcActivitiesFragment.init(activities);
+                    MySrcActivitiesFragment.init(activities);
                     Toast.makeText(context, "There are no activities", Toast.LENGTH_SHORT).show();
                     return;
                 }

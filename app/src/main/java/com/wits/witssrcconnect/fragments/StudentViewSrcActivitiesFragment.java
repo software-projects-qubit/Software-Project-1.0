@@ -20,12 +20,10 @@ import org.json.JSONArray;
 public class StudentViewSrcActivitiesFragment extends Fragment {
 
     public static View v;
-    private static FragmentManager fragmentManager = null;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        fragmentManager = getChildFragmentManager();
         v = inflater.inflate(R.layout.fragment_student_view_src_activities, container, false);
         init();
         return v;
@@ -38,7 +36,7 @@ public class StudentViewSrcActivitiesFragment extends Fragment {
     }
 
     public static void init(JSONArray activities) {
-        if (v == null) return;
+        if (v != null)
         UiManager.populateWithSrcActivities(v.findViewById(R.id.student_src_activities_view), activities, false);
     }
 }

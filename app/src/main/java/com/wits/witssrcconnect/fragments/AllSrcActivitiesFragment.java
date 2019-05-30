@@ -19,15 +19,12 @@ public class AllSrcActivitiesFragment extends Fragment {
 
     @SuppressLint("StaticFieldLeak")
     public static View v = null;
-    private static FragmentManager fragmentManager = null;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        fragmentManager = getChildFragmentManager();
         v = inflater.inflate(R.layout.fragment_src_activity_view, container, false);
-
         return v;
     }
 

@@ -36,7 +36,7 @@ public class SrcPollManager {
     public static void handlePostPollFeedBack(String output, Context context) {
         if (output.equals(ServerUtils.SUCCESS)) {
             Toast.makeText(context, "Poll posted", Toast.LENGTH_SHORT).show();
-
+            if (context instanceof Activity) ((Activity) context).finish();
         } else {
             Toast.makeText(context, "Failed to post poll", Toast.LENGTH_SHORT).show();
         }
@@ -66,6 +66,8 @@ public class SrcPollManager {
             try {
                 JSONArray polls = new JSONArray(output);
                 if (polls.length() == 0) {
+                    AllSrcPollFragment.init(polls);
+                    MySrcPollFragment.init(polls);
                     Toast.makeText(context, "There are no polls available", Toast.LENGTH_SHORT).show();
                     return;
                 }
