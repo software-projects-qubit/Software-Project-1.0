@@ -117,7 +117,6 @@ public class LogInActivityTest {
 
     @Test
     public void backPressed(){
-
         try {
             runOnUiThread(() -> activityTestRule.getActivity().onBackPressed());
         } catch (Throwable throwable) {
