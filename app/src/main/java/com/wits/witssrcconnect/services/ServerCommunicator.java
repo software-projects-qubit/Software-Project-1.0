@@ -50,6 +50,9 @@ public abstract class ServerCommunicator extends AsyncTask<String, String, Strin
 
     public static void updateMessages(int positionHolder){
         if (positionHolder == 4) positionHolder = 0;
+        else{
+            positionHolder = positionHolder;
+        }
         message.setText(wordList[positionHolder++]);
         ServerCommunicator.positionHolder = positionHolder;
         handler.postDelayed(runnable, 500);
